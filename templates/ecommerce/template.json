@@ -1,0 +1,17 @@
+{
+  "name": "ecommerce",
+  "displayName": "E-Ticaret",
+  "description": "Urun satisi ve online magaza sablonu (Snipcart entegrasyonu)",
+  "pages": ["home", "products", "about", "contact"],
+  "components": ["product-card", "cart", "checkout"],
+  "config": {
+    "business.type": "Store",
+    "navigation": [
+      { "label": "Ana Sayfa", "href": "/" },
+      { "label": "Urunler", "href": "/products" },
+      { "label": "Hakkimizda", "href": "/about" },
+      { "label": "Iletisim", "href": "/contact" }
+    ]
+  },
+  "dependencies": ["snipcart"]
+}

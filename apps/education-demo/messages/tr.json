@@ -1,0 +1,249 @@
+{
+  "common": {
+    "siteName": "Almanya Eğitim Danışmanlığı",
+    "siteDescription": "Türkiye'den Almanya'ya eğitim danışmanlığı - Studienkolleg, Lisans, Yüksek Lisans, Ausbildung ve Almanca dil eğitimi",
+    "readMore": "Devamını Oku",
+    "learnMore": "Daha Fazla Bilgi",
+    "callUs": "Bizi Arayın",
+    "contactUs": "İletişime Geçin",
+    "getStarted": "Hemen Başlayın",
+    "back": "Geri",
+    "close": "Kapat",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "address": "Adres",
+    "workingHours": "Çalışma Saatleri",
+    "socialMedia": "Sosyal Medya",
+    "quickLinks": "Hızlı Erişim",
+    "allRightsReserved": "Tüm hakları saklıdır.",
+    "privacy": "Gizlilik",
+    "terms": "Kullanım Şartları",
+    "call": "Ara",
+    "toggleTheme": "Tema değiştir",
+    "home": "Ana Sayfa"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "services": "Programlar",
+    "gallery": "Galeri",
+    "contact": "İletişim",
+    "programs": "Programlar",
+    "universities": "Üniversiteler",
+    "successStories": "Başarı Hikayeleri",
+    "blog": "Blog",
+    "pricing": "Fiyatlandırma",
+    "apply": "Başvuru",
+    "eligibilityCheck": "Uygunluk Testi",
+    "courses": "Programlar",
+    "menu": "Menü",
+    "rooms": "Odalar",
+    "products": "Ürünler",
+    "projects": "Projeler",
+    "practiceAreas": "Uzmanlık Alanları"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Almanya Eğitim Danışmanlığı",
+      "title": "Almanya'da Eğitim Hayalinizi Gerçeğe Dönüştürün",
+      "description": "Studienkolleg'den lisansa, Ausbildung'dan yüksek lisansa kadar Almanya'daki tüm eğitim fırsatlarında yanınızdayız. Türkiye ve Berlin ofislerimizle başvurudan kayıt sonrasına kadar profesyonel rehberlik sunuyoruz.",
+      "cta": "Ücretsiz Danışmanlık Al",
+      "secondaryCta": "Bizi Arayın"
+    },
+    "features": {
+      "subtitle": "Hizmetlerimiz",
+      "title": "Almanya'da Eğitim İçin Ne Sunuyoruz?",
+      "professional": {
+        "title": "Üniversite Yerleştirme",
+        "description": "Almanya'daki 400'den fazla üniversite arasından profilinize en uygun olanını seçiyor, başvuru dosyanızı hazırlıyor ve kabul sürecini yönetiyoruz."
+      },
+      "support247": {
+        "title": "Studienkolleg Hazırlık",
+        "description": "Diploması doğrudan tanınmayan öğrenciler için Studienkolleg başvuru ve hazırlık sürecinde eksiksiz destek sağlıyoruz."
+      },
+      "reliable": {
+        "title": "Ausbildung Danışmanlığı",
+        "description": "Almanya'da maaşlı mesleki eğitim programlarına (Ausbildung) başvuru, firma eşleştirme ve yerleştirme desteği sunuyoruz."
+      },
+      "customerFocused": {
+        "title": "Almanca Dil Eğitimi",
+        "description": "A1'den C2'ye kadar Almanca dil kursları, TestDaF ve DSH sınav hazırlık programlarıyla dil yeterliliğinizi sağlıyoruz."
+      },
+      "experiencedTeam": {
+        "title": "Vize ve Sperrkonto Desteği",
+        "description": "Öğrenci vizesi başvurusu, bloke hesap açılışı, sağlık sigortası ve tüm resmi işlemlerde profesyonel rehberlik."
+      },
+      "qualityGuarantee": {
+        "title": "Varış Sonrası Destek",
+        "description": "Almanya'ya varışınızın ardından kayıt, Anmeldung, banka hesabı açma ve şehir oryantasyonu ile ilk yılınızda yanınızdayız."
+      }
+    },
+    "stats": {
+      "happyCustomers": "Almanya'ya Yerleştirilen Öğrenci",
+      "yearsExperience": "Yıllık Deneyim",
+      "completedProjects": "Anlaşmalı Üniversite",
+      "support": "Vize Başarı Oranı",
+      "expertTeam": "Uzman Danışman"
+    },
+    "testimonials": {
+      "subtitle": "Başarı Hikayeleri",
+      "title": "Öğrencilerimiz Almanya'da Ne Yaşıyor?"
+    },
+    "faq": {
+      "subtitle": "SSS",
+      "title": "Sıkça Sorulan Sorular",
+      "q1": "Almanya'da üniversite eğitimi ücretli mi?",
+      "a1": "Almanya'daki devlet üniversitelerinde eğitim büyük ölçüde ücretsizdir. Sadece dönemlik Semesterbeitrag (yaklaşık 150-350€) ödenmektedir. Baden-Württemberg eyaletinde AB dışı öğrencilerden ek ücret (1.500€/dönem) alınmaktadır.",
+      "q2": "Almanya'da okumak için hangi Almanca seviyesi gerekli?",
+      "a2": "Lisans programları genellikle C1 seviyesi (TestDaF 4x4 veya DSH-2) isterken, Studienkolleg B1-B2 seviyesi ile başvuru kabul eder. İngilizce programlarda Almanca şartı aranmaz. Ausbildung için genellikle B1-B2 yeterlidir.",
+      "q3": "Sperrkonto (bloke hesap) nedir ve ne kadar yatırılmalı?",
+      "a3": "Sperrkonto, Almanya'da yaşam giderlerinizi karşılayacağınızı kanıtlayan bir hesaptır. 2024 itibarıyla yıllık 11.208€ yatırılması gerekmektedir. Aylık 934€ çekim yapabilirsiniz.",
+      "q4": "Studienkolleg nedir, kimler gitmeli?",
+      "a4": "Studienkolleg, lise diploması Almanya'da doğrudan tanınmayan öğrenciler için 1 yıllık hazırlık programıdır. Türkiye'den lise diplomasıyla başvuran öğrencilerin çoğunluğu Studienkolleg'e gitmektedir. Program sonunda Feststellungsprüfung (FSP) sınavı ile üniversiteye geçiş yapılır.",
+      "q5": "Ausbildung nedir, ne kadar maaş alınır?",
+      "a5": "Ausbildung, Almanya'nın dünyaca ünlü ikili mesleki eğitim sistemidir. Haftada 2 gün okul, 3 gün işyerinde pratik yaparsınız. Eğitim süresince aylık 800-1.200€ maaş alırsınız. 300'den fazla meslek dalında eğitim imkânı bulunmaktadır.",
+      "q6": "Mezuniyet sonrası Almanya'da kalabilir miyim?",
+      "a6": "Evet! Mezuniyet sonrası 18 aylık iş arama vizesi alabilirsiniz. İş bulduğunuzda oturma izninizi yenileyebilirsiniz. Almanya'da iş piyasası özellikle mühendislik, IT ve sağlık alanlarında yüksek talep sunmaktadır."
+    },
+    "cta": {
+      "title": "Almanya'da Eğitim Yolculuğunuz Burada Başlıyor",
+      "description": "Ücretsiz danışmanlık görüşmemizle profilinize en uygun Almanya eğitim programını birlikte belirleyelim. İlk adımı bugün atın."
+    }
+  },
+  "about": {
+    "subtitle": "Hakkımızda",
+    "title": "Almanya Eğitim Danışmanlığında Güvenilir Adresiniz",
+    "description": "Türkiye ve Almanya ofisleriyle hizmet veren ekibimiz, her yıl yüzlerce öğrencinin Almanya'daki eğitim hayalini gerçeğe dönüştürüyor. Üniversite başvurusundan vize sürecine, Studienkolleg hazırlığından Ausbildung yerleştirmesine kadar her adımda yanınızdayız.",
+    "statsTitle": "Rakamlarla Biz",
+    "teamTitle": "Danışman Kadromuz",
+    "teamSubtitle": "Almanya Eğitim Uzmanları",
+    "ctaTitle": "Almanya Eğitim Hedefinize Birlikte Ulaşalım",
+    "ctaDescription": "Almanya'da eğitim almış ve sektörde deneyimli danışman kadromuzla tanışın."
+  },
+  "services": {
+    "subtitle": "Eğitim Programları",
+    "title": "Almanya'da Hangi Eğitim Size Uygun?",
+    "description": "Studienkolleg'den doktoraya, Ausbildung'dan dil kurslarına kadar Almanya'daki tüm eğitim seçeneklerinde danışmanlık sunuyoruz.",
+    "sectionTitle": "Program Türleri",
+    "consulting": {
+      "title": "Studienkolleg",
+      "description": "Almanya'da üniversite öncesi 1 yıllık hazırlık programı. Diploması doğrudan tanınmayan öğrenciler için zorunlu ilk adım. T-Kurs, M-Kurs, W-Kurs seçenekleri."
+    },
+    "design": {
+      "title": "Lisans (Bachelor)",
+      "description": "3-4 yıllık lisans programları. Devlet üniversitelerinde ücretsiz eğitim imkânı. Almanca ve İngilizce program seçenekleri mevcut."
+    },
+    "implementation": {
+      "title": "Yüksek Lisans (Master)",
+      "description": "2 yıllık yüksek lisans programları. Geniş İngilizce program yelpazesi. Bologna süreci uyumlu Türk diplomalarıyla başvuru imkânı."
+    },
+    "analysis": {
+      "title": "Ausbildung (Mesleki Eğitim)",
+      "description": "1-3 yıllık maaşlı mesleki eğitim. Haftada 2 gün okul + 3 gün iş. Aylık 800-1.200€ maaş. 300+ meslek dalında eğitim fırsatı."
+    },
+    "techSupport": {
+      "title": "Almanca Dil Kursları",
+      "description": "A1'den C2'ye kadar yoğun Almanca eğitimi. TestDaF, DSH, TELC ve Goethe sınavlarına hazırlık. Türkiye veya Almanya'da eğitim seçeneği."
+    },
+    "customerService": {
+      "title": "Doktora (PhD)",
+      "description": "Araştırma pozisyonlarıyla finanse edilen doktora programları. Yapılandırılmış ve bireysel doktora seçenekleri. Almanca veya İngilizce."
+    },
+    "ctaTitle": "Profilinize En Uygun Programı Birlikte Belirleyelim",
+    "ctaDescription": "Eğitim geçmişiniz, dil seviyeniz ve kariyer hedeflerinize göre size özel Almanya eğitim planı oluşturuyoruz."
+  },
+  "gallery": {
+    "subtitle": "Galeri",
+    "title": "Almanya'daki Öğrencilerimiz ve Etkinliklerimiz",
+    "description": "Üniversite kampüslerinden, Almanya'daki öğrenci hayatından ve danışmanlık etkinliklerimizden kareler."
+  },
+  "contact": {
+    "subtitle": "İletişim",
+    "title": "Ücretsiz Danışmanlık Randevusu Alın",
+    "description": "Almanya'da eğitim hakkında her türlü sorunuz için bizimle iletişime geçin. İlk danışmanlık görüşmemiz ücretsizdir.",
+    "formTitle": "Danışmanlık Başvuru Formu",
+    "weekdays": "Hafta içi: 09:00 - 18:00",
+    "saturday": "Cumartesi: 10:00 - 15:00",
+    "mapTitle": "İstanbul Ofisi"
+  },
+  "forms": {
+    "name": "Ad Soyad",
+    "namePlaceholder": "Adınız Soyadınız",
+    "email": "E-posta",
+    "emailPlaceholder": "ornek@email.com",
+    "phone": "Telefon",
+    "phonePlaceholder": "+90 555 123 4567",
+    "message": "Mesaj",
+    "messagePlaceholder": "Almanya'da hangi programla ilgileniyorsunuz? Mevcut eğitim durumunuz ve hedefleriniz nedir?",
+    "date": "Tarih",
+    "time": "Saat",
+    "guests": "Kişi Sayısı",
+    "notes": "Notlar",
+    "notesPlaceholder": "Almanca seviyeniz, tercih ettiğiniz şehir veya bölüm...",
+    "send": "Başvuru Gönder",
+    "sending": "Gönderiliyor...",
+    "makeReservation": "Randevu Al",
+    "required": "zorunlu",
+    "successContact": "Başvurunuz alındı! Danışman ekibimiz 24 saat içinde sizinle iletişime geçecektir.",
+    "successReservation": "Randevunuz alındı. Onay için sizinle iletişime geçilecektir.",
+    "errorGeneral": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
+    "validationNameMin": "Ad en az 2 karakter olmalıdır",
+    "validationEmailInvalid": "Geçerli bir e-posta adresi giriniz",
+    "validationPhoneMin": "Geçerli bir telefon numarası giriniz",
+    "validationMessageMin": "Mesaj en az 10 karakter olmalıdır",
+    "validationDateRequired": "Tarih seçiniz",
+    "validationTimeRequired": "Saat seçiniz",
+    "validationGuestsMin": "En az 1 kişi olmalıdır"
+  },
+  "cookie": {
+    "message": "Bu web sitesi, deneyiminizi iyileştirmek için çerezler kullanmaktadır. Devam ederek çerez politikamızı kabul etmiş olursunuz.",
+    "accept": "Kabul Et",
+    "reject": "Reddet"
+  },
+  "whatsapp": {
+    "greeting": "Merhaba, {siteName} web sitesinden yazıyorum. Almanya'da eğitim hakkında bilgi almak istiyorum.",
+    "ariaLabel": "WhatsApp ile iletişime geç"
+  },
+  "newsletter": {
+    "title": "Almanya Eğitim Bültenimize Abone Olun",
+    "description": "Almanya üniversite başvuru tarihleri, burs fırsatları, Studienkolleg kontenjanları ve Ausbildung ilanlarından haberdar olun.",
+    "placeholder": "E-posta adresiniz",
+    "subscribe": "Abone Ol",
+    "success": "Başarıyla abone oldunuz!",
+    "error": "Bir hata oluştu. Lütfen tekrar deneyin."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Sayfa Bulunamadı",
+    "description": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    "backHome": "Ana Sayfaya Dön"
+  },
+  "metadata": {
+    "homeTitle": "Almanya'da Eğitim",
+    "aboutTitle": "Hakkımızda",
+    "aboutDescription": "{siteName} - Türkiye'den Almanya'ya eğitim danışmanlığında güvenilir adresiniz.",
+    "servicesTitle": "Eğitim Programları",
+    "servicesDescription": "Studienkolleg, Lisans, Yüksek Lisans, Ausbildung ve Almanca dil kursları - {siteName}",
+    "galleryTitle": "Galeri",
+    "galleryDescription": "{siteName} - Almanya'daki öğrencilerimiz ve etkinliklerimizden kareler.",
+    "contactTitle": "İletişim",
+    "contactDescription": "{siteName} ile iletişime geçin. Almanya eğitimi için ücretsiz danışmanlık randevusu alın.",
+    "programsTitle": "Eğitim Programları",
+    "programsDescription": "Almanya'daki tüm eğitim programları: Studienkolleg, Lisans, Yüksek Lisans, Doktora, Ausbildung, Almanca kursları.",
+    "universitiesTitle": "Anlaşmalı Üniversiteler",
+    "universitiesDescription": "Almanya'daki anlaşmalı üniversitelerimiz. TU München, RWTH Aachen, Heidelberg ve daha fazlası.",
+    "successStoriesTitle": "Başarı Hikayeleri",
+    "successStoriesDescription": "Almanya'ya yerleştirdiğimiz öğrencilerin deneyimleri ve başarı hikayeleri.",
+    "blogTitle": "Blog & Rehberler",
+    "blogDescription": "Almanya eğitimi hakkında güncel rehberler, vize bilgileri, burs fırsatları ve yaşam maliyeti.",
+    "pricingTitle": "Hizmet Paketleri & Fiyatlandırma",
+    "pricingDescription": "Almanya eğitim danışmanlığı hizmet paketleri ve fiyatları. Başlangıç, Premium ve VIP paketler.",
+    "applyTitle": "Ücretsiz Danışmanlık Başvurusu",
+    "applyDescription": "Almanya'da eğitim için ücretsiz danışmanlık başvurunuzu yapın. 24 saat içinde dönüş.",
+    "eligibilityCheckTitle": "Uygunluk Testi",
+    "eligibilityCheckDescription": "Almanya'da hangi eğitim programına uygunsunuz? 2 dakikada öğrenin."
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "common": {
+    "siteName": "ShipIt Template",
+    "siteDescription": "Moderne, snelle en SEO-vriendelijke website",
+    "readMore": "Lees meer",
+    "learnMore": "Meer informatie",
+    "callUs": "Bel ons",
+    "contactUs": "Neem contact op",
+    "getStarted": "Begin nu",
+    "back": "Terug",
+    "close": "Sluiten",
+    "loading": "Laden...",
+    "error": "Er is een fout opgetreden",
+    "success": "Succesvol",
+    "phone": "Telefoon",
+    "email": "E-mail",
+    "address": "Adres",
+    "workingHours": "Openingstijden",
+    "socialMedia": "Sociale media",
+    "quickLinks": "Snelle links",
+    "allRightsReserved": "Alle rechten voorbehouden.",
+    "privacy": "Privacy",
+    "terms": "Gebruiksvoorwaarden",
+    "call": "Bellen",
+    "toggleTheme": "Thema wijzigen",
+    "home": "Startpagina"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "Over ons",
+    "services": "Diensten",
+    "gallery": "Galerij",
+    "contact": "Contact",
+    "programs": "Programma's",
+    "universities": "Universiteiten",
+    "successStories": "Succesverhalen",
+    "blog": "Blog",
+    "pricing": "Prijzen",
+    "apply": "Aanmelden",
+    "eligibilityCheck": "Geschiktheidstest",
+    "menu": "Menu",
+    "rooms": "Kamers",
+    "products": "Producten",
+    "projects": "Projecten",
+    "blog": "Blog",
+    "practiceAreas": "Specialisaties"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Welkom",
+      "title": "Moderne weboplossingen voor uw bedrijf",
+      "description": "Breng uw bedrijf naar het digitale tijdperk met onze professionele, snelle en SEO-vriendelijke website. Wij staan voor u klaar met onze klantgerichte service.",
+      "cta": "Neem contact op",
+      "secondaryCta": "Bel ons"
+    },
+    "features": {
+      "subtitle": "Kenmerken",
+      "title": "Waarom kiest u voor ons?",
+      "professional": {
+        "title": "Professionele service",
+        "description": "Wij bieden de hoogste kwaliteit service met ons ervaren team."
+      },
+      "support247": {
+        "title": "24/7 ondersteuning",
+        "description": "Wij zijn er altijd wanneer u ons nodig heeft. De makkelijkste manier om ons te bereiken."
+      },
+      "reliable": {
+        "title": "Betrouwbaar",
+        "description": "Wij werken met betrouwbaarheid en kwaliteit als hoogste prioriteit."
+      },
+      "customerFocused": {
+        "title": "Klantgericht",
+        "description": "Elke klant is voor ons bijzonder. Wij creëren maatwerkoplossingen."
+      },
+      "experiencedTeam": {
+        "title": "Ervaren team",
+        "description": "Wij behalen de beste resultaten met ons expertteam."
+      },
+      "qualityGuarantee": {
+        "title": "Kwaliteitsgarantie",
+        "description": "Wij garanderen kwaliteit bij al onze diensten."
+      }
+    },
+    "stats": {
+      "happyCustomers": "Tevreden klanten",
+      "yearsExperience": "Jaar ervaring",
+      "completedProjects": "Voltooide projecten",
+      "support": "Ondersteuning",
+      "expertTeam": "Expertteam"
+    },
+    "testimonials": {
+      "subtitle": "Referenties",
+      "title": "Wat zeggen onze klanten?"
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "title": "Veelgestelde vragen",
+      "q1": "Wat zijn uw openingstijden?",
+      "a1": "Wij zijn bereikbaar op werkdagen van 09:00 tot 18:00 en op zaterdag van 10:00 tot 14:00. Op zondag gesloten.",
+      "q2": "Hoe kan ik een afspraak maken?",
+      "a2": "U kunt een afspraak maken via telefoon, WhatsApp of door het contactformulier op onze website in te vullen.",
+      "q3": "Welke betaalmethoden biedt u aan?",
+      "a3": "Wij accepteren contante betaling, creditcard en bankoverschrijving.",
+      "q4": "Biedt u gratis advies aan?",
+      "a4": "Ja, ons eerste gesprek en advies zijn gratis. Neem contact met ons op voor gedetailleerde informatie.",
+      "q5": "Wat is Ausbildung en hoeveel salaris verdien je?",
+      "a5": "Ausbildung is het wereldberoemde Duitse duale beroepsopleidingssysteem. Je gaat 2 dagen per week naar school en werkt 3 dagen op de werkplek. Tijdens de opleiding verdien je maandelijks 800-1.200€. Er zijn opleidingsmogelijkheden in meer dan 300 beroepen.",
+      "q6": "Kan ik na mijn afstuderen in Duitsland blijven?",
+      "a6": "Ja! Na je afstuderen kun je een 18 maanden durend visum voor het zoeken naar werk krijgen. Als je een baan vindt, kun je je verblijfsvergunning verlengen. De arbeidsmarkt in Duitsland biedt een grote vraag, vooral in de sectoren techniek, IT en gezondheidszorg."
+    },
+    "cta": {
+      "title": "Neem nu contact op",
+      "description": "Laten we samen de beste oplossing voor uw bedrijf vinden. Bel ons nu om te profiteren van onze speciale aanbiedingen."
+    }
+  },
+  "about": {
+    "subtitle": "Over ons",
+    "title": "Wie zijn wij?",
+    "description": "Met ons team dat jarenlange ervaring in de branche heeft, streven wij ernaar om onze klanten de hoogste kwaliteit service te bieden en elke dag beter te worden. Wij maken het verschil met onze professionele aanpak en klantgerichte servicebenadering.",
+    "statsTitle": "Wij in cijfers",
+    "teamTitle": "Ons team",
+    "teamSubtitle": "Ons expertteam",
+    "ctaTitle": "Klaar om samen te werken?",
+    "ctaDescription": "Laat ons u helpen om uw bedrijf naar het volgende niveau te tillen."
+  },
+  "services": {
+    "subtitle": "Onze diensten",
+    "title": "Wat bieden wij aan?",
+    "description": "Wij bieden uitgebreide en professionele oplossingen voor de behoeften van uw bedrijf.",
+    "sectionTitle": "Dienstgebieden",
+    "consulting": {
+      "title": "Advies",
+      "description": "Professioneel advies op maat voor uw bedrijf."
+    },
+    "design": {
+      "title": "Ontwerp",
+      "description": "Moderne en indrukwekkende ontwerpoplossingen."
+    },
+    "implementation": {
+      "title": "Uitvoering",
+      "description": "Volledige realisatie van uw projecten."
+    },
+    "analysis": {
+      "title": "Analyse",
+      "description": "Datagestuurde beslissingsondersteunende systemen."
+    },
+    "techSupport": {
+      "title": "Technische ondersteuning",
+      "description": "24/7 technische ondersteuning en onderhoudsservice."
+    },
+    "customerService": {
+      "title": "Klantenservice",
+      "description": "Altijd bereikbare klantenservicelijn."
+    },
+    "ctaTitle": "Meer informatie over onze diensten",
+    "ctaDescription": "Laten we samen het meest geschikte servicepakket voor u bepalen."
+  },
+  "gallery": {
+    "subtitle": "Galerij",
+    "title": "Ons werk",
+    "description": "Voorbeelden van onze voltooide projecten."
+  },
+  "contact": {
+    "subtitle": "Contact",
+    "title": "Bereik ons",
+    "description": "U kunt contact met ons opnemen voor uw vragen, suggesties of afspraakverzoeken.",
+    "formTitle": "Contactformulier",
+    "weekdays": "Werkdagen: 09:00 - 18:00",
+    "saturday": "Zaterdag: 10:00 - 14:00",
+    "mapTitle": "Locatie"
+  },
+  "forms": {
+    "name": "Volledige naam",
+    "namePlaceholder": "Uw volledige naam",
+    "email": "E-mail",
+    "emailPlaceholder": "voorbeeld@email.com",
+    "phone": "Telefoon",
+    "phonePlaceholder": "+90 555 123 4567",
+    "message": "Bericht",
+    "messagePlaceholder": "Schrijf uw bericht...",
+    "date": "Datum",
+    "time": "Tijd",
+    "guests": "Aantal gasten",
+    "notes": "Opmerkingen",
+    "notesPlaceholder": "Uw speciale wensen...",
+    "send": "Verzenden",
+    "sending": "Wordt verzonden...",
+    "makeReservation": "Reservering maken",
+    "required": "verplicht",
+    "successContact": "Uw bericht is succesvol verzonden. Wij nemen zo snel mogelijk contact met u op.",
+    "successReservation": "Uw reservering is ontvangen. Er wordt contact met u opgenomen ter bevestiging.",
+    "errorGeneral": "Er is een fout opgetreden. Probeer het opnieuw.",
+    "validationNameMin": "Naam moet minimaal 2 tekens bevatten",
+    "validationEmailInvalid": "Voer een geldig e-mailadres in",
+    "validationPhoneMin": "Voer een geldig telefoonnummer in",
+    "validationMessageMin": "Bericht moet minimaal 10 tekens bevatten",
+    "validationDateRequired": "Selecteer een datum",
+    "validationTimeRequired": "Selecteer een tijd",
+    "validationGuestsMin": "Er moet minimaal 1 persoon zijn"
+  },
+  "cookie": {
+    "message": "Deze website maakt gebruik van cookies om uw ervaring te verbeteren. Door verder te gaan, accepteert u ons cookiebeleid.",
+    "accept": "Accepteren",
+    "reject": "Weigeren"
+  },
+  "whatsapp": {
+    "greeting": "Hallo, ik schrijf vanaf de website van {siteName}.",
+    "ariaLabel": "Neem contact op via WhatsApp"
+  },
+  "newsletter": {
+    "title": "Abonneer op onze nieuwsbrief",
+    "description": "Schrijf u in voor onze mailinglijst om op de hoogte te blijven van aanbiedingen en nieuws.",
+    "placeholder": "Uw e-mailadres",
+    "subscribe": "Abonneren",
+    "success": "Succesvol geabonneerd!",
+    "error": "Er is een fout opgetreden. Probeer het opnieuw."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Pagina niet gevonden",
+    "description": "De pagina die u zoekt bestaat niet of is mogelijk verplaatst.",
+    "backHome": "Terug naar home"
+  },
+  "metadata": {
+    "homeTitle": "Home",
+    "aboutTitle": "Over ons",
+    "aboutDescription": "Leer meer over {siteName}. Onze visie, missie en waarden.",
+    "servicesTitle": "Diensten",
+    "servicesDescription": "Professionele diensten die wij bij {siteName} aanbieden.",
+    "galleryTitle": "Galerij",
+    "galleryDescription": "{siteName} galerij - Voorbeelden van ons werk.",
+    "contactTitle": "Contact",
+    "contactDescription": "Neem contact op met {siteName}. Adres, telefoon en contactformulier."
+  }
+}

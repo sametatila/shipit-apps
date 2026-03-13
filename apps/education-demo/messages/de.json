@@ -1,0 +1,234 @@
+{
+  "common": {
+    "siteName": "ShipIt Template",
+    "siteDescription": "Moderne, schnelle und SEO-freundliche Website",
+    "readMore": "Weiterlesen",
+    "learnMore": "Mehr erfahren",
+    "callUs": "Rufen Sie uns an",
+    "contactUs": "Kontaktieren Sie uns",
+    "getStarted": "Jetzt starten",
+    "back": "Zurück",
+    "close": "Schließen",
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "success": "Erfolgreich",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "workingHours": "Öffnungszeiten",
+    "socialMedia": "Soziale Medien",
+    "quickLinks": "Schnellzugriff",
+    "allRightsReserved": "Alle Rechte vorbehalten.",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "call": "Anrufen",
+    "toggleTheme": "Design wechseln",
+    "home": "Startseite"
+  },
+  "nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "services": "Dienstleistungen",
+    "gallery": "Galerie",
+    "contact": "Kontakt",
+    "programs": "Programme",
+    "universities": "Universitäten",
+    "successStories": "Erfolgsgeschichten",
+    "blog": "Blog",
+    "pricing": "Preise",
+    "apply": "Bewerbung",
+    "eligibilityCheck": "Eignungstest",
+    "menu": "Menü",
+    "rooms": "Zimmer",
+    "products": "Produkte",
+    "projects": "Projekte",
+    "practiceAreas": "Fachgebiete"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Willkommen",
+      "title": "Moderne Weblösungen für Ihr Unternehmen",
+      "description": "Bringen Sie Ihr Unternehmen mit unserer professionellen, schnellen und SEO-freundlichen Website ins Digitale. Wir sind mit unserem kundenorientierten Serviceansatz an Ihrer Seite.",
+      "cta": "Kontakt aufnehmen",
+      "secondaryCta": "Rufen Sie uns an"
+    },
+    "features": {
+      "subtitle": "Merkmale",
+      "title": "Warum sollten Sie uns wählen?",
+      "professional": {
+        "title": "Professioneller Service",
+        "description": "Wir bieten mit unserem erfahrenen Team seit Jahren den qualitativ hochwertigsten Service."
+      },
+      "support247": {
+        "title": "24/7 Support",
+        "description": "Wir sind immer für Sie da, wenn Sie uns brauchen. Der einfachste Weg, uns zu erreichen."
+      },
+      "reliable": {
+        "title": "Zuverlässig",
+        "description": "Wir arbeiten mit Zuverlässigkeit und Qualität als oberste Priorität."
+      },
+      "customerFocused": {
+        "title": "Kundenorientiert",
+        "description": "Jeder Kunde ist uns wichtig. Wir entwickeln individuelle Lösungen."
+      },
+      "experiencedTeam": {
+        "title": "Erfahrenes Team",
+        "description": "Wir erzielen mit unserem Expertenteam die besten Ergebnisse."
+      },
+      "qualityGuarantee": {
+        "title": "Qualitätsgarantie",
+        "description": "Wir garantieren Qualität bei allen unseren Dienstleistungen."
+      }
+    },
+    "stats": {
+      "happyCustomers": "Zufriedene Kunden",
+      "yearsExperience": "Jahre Erfahrung",
+      "completedProjects": "Abgeschlossene Projekte",
+      "support": "Support",
+      "expertTeam": "Expertenteam"
+    },
+    "testimonials": {
+      "subtitle": "Referenzen",
+      "title": "Was sagen unsere Kunden?"
+    },
+    "faq": {
+      "subtitle": "FAQ",
+      "title": "Häufig gestellte Fragen",
+      "q1": "Was sind Ihre Öffnungszeiten?",
+      "a1": "Wir sind werktags von 09:00 bis 18:00 Uhr und samstags von 10:00 bis 14:00 Uhr erreichbar. Sonntags geschlossen.",
+      "q2": "Wie kann ich einen Termin vereinbaren?",
+      "a2": "Sie können telefonisch, über WhatsApp oder über das Kontaktformular auf unserer Website einen Termin vereinbaren.",
+      "q3": "Welche Zahlungsmethoden bieten Sie an?",
+      "a3": "Wir akzeptieren Barzahlung, Kreditkarte und Banküberweisung.",
+      "q4": "Bieten Sie kostenlose Beratung an?",
+      "a4": "Ja, unser Erstgespräch und unsere Beratung sind kostenlos. Kontaktieren Sie uns für detaillierte Informationen.",
+      "q5": "Was ist eine Ausbildung und wie viel Gehalt verdient man?",
+      "a5": "Die Ausbildung ist Deutschlands weltbekanntes duales Berufsausbildungssystem. Sie besuchen 2 Tage pro Woche die Schule und arbeiten 3 Tage im Betrieb. Während der Ausbildung verdienen Sie monatlich 800-1.200€. Es gibt Ausbildungsmöglichkeiten in über 300 Berufen.",
+      "q6": "Kann ich nach dem Abschluss in Deutschland bleiben?",
+      "a6": "Ja! Nach dem Abschluss können Sie ein 18-monatiges Visum zur Jobsuche erhalten. Wenn Sie eine Stelle finden, können Sie Ihre Aufenthaltserlaubnis verlängern. Der Arbeitsmarkt in Deutschland bietet besonders in den Bereichen Ingenieurwesen, IT und Gesundheitswesen eine hohe Nachfrage."
+    },
+    "cta": {
+      "title": "Kontaktieren Sie uns jetzt",
+      "description": "Lassen Sie uns gemeinsam die beste Lösung für Ihr Unternehmen finden. Rufen Sie uns jetzt an, um von unseren Sonderangeboten zu profitieren."
+    }
+  },
+  "about": {
+    "subtitle": "Über uns",
+    "title": "Wer sind wir?",
+    "description": "Mit unserem Team, das über jahrelange Branchenerfahrung verfügt, streben wir danach, unseren Kunden den qualitativ hochwertigsten Service zu bieten und jeden Tag besser zu werden. Mit unserem professionellen Ansatz und kundenorientierten Serviceverständnis machen wir den Unterschied.",
+    "statsTitle": "Wir in Zahlen",
+    "teamTitle": "Unser Team",
+    "teamSubtitle": "Unser Expertenteam",
+    "ctaTitle": "Bereit zur Zusammenarbeit?",
+    "ctaDescription": "Lassen Sie uns Ihnen helfen, Ihr Unternehmen auf die nächste Stufe zu bringen."
+  },
+  "services": {
+    "subtitle": "Unsere Dienstleistungen",
+    "title": "Was bieten wir an?",
+    "description": "Wir bieten umfassende und professionelle Lösungen für die Bedürfnisse Ihres Unternehmens.",
+    "sectionTitle": "Servicebereiche",
+    "consulting": {
+      "title": "Beratung",
+      "description": "Professionelle Beratung speziell für Ihr Unternehmen."
+    },
+    "design": {
+      "title": "Design",
+      "description": "Moderne und beeindruckende Designlösungen."
+    },
+    "implementation": {
+      "title": "Umsetzung",
+      "description": "Vollständige Realisierung Ihrer Projekte."
+    },
+    "analysis": {
+      "title": "Analyse",
+      "description": "Datengestützte Entscheidungsunterstützungssysteme."
+    },
+    "techSupport": {
+      "title": "Technischer Support",
+      "description": "24/7 technischer Support und Wartungsservice."
+    },
+    "customerService": {
+      "title": "Kundenservice",
+      "description": "Jederzeit erreichbare Kundenhotline."
+    },
+    "ctaTitle": "Erfahren Sie mehr über unsere Dienstleistungen",
+    "ctaDescription": "Lassen Sie uns gemeinsam das passende Servicepaket für Sie bestimmen."
+  },
+  "gallery": {
+    "subtitle": "Galerie",
+    "title": "Unsere Arbeiten",
+    "description": "Beispiele aus unseren abgeschlossenen Projekten."
+  },
+  "contact": {
+    "subtitle": "Kontakt",
+    "title": "Erreichen Sie uns",
+    "description": "Sie können uns für Ihre Fragen, Anregungen oder Terminanfragen kontaktieren.",
+    "formTitle": "Kontaktformular",
+    "weekdays": "Werktags: 09:00 - 18:00",
+    "saturday": "Samstag: 10:00 - 14:00",
+    "mapTitle": "Standort"
+  },
+  "forms": {
+    "name": "Vollständiger Name",
+    "namePlaceholder": "Ihr vollständiger Name",
+    "email": "E-Mail",
+    "emailPlaceholder": "beispiel@email.com",
+    "phone": "Telefon",
+    "phonePlaceholder": "+90 555 123 4567",
+    "message": "Nachricht",
+    "messagePlaceholder": "Schreiben Sie Ihre Nachricht...",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "guests": "Anzahl der Gäste",
+    "notes": "Anmerkungen",
+    "notesPlaceholder": "Ihre besonderen Wünsche...",
+    "send": "Senden",
+    "sending": "Wird gesendet...",
+    "makeReservation": "Reservierung vornehmen",
+    "required": "erforderlich",
+    "successContact": "Ihre Nachricht wurde erfolgreich gesendet. Wir werden uns in Kürze bei Ihnen melden.",
+    "successReservation": "Ihre Reservierung wurde entgegengenommen. Sie werden zur Bestätigung kontaktiert.",
+    "errorGeneral": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "validationNameMin": "Der Name muss mindestens 2 Zeichen lang sein",
+    "validationEmailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "validationPhoneMin": "Bitte geben Sie eine gültige Telefonnummer ein",
+    "validationMessageMin": "Die Nachricht muss mindestens 10 Zeichen lang sein",
+    "validationDateRequired": "Bitte wählen Sie ein Datum",
+    "validationTimeRequired": "Bitte wählen Sie eine Uhrzeit",
+    "validationGuestsMin": "Es muss mindestens 1 Person sein"
+  },
+  "cookie": {
+    "message": "Diese Website verwendet Cookies, um Ihre Erfahrung zu verbessern. Durch Fortfahren akzeptieren Sie unsere Cookie-Richtlinie.",
+    "accept": "Akzeptieren",
+    "reject": "Ablehnen"
+  },
+  "whatsapp": {
+    "greeting": "Hallo, ich schreibe von der {siteName}-Website.",
+    "ariaLabel": "Kontaktieren Sie uns über WhatsApp"
+  },
+  "newsletter": {
+    "title": "Abonnieren Sie unseren Newsletter",
+    "description": "Treten Sie unserer E-Mail-Liste bei, um über Angebote und Neuigkeiten informiert zu bleiben.",
+    "placeholder": "Ihre E-Mail-Adresse",
+    "subscribe": "Abonnieren",
+    "success": "Erfolgreich abonniert!",
+    "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Seite nicht gefunden",
+    "description": "Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.",
+    "backHome": "Zurück zur Startseite"
+  },
+  "metadata": {
+    "homeTitle": "Startseite",
+    "aboutTitle": "Über uns",
+    "aboutDescription": "Erfahren Sie mehr über {siteName}. Unsere Vision, Mission und Werte.",
+    "servicesTitle": "Dienstleistungen",
+    "servicesDescription": "Professionelle Dienstleistungen, die wir bei {siteName} anbieten.",
+    "galleryTitle": "Galerie",
+    "galleryDescription": "{siteName} Galerie - Beispiele unserer Arbeiten.",
+    "contactTitle": "Kontakt",
+    "contactDescription": "Kontaktieren Sie {siteName}. Adresse, Telefon und Kontaktformular."
+  }
+}

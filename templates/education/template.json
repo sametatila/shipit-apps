@@ -1,0 +1,17 @@
+{
+  "name": "education",
+  "displayName": "Eğitim Danışmanlığı",
+  "description": "Yurt dışı eğitim danışmanlığı firmaları için web sitesi şablonu - Almanya odaklı: Studienkolleg, Lisans, Yüksek Lisans, Ausbildung, dil eğitimi",
+  "pages": ["home", "about", "services", "gallery", "contact"],
+  "components": ["course-card", "consultant-card"],
+  "config": {
+    "business.type": "EducationalOrganization",
+    "navigation": [
+      { "label": "Ana Sayfa", "href": "/" },
+      { "label": "Hakkımızda", "href": "/about" },
+      { "label": "Programlar", "href": "/services" },
+      { "label": "Galeri", "href": "/gallery" },
+      { "label": "İletişim", "href": "/contact" }
+    ]
+  }
+}

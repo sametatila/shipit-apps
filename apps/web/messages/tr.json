@@ -1,0 +1,224 @@
+{
+  "common": {
+    "siteName": "ShipIt Template",
+    "siteDescription": "Modern, hızlı ve SEO dostu web sitesi",
+    "readMore": "Devamını Oku",
+    "learnMore": "Daha Fazla Bilgi",
+    "callUs": "Bizi Arayın",
+    "contactUs": "İletişime Geçin",
+    "getStarted": "Hemen Başlayın",
+    "back": "Geri",
+    "close": "Kapat",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "address": "Adres",
+    "workingHours": "Çalışma Saatleri",
+    "socialMedia": "Sosyal Medya",
+    "quickLinks": "Hızlı Erişim",
+    "allRightsReserved": "Tüm hakları saklıdır.",
+    "privacy": "Gizlilik",
+    "terms": "Kullanım Şartları",
+    "call": "Ara",
+    "toggleTheme": "Tema değiştir",
+    "home": "Ana Sayfa"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "services": "Hizmetler",
+    "gallery": "Galeri",
+    "contact": "İletişim",
+    "menu": "Menü",
+    "rooms": "Odalar",
+    "products": "Ürünler",
+    "projects": "Projeler",
+    "blog": "Blog",
+    "practiceAreas": "Uzmanlık Alanları"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Hoşgeldiniz",
+      "title": "İşletmeniz İçin Modern Web Çözümleri",
+      "description": "Profesyonel, hızlı ve SEO uyumlu web sitemizle işletmenizi dijitale taşıyın. Müşteri memnuniyeti odaklı hizmet anlayışımızla yanınızdayız.",
+      "cta": "İletişime Geç",
+      "secondaryCta": "Bizi Arayın"
+    },
+    "features": {
+      "subtitle": "Özellikler",
+      "title": "Neden Bizi Seçmelisiniz?",
+      "professional": {
+        "title": "Profesyonel Hizmet",
+        "description": "Yıllardır sektöründe deneyimli ekibimizle en kaliteli hizmeti sunuyoruz."
+      },
+      "support247": {
+        "title": "7/24 Destek",
+        "description": "İhtiyacınız olduğunda her zaman yanınızdayız. Bize ulaşmanın en kolay yolu."
+      },
+      "reliable": {
+        "title": "Güvenilir",
+        "description": "Güvenilirliği ve kaliteyi ön planda tutarak çalışıyoruz."
+      },
+      "customerFocused": {
+        "title": "Müşteri Odaklı",
+        "description": "Her müşterimiz bizim için özeldir. Kişiye özel çözümler üretiyoruz."
+      },
+      "experiencedTeam": {
+        "title": "Deneyimli Ekip",
+        "description": "Alanında uzman ekibimizle en iyi sonuçları elde ediyoruz."
+      },
+      "qualityGuarantee": {
+        "title": "Kalite Garantisi",
+        "description": "Sunmuş olduğumuz tüm hizmetlerde kalite garantisi veriyoruz."
+      }
+    },
+    "stats": {
+      "happyCustomers": "Mutlu Müşteri",
+      "yearsExperience": "Yıllık Deneyim",
+      "completedProjects": "Tamamlanan Proje",
+      "support": "Destek",
+      "expertTeam": "Uzman Ekip"
+    },
+    "testimonials": {
+      "subtitle": "Referanslar",
+      "title": "Müşterilerimiz Ne Diyor?"
+    },
+    "faq": {
+      "subtitle": "SSS",
+      "title": "Sıkça Sorulan Sorular",
+      "q1": "Çalışma saatleriniz nedir?",
+      "a1": "Hafta içi 09:00-18:00, Cumartesi 10:00-14:00 arasında hizmet vermekteyiz. Pazar günü kapalıdır.",
+      "q2": "Nasıl randevu alabilirim?",
+      "a2": "Telefonla, WhatsApp üzerinden veya web sitemizdeki iletişim formunu doldurarak randevu alabilirsiniz.",
+      "q3": "Ödeme yöntemleriniz nelerdir?",
+      "a3": "Nakit, kredi kartı ve banka havalesi ile ödeme kabul etmekteyiz.",
+      "q4": "Ücretsiz danışmanlık veriyor musunuz?",
+      "a4": "Evet, ilk görüşme ve danışmanlık hizmetimiz ücretsizdir. Bize ulaşarak detaylı bilgi alabilirsiniz."
+    },
+    "cta": {
+      "title": "Hemen İletişime Geçin",
+      "description": "İşletmeniz için en uygun çözümü birlikte bulalım. Size özel tekliflerimizden yararlanmak için hemen bizi arayın."
+    }
+  },
+  "about": {
+    "subtitle": "Hakkımızda",
+    "title": "Biz Kimiz?",
+    "description": "Sektöründe yıllardır deneyime sahip ekibimizle, müşterilerimize en kaliteli hizmeti sunmayı amaçlıyor ve her gün daha iyisini hedefliyoruz. Profesyonel yaklaşımımız ve müşteri odaklı hizmet anlayışımızla farkı yaratıyoruz.",
+    "statsTitle": "Rakamlarla Biz",
+    "teamTitle": "Ekibimiz",
+    "teamSubtitle": "Uzman Kadromuz",
+    "ctaTitle": "Birlikte Çalışmaya Hazır Mısınız?",
+    "ctaDescription": "İşletmenizi bir sonraki seviyeye taşımanız için size yardımcı olalım."
+  },
+  "services": {
+    "subtitle": "Hizmetlerimiz",
+    "title": "Neler Sunuyoruz?",
+    "description": "İşletmenizin ihtiyaçlarına yönelik kapsamlı ve profesyonel çözümler sunuyoruz.",
+    "sectionTitle": "Hizmet Alanları",
+    "consulting": {
+      "title": "Danışmanlık",
+      "description": "İşletmenize özel profesyonel danışmanlık hizmeti."
+    },
+    "design": {
+      "title": "Tasarım",
+      "description": "Modern ve etkileyici tasarım çözümleri."
+    },
+    "implementation": {
+      "title": "Uygulama",
+      "description": "Projelerinizin eksiksiz hayata geçirilmesi."
+    },
+    "analysis": {
+      "title": "Analiz",
+      "description": "Veriye dayalı karar destek sistemleri."
+    },
+    "techSupport": {
+      "title": "Teknik Destek",
+      "description": "7/24 teknik destek ve bakım hizmeti."
+    },
+    "customerService": {
+      "title": "Müşteri Hizmetleri",
+      "description": "Her zaman ulaşılabilir müşteri destek hattı."
+    },
+    "ctaTitle": "Hizmetlerimiz Hakkında Detaylı Bilgi Alın",
+    "ctaDescription": "Size en uygun hizmet paketini birlikte belirleyelim."
+  },
+  "gallery": {
+    "subtitle": "Galeri",
+    "title": "Çalışmalarımız",
+    "description": "Gerçekleştirdiğimiz projelerden örnekler."
+  },
+  "contact": {
+    "subtitle": "İletişim",
+    "title": "Bize Ulaşın",
+    "description": "Sorularınız, önerileriniz veya randevu talepleriniz için bize ulaşabilirsiniz.",
+    "formTitle": "İletişim Formu",
+    "weekdays": "Hafta içi: 09:00 - 18:00",
+    "saturday": "Cumartesi: 10:00 - 14:00",
+    "mapTitle": "Konum"
+  },
+  "forms": {
+    "name": "Ad Soyad",
+    "namePlaceholder": "Adınız Soyadınız",
+    "email": "E-posta",
+    "emailPlaceholder": "ornek@email.com",
+    "phone": "Telefon",
+    "phonePlaceholder": "+90 555 123 4567",
+    "message": "Mesaj",
+    "messagePlaceholder": "Mesajınızı yazınız...",
+    "date": "Tarih",
+    "time": "Saat",
+    "guests": "Kişi Sayısı",
+    "notes": "Notlar",
+    "notesPlaceholder": "Özel istekleriniz...",
+    "send": "Gönder",
+    "sending": "Gönderiliyor...",
+    "makeReservation": "Rezervasyon Yap",
+    "required": "zorunlu",
+    "successContact": "Mesajınız başarıyla gönderildi. En kısa sürede döneceğiz.",
+    "successReservation": "Rezervasyonunuz alındı. Onay için sizinle iletişime geçilecektir.",
+    "errorGeneral": "Bir hata oluştu. Lütfen tekrar deneyiniz.",
+    "validationNameMin": "Ad en az 2 karakter olmalıdır",
+    "validationEmailInvalid": "Geçerli bir e-posta adresi giriniz",
+    "validationPhoneMin": "Geçerli bir telefon numarası giriniz",
+    "validationMessageMin": "Mesaj en az 10 karakter olmalıdır",
+    "validationDateRequired": "Tarih seçiniz",
+    "validationTimeRequired": "Saat seçiniz",
+    "validationGuestsMin": "En az 1 kişi olmalıdır"
+  },
+  "cookie": {
+    "message": "Bu web sitesi, deneyiminizi iyileştirmek için çerezler kullanmaktadır. Devam ederek çerez politikamızı kabul etmiş olursunuz.",
+    "accept": "Kabul Et",
+    "reject": "Reddet"
+  },
+  "whatsapp": {
+    "greeting": "Merhaba, {siteName} web sitesinden yazıyorum.",
+    "ariaLabel": "WhatsApp ile iletişime geç"
+  },
+  "newsletter": {
+    "title": "Bültenimize Abone Olun",
+    "description": "Kampanya ve güncellemelerden haberdar olmak için e-posta listemize katılın.",
+    "placeholder": "E-posta adresiniz",
+    "subscribe": "Abone Ol",
+    "success": "Başarıyla abone oldunuz!",
+    "error": "Bir hata oluştu. Lütfen tekrar deneyin."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Sayfa Bulunamadı",
+    "description": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    "backHome": "Ana Sayfaya Dön"
+  },
+  "metadata": {
+    "homeTitle": "Ana Sayfa",
+    "aboutTitle": "Hakkımızda",
+    "aboutDescription": "{siteName} hakkında bilgi edinin. Vizyonumuz, misyonumuz ve değerlerimiz.",
+    "servicesTitle": "Hizmetler",
+    "servicesDescription": "{siteName} olarak sunduğumuz profesyonel hizmetler.",
+    "galleryTitle": "Galeri",
+    "galleryDescription": "{siteName} galeri - Çalışmalarımızdan örnekler.",
+    "contactTitle": "İletişim",
+    "contactDescription": "{siteName} ile iletişime geçin. Adres, telefon ve iletişim formu."
+  }
+}

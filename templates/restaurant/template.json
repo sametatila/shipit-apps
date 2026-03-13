@@ -1,0 +1,17 @@
+{
+  "name": "restaurant",
+  "displayName": "Restoran / Kebapci",
+  "description": "Restoran, kebapci, kafe ve yeme-icme isletmeleri icin web sitesi sablonu",
+  "pages": ["home", "about", "menu", "gallery", "contact"],
+  "components": ["menu-card", "menu-category"],
+  "config": {
+    "business.type": "Restaurant",
+    "navigation": [
+      { "label": "Ana Sayfa", "href": "/" },
+      { "label": "Hakkimizda", "href": "/about" },
+      { "label": "Menu", "href": "/menu" },
+      { "label": "Galeri", "href": "/gallery" },
+      { "label": "Iletisim", "href": "/contact" }
+    ]
+  }
+}

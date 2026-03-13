@@ -1,0 +1,82 @@
+# ============================================
+# ShipIt Apps - Docker Compose
+# Self-hosted deployment stack
+# ============================================
+# Kullanım:
+#   education-demo: APP_NAME=education-demo docker compose -f docker/docker-compose.yml up -d
+#   web:            APP_NAME=web docker compose -f docker/docker-compose.yml up -d
+
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-shipit}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Next.js Application
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        APP_NAME: ${APP_NAME:-web}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      DATABASE_URI: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/${DB_NAME:-shipit}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-change-this-secret}
+      NEXT_PUBLIC_SITE_URL: ${SITE_URL:-http://localhost:3000}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      RESEND_FROM_EMAIL: ${EMAIL_FROM:-}
+      RESEND_FROM_NAME: ${RESEND_FROM_NAME:-}
+      EMAIL_TO: ${EMAIL_TO:-}
+      NEXT_PUBLIC_GA_ID: ${GA_ID:-}
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+      DISABLE_GRAPHQL: ${DISABLE_GRAPHQL:-true}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Nginx Reverse Proxy (production profili ile aktif)
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ssl_certs:/etc/nginx/ssl
+      - certbot_webroot:/var/www/certbot:ro
+    depends_on:
+      - app
+    profiles:
+      - production
+
+  # Certbot for SSL (production profili ile aktif)
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ssl_certs:/etc/letsencrypt
+      - certbot_webroot:/var/www/certbot
+    profiles:
+      - production
+
+volumes:
+  postgres_data:
+  ssl_certs:
+  certbot_webroot:

@@ -1,0 +1,10 @@
+{
+  "name": "corporate",
+  "displayName": "Kurumsal / Genel",
+  "description": "Her sektore uyarlanabilir genel kurumsal web sitesi sablonu",
+  "pages": ["home", "about", "services", "gallery", "contact"],
+  "components": ["service-card", "team-member"],
+  "config": {
+    "business.type": "Organization"
+  }
+}

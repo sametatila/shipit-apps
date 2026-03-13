@@ -1,0 +1,19 @@
+{
+  "name": "@shipit/tailwind-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "main": "./tailwind.config.ts",
+  "types": "./tailwind.config.ts",
+  "exports": {
+    ".": "./tailwind.config.ts",
+    "./tailwind.config": "./tailwind.config.ts"
+  },
+  "files": [
+    "tailwind.config.ts"
+  ],
+  "devDependencies": {
+    "tailwindcss": "^4.2.0"
+  }
+}

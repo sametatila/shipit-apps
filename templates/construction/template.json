@@ -1,0 +1,10 @@
+{
+  "name": "construction",
+  "displayName": "Insaat",
+  "description": "Insaat, mimarlik ve muteahhitlik firmalari icin web sitesi sablonu",
+  "pages": ["home", "about", "projects", "services", "contact"],
+  "components": ["project-card", "before-after"],
+  "config": {
+    "business.type": "GeneralContractor"
+  }
+}

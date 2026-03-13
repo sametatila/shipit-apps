@@ -1,0 +1,17 @@
+{
+  "name": "hotel",
+  "displayName": "Otel / Konaklama",
+  "description": "Otel, pansiyon ve konaklama tesisleri icin web sitesi sablonu",
+  "pages": ["home", "about", "rooms", "gallery", "contact"],
+  "components": ["room-card", "booking-widget"],
+  "config": {
+    "business.type": "Hotel",
+    "navigation": [
+      { "label": "Ana Sayfa", "href": "/" },
+      { "label": "Hakkimizda", "href": "/about" },
+      { "label": "Odalar", "href": "/rooms" },
+      { "label": "Galeri", "href": "/gallery" },
+      { "label": "Iletisim", "href": "/contact" }
+    ]
+  }
+}

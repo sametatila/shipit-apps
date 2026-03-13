@@ -1,0 +1,10 @@
+{
+  "name": "lawyer",
+  "displayName": "Avukat / Hukuk Burosu",
+  "description": "Avukat ve hukuk burolari icin web sitesi sablonu",
+  "pages": ["home", "about", "practice-areas", "contact"],
+  "components": ["practice-areas", "case-results"],
+  "config": {
+    "business.type": "LegalService"
+  }
+}
