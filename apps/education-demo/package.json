@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "payload migrate && next build",
+    "build": "next build",
+    "build:deploy": "payload migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
@@ -20,6 +21,7 @@
     "@payloadcms/email-resend": "3.75.0",
     "@payloadcms/next": "3.75.0",
     "@payloadcms/richtext-lexical": "3.75.0",
+    "@payloadcms/ui": "3.75.0",
     "@shipit/analytics": "workspace:*",
     "@shipit/email": "workspace:*",
     "@shipit/seo": "workspace:*",

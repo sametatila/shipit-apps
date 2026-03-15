@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { seoFields } from "@shipit/seo/payload";
 
 export const BlogPosts: CollectionConfig = {
   slug: "blog-posts",
@@ -84,22 +85,6 @@ export const BlogPosts: CollectionConfig = {
         position: "sidebar",
       },
     },
-    {
-      name: "seo",
-      type: "group",
-      label: "SEO Ayarları",
-      fields: [
-        {
-          name: "metaTitle",
-          type: "text",
-          label: "Meta Başlık",
-        },
-        {
-          name: "metaDescription",
-          type: "textarea",
-          label: "Meta Açıklama",
-        },
-      ],
-    },
+    seoFields() as any,
   ],
 };

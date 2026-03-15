@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { seoFields } from "@shipit/seo/payload";
 
 export const Rooms: CollectionConfig = {
   slug: "rooms",
@@ -91,5 +92,6 @@ export const Rooms: CollectionConfig = {
         position: "sidebar",
       },
     },
+    seoFields() as any,
   ],
 };

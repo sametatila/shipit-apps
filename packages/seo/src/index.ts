@@ -21,3 +21,5 @@ export {
   productJsonLd,
   type LocalBusinessData,
 } from "./json-ld";
+
+export { analyzeSeo, type SeoAnalysis, type SeoCheckResult, type SeoInput, type SeoStatus } from "./scoring";

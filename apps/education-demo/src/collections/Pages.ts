@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { seoFields } from "@shipit/seo/payload";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -37,29 +38,7 @@ export const Pages: CollectionConfig = {
       label: "Öne Çıkan Görsel",
       relationTo: "media",
     },
-    {
-      name: "seo",
-      type: "group",
-      label: "SEO Ayarları",
-      fields: [
-        {
-          name: "metaTitle",
-          type: "text",
-          label: "Meta Başlık",
-        },
-        {
-          name: "metaDescription",
-          type: "textarea",
-          label: "Meta Açıklama",
-        },
-        {
-          name: "ogImage",
-          type: "upload",
-          label: "OG Görseli",
-          relationTo: "media",
-        },
-      ],
-    },
+    seoFields() as any,
     {
       name: "status",
       type: "select",
