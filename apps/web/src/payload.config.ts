@@ -61,7 +61,7 @@ export default buildConfig({
     schemaOutputFile: path.resolve(dirname, "generated-schema.graphql"),
   },
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET ?? (() => { throw new Error("PAYLOAD_SECRET environment variable is required"); })(),
+  secret: process.env.PAYLOAD_SECRET || "build-time-placeholder-secret-not-for-production",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
