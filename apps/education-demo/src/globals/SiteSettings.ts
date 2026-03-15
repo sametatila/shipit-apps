@@ -10,7 +10,11 @@ export const SiteSettings: GlobalConfig = {
   hooks: {
     afterChange: [
       () => {
-        revalidateTag("site-settings", "default");
+        try {
+          revalidateTag("site-settings", "default");
+        } catch {
+          // seed/CLI ortamında Next.js runtime yoktur, hatayı yoksay
+        }
       },
     ],
   },
