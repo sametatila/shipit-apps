@@ -228,10 +228,22 @@ export interface Page {
     [k: string]: unknown;
   } | null;
   featuredImage?: (number | null) | Media;
+  /**
+   * Arama motoru optimizasyonu ayarları
+   */
   seo?: {
+    /**
+     * İçeriğin hedeflediği ana anahtar kelime. SEO puanı buna göre hesaplanır.
+     */
+    focusKeyword?: string | null;
+    /**
+     * Arama sonuçlarında görünecek başlık. 50-60 karakter ideal.
+     */
     metaTitle?: string | null;
+    /**
+     * Arama sonuçlarında görünecek açıklama. 120-160 karakter ideal.
+     */
     metaDescription?: string | null;
-    ogImage?: (number | null) | Media;
   };
   status?: ('draft' | 'published') | null;
   updatedAt: string;
@@ -308,8 +320,21 @@ export interface Course {
   status?: ('active' | 'upcoming' | 'inactive') | null;
   featured?: boolean | null;
   sortOrder?: number | null;
+  /**
+   * Arama motoru optimizasyonu ayarları
+   */
   seo?: {
+    /**
+     * İçeriğin hedeflediği ana anahtar kelime. SEO puanı buna göre hesaplanır.
+     */
+    focusKeyword?: string | null;
+    /**
+     * Arama sonuçlarında görünecek başlık. 50-60 karakter ideal.
+     */
     metaTitle?: string | null;
+    /**
+     * Arama sonuçlarında görünecek açıklama. 120-160 karakter ideal.
+     */
     metaDescription?: string | null;
   };
   updatedAt: string;
@@ -386,8 +411,21 @@ export interface University {
     | null;
   isPartner?: boolean | null;
   sortOrder?: number | null;
+  /**
+   * Arama motoru optimizasyonu ayarları
+   */
   seo?: {
+    /**
+     * İçeriğin hedeflediği ana anahtar kelime. SEO puanı buna göre hesaplanır.
+     */
+    focusKeyword?: string | null;
+    /**
+     * Arama sonuçlarında görünecek başlık. 50-60 karakter ideal.
+     */
     metaTitle?: string | null;
+    /**
+     * Arama sonuçlarında görünecek açıklama. 120-160 karakter ideal.
+     */
     metaDescription?: string | null;
   };
   updatedAt: string;
@@ -416,8 +454,21 @@ export interface SuccessStory {
   isParentTestimonial?: boolean | null;
   featured?: boolean | null;
   isActive?: boolean | null;
+  /**
+   * Arama motoru optimizasyonu ayarları
+   */
   seo?: {
+    /**
+     * İçeriğin hedeflediği ana anahtar kelime. SEO puanı buna göre hesaplanır.
+     */
+    focusKeyword?: string | null;
+    /**
+     * Arama sonuçlarında görünecek başlık. 50-60 karakter ideal.
+     */
     metaTitle?: string | null;
+    /**
+     * Arama sonuçlarında görünecek açıklama. 120-160 karakter ideal.
+     */
     metaDescription?: string | null;
   };
   updatedAt: string;
@@ -507,8 +558,21 @@ export interface BlogPost {
   author?: (number | null) | User;
   publishedAt?: string | null;
   status?: ('draft' | 'published') | null;
+  /**
+   * Arama motoru optimizasyonu ayarları
+   */
   seo?: {
+    /**
+     * İçeriğin hedeflediği ana anahtar kelime. SEO puanı buna göre hesaplanır.
+     */
+    focusKeyword?: string | null;
+    /**
+     * Arama sonuçlarında görünecek başlık. 50-60 karakter ideal.
+     */
     metaTitle?: string | null;
+    /**
+     * Arama sonuçlarında görünecek açıklama. 120-160 karakter ideal.
+     */
     metaDescription?: string | null;
   };
   updatedAt: string;
@@ -705,9 +769,9 @@ export interface PagesSelect<T extends boolean = true> {
   seo?:
     | T
     | {
+        focusKeyword?: T;
         metaTitle?: T;
         metaDescription?: T;
-        ogImage?: T;
       };
   status?: T;
   updatedAt?: T;
@@ -750,6 +814,7 @@ export interface CoursesSelect<T extends boolean = true> {
   seo?:
     | T
     | {
+        focusKeyword?: T;
         metaTitle?: T;
         metaDescription?: T;
       };
@@ -797,6 +862,7 @@ export interface UniversitiesSelect<T extends boolean = true> {
   seo?:
     | T
     | {
+        focusKeyword?: T;
         metaTitle?: T;
         metaDescription?: T;
       };
@@ -825,6 +891,7 @@ export interface SuccessStoriesSelect<T extends boolean = true> {
   seo?:
     | T
     | {
+        focusKeyword?: T;
         metaTitle?: T;
         metaDescription?: T;
       };
@@ -897,6 +964,7 @@ export interface BlogPostsSelect<T extends boolean = true> {
   seo?:
     | T
     | {
+        focusKeyword?: T;
         metaTitle?: T;
         metaDescription?: T;
       };
