@@ -105,7 +105,6 @@ export function UniversityLogoSlider() {
               className="group flex flex-col items-center gap-1.5 p-2 rounded-lg hover:bg-muted transition-colors"
             >
               <div className="h-8 w-8 flex items-center justify-center transition-transform group-hover:scale-110">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={uni.logo}
                   alt={uni.name}
