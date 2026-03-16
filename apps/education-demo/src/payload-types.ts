@@ -547,6 +547,10 @@ export interface BlogPost {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Blog yazısının tam içeriği. Markdown formatında yazabilirsiniz.
+   */
+  markdownBody?: string | null;
   featuredImage?: (number | null) | Media;
   category?: string | null;
   tags?:
@@ -950,6 +954,7 @@ export interface BlogPostsSelect<T extends boolean = true> {
   slug?: T;
   excerpt?: T;
   content?: T;
+  markdownBody?: T;
   featuredImage?: T;
   category?: T;
   tags?:
