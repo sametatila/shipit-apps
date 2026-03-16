@@ -433,6 +433,9 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
     devDependencies:
+      '@shipit/eslint-config':
+        specifier: workspace:*
+        version: link:../config-eslint
       '@shipit/typescript-config':
         specifier: workspace:*
         version: link:../config-typescript
@@ -442,6 +445,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^9.0.0
+        version: 9.39.3(jiti@2.6.1)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
