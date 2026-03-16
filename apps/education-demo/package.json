@@ -8,7 +8,7 @@
     "build": "next build",
     "build:deploy": "payload migrate && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint src/",
     "type-check": "tsc --noEmit",
     "payload": "payload",
     "seed": "npx tsx src/run-seed.ts"
