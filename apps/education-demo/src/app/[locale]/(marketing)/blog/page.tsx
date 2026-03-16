@@ -13,9 +13,10 @@ import {
   CardContent,
   CardFooter,
 } from "@shipit/ui/card";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, Clock, ArrowRight, MapPin, Trophy } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { NewsletterForm } from "@/components/shared/newsletter-form";
+import { universityBlogPosts } from "@/data/university-blog-posts";
 
 const blogPosts = [
   {
@@ -118,6 +119,7 @@ const blogPosts = [
 
 const categories = [
   "Tümü",
+  "Üniversite Rehberi",
   "Rehber",
   "Vize & Finans",
   "Ausbildung",
@@ -292,6 +294,56 @@ export default async function BlogPage() {
                   </Link>
                 </CardFooter>
               </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* University Guides Section */}
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="mb-8 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
+              Üniversite Rehberleri
+            </p>
+            <h2 className="font-heading text-2xl font-bold md:text-3xl">
+              Almanya&apos;nın En İyi 20 Üniversitesi
+            </h2>
+            <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
+              Her üniversite hakkında detaylı bilgi: programlar, başvuru
+              süreçleri, yaşam maliyetleri ve kariyer imkanları.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {universityBlogPosts.map((uni) => (
+              <Link key={uni.slug} href={`/blog/${uni.slug}`}>
+                <Card className="group h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/50">
+                  <CardHeader className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Badge variant="secondary" className="text-[10px]">
+                        {uni.type}
+                      </Badge>
+                      <span className="flex items-center gap-1 text-xs font-semibold text-primary">
+                        <Trophy className="h-3 w-3" />
+                        QS #{uni.qsRanking}
+                      </span>
+                    </div>
+                    <CardTitle className="text-sm leading-snug group-hover:text-primary transition-colors">
+                      {uni.universityName}
+                    </CardTitle>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      {uni.city}, {uni.bundesland}
+                    </div>
+                  </CardHeader>
+                  <CardFooter className="pt-0">
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-primary">
+                      Rehberi Oku
+                      <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </CardFooter>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>

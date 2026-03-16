@@ -19,9 +19,8 @@ import {
   Lightbulb,
   ArrowRight,
   CheckCircle,
-  MapPin,
-  Trophy,
 } from "lucide-react";
+import { UniversityLogoSlider } from "@/components/sections/university-logo-slider";
 
 export default async function HomePage() {
   const t = await getTranslations();
@@ -234,103 +233,8 @@ export default async function HomePage() {
         ]}
       />
 
-      {/* Partner Üniversiteler */}
-      <section className="py-20 md:py-28 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
-              Anlaşmalı Üniversiteler
-            </p>
-            <h2 className="font-heading text-3xl font-bold md:text-4xl">
-              Almanya&apos;nın En İyi Üniversiteleri
-            </h2>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                name: "TU München",
-                city: "München",
-                qs: 49,
-                type: "Teknik Üniversite",
-              },
-              {
-                name: "LMU München",
-                city: "München",
-                qs: 59,
-                type: "Üniversite",
-              },
-              {
-                name: "RWTH Aachen",
-                city: "Aachen",
-                qs: 87,
-                type: "Teknik Üniversite",
-              },
-              {
-                name: "Universität Heidelberg",
-                city: "Heidelberg",
-                qs: 47,
-                type: "Üniversite",
-              },
-              {
-                name: "TU Berlin",
-                city: "Berlin",
-                qs: 106,
-                type: "Teknik Üniversite",
-              },
-              {
-                name: "FU Berlin",
-                city: "Berlin",
-                qs: 91,
-                type: "Üniversite",
-              },
-              {
-                name: "KIT Karlsruhe",
-                city: "Karlsruhe",
-                qs: 119,
-                type: "Teknik Üniversite",
-              },
-              {
-                name: "Universität Hamburg",
-                city: "Hamburg",
-                qs: 164,
-                type: "Üniversite",
-              },
-            ].map((uni) => (
-              <div
-                key={uni.name}
-                className="rounded-xl border bg-card p-5 transition-all duration-300 hover:shadow-md"
-              >
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                  <GraduationCap className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="font-semibold text-sm">{uni.name}</h3>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                    <MapPin className="h-3 w-3" />
-                    {uni.city}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                    <Trophy className="h-3 w-3" />
-                    QS #{uni.qs}
-                  </span>
-                </div>
-                <Badge variant="outline" className="mt-2 text-[10px]">
-                  {uni.type}
-                </Badge>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <Link
-              href="/universities"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
-            >
-              Tüm Üniversiteleri İncele
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Partner Üniversiteler - Logo Slider */}
+      <UniversityLogoSlider />
 
       {/* Hizmet Paketleri Önizleme */}
       <Pricing
