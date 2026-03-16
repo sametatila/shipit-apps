@@ -20,8 +20,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="font-heading text-xl font-bold">{siteConfig.name}</span>
+        <Link href="/" className="flex items-center">
+          <img
+            src="/logo.png"
+            alt={siteConfig.name}
+            className="h-10 w-auto"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">
@@ -62,7 +66,13 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
-              <SheetTitle className="font-heading text-lg">{siteConfig.name}</SheetTitle>
+              <SheetTitle>
+                <img
+                  src="/logo.png"
+                  alt={siteConfig.name}
+                  className="h-8 w-auto"
+                />
+              </SheetTitle>
               <nav className="mt-8 flex flex-col space-y-4">
                 {siteConfig.navigation.map((item) => (
                   <Link

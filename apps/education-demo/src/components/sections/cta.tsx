@@ -1,20 +1,22 @@
-import { Link } from "@/i18n/navigation";
+"use client";
+
 import { Button } from "@shipit/ui";
 import { ArrowRight } from "lucide-react";
+import { useContactModal } from "@/contexts/contact-modal-context";
 
 interface CTAProps {
   title: string;
   description: string;
   buttonText?: string;
-  buttonHref?: string;
 }
 
 export function CTA({
   title,
   description,
-  buttonText = "Hemen Baslayalim",
-  buttonHref = "/contact",
+  buttonText = "Hemen Başlayalım",
 }: CTAProps) {
+  const { open } = useContactModal();
+
   return (
     <section className="relative overflow-hidden py-20 md:py-28">
       <div className="absolute inset-0 -z-10 bg-primary" />
@@ -28,11 +30,9 @@ export function CTA({
         <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
           {description}
         </p>
-        <Button asChild size="lg" variant="secondary" className="mt-8 group">
-          <Link href={buttonHref}>
-            {buttonText}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+        <Button size="lg" variant="secondary" className="mt-8 group" onClick={open}>
+          {buttonText}
+          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </div>
     </section>

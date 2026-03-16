@@ -36,10 +36,10 @@ export default async function HomePage() {
           phone: siteConfig.contact.phone,
           email: siteConfig.contact.email,
           address: {
-            street: siteConfig.contact.address,
-            city: "İstanbul",
+            street: siteConfig.offices[0].address,
+            city: siteConfig.offices[0].city,
             postalCode: "34340",
-            country: "TR",
+            country: siteConfig.offices[0].country,
           },
           coordinates: siteConfig.business.coordinates,
           openingHours: siteConfig.business.openingHours,
@@ -52,7 +52,6 @@ export default async function HomePage() {
         subtitle={t("home.hero.subtitle")}
         description={t("home.hero.description")}
         ctaText={t("home.hero.cta")}
-        ctaHref="/apply"
         secondaryCtaText={t("home.hero.secondaryCta")}
         secondaryCtaHref={`tel:${siteConfig.contact.phone}`}
         image="/images/hero/almanya-egitim.svg"
@@ -215,21 +214,25 @@ export default async function HomePage() {
       <Stats
         stats={[
           {
-            value: "2000",
+            value: "100",
             suffix: "+",
             label: t("home.stats.happyCustomers"),
           },
           {
-            value: "8",
+            value: "2",
             suffix: "+",
             label: t("home.stats.yearsExperience"),
           },
           {
-            value: "40",
+            value: "10",
             suffix: "+",
             label: t("home.stats.completedProjects"),
           },
-          { value: "%98", label: t("home.stats.support") },
+          {
+            value: "6",
+            suffix: "+",
+            label: t("home.stats.expertTeam"),
+          },
         ]}
       />
 
@@ -252,7 +255,6 @@ export default async function HomePage() {
               "E-posta ve telefon desteği",
             ],
             ctaText: "Başvuru Yap",
-            ctaHref: "/apply",
           },
           {
             name: "Premium",
@@ -266,7 +268,6 @@ export default async function HomePage() {
               "Varış sonrası oryantasyon",
             ],
             ctaText: "Başvuru Yap",
-            ctaHref: "/apply",
             popular: true,
           },
           {
@@ -281,7 +282,6 @@ export default async function HomePage() {
               "7/24 acil durum hattı",
             ],
             ctaText: "Başvuru Yap",
-            ctaHref: "/apply",
           },
         ]}
       />
@@ -344,7 +344,6 @@ export default async function HomePage() {
         title={t("home.cta.title")}
         description={t("home.cta.description")}
         buttonText={t("home.hero.cta")}
-        buttonHref="/apply"
       />
     </>
   );

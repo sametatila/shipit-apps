@@ -46,10 +46,10 @@ export default async function AboutPage() {
       <Stats
         title={t("about.statsTitle")}
         stats={[
-          { value: "2000", suffix: "+", label: t("home.stats.happyCustomers") },
-          { value: "8", suffix: "+", label: t("home.stats.yearsExperience") },
-          { value: "40", suffix: "+", label: t("home.stats.completedProjects") },
-          { value: "12", suffix: "+", label: t("home.stats.expertTeam") },
+          { value: "100", suffix: "+", label: t("home.stats.happyCustomers") },
+          { value: "2", suffix: "+", label: t("home.stats.yearsExperience") },
+          { value: "10", suffix: "+", label: t("home.stats.completedProjects") },
+          { value: "6", suffix: "+", label: t("home.stats.expertTeam") },
         ]}
       />
 
@@ -57,10 +57,39 @@ export default async function AboutPage() {
         title={t("about.teamTitle")}
         subtitle={t("about.teamSubtitle")}
         members={[
-          { name: "Dr. Elif Kaya", role: "Kurucu & Genel Müdür", bio: "Heidelberg Üniversitesi mezunu, 12 yıllık Almanya eğitim danışmanlığı deneyimi. DAAD bursiyeri.", image: "/images/team/elif-kaya.svg" },
-          { name: "Ahmet Schneider", role: "Üniversite Yerleştirme Uzmanı", bio: "TU Berlin mezunu, 40'tan fazla Alman üniversitesiyle doğrudan iletişimde. Studienkolleg ve lisans başvuru uzmanı.", image: "/images/team/ahmet-schneider.svg" },
-          { name: "Selin Yılmaz", role: "Ausbildung Danışmanı", bio: "Hamburg'da yaşamış, Alman iş piyasası ve Ausbildung sistemi konusunda uzman. Firma eşleştirme ve vize süreç yönetimi.", image: "/images/team/selin-yilmaz.svg" },
-          { name: "Markus Weber", role: "Almanca Eğitim Koordinatörü", bio: "Anadili Almanca, Goethe-Institut sertifikalı. TestDaF ve DSH hazırlık programları sorumlusu.", image: "/images/team/markus-weber.svg" },
+          {
+            name: "Ömer Faruk Şanlı",
+            role: "Geschäftsführender Direktor / Yönetici Direktör",
+            city: "Bochum",
+            phone: "+49 152 27343732",
+            email: "eurovizyondanismanlik@gmail.com",
+          },
+          {
+            name: "Ömer Selçuk Köroğlu",
+            role: "Geschäftsführer / Yönetici",
+            city: "Dortmund",
+            phone: "+49 176 63132614",
+            email: "eurovizyondanismanlik@gmail.com",
+          },
+          {
+            name: "Yusuf Altun",
+            role: "IT-Spezialist / IT Uzmanı",
+            city: "Essen",
+            phone: "+49 176 80839294",
+            email: "eurovizyondanismanlik@gmail.com",
+          },
+          {
+            name: "Özge Ceren",
+            role: "Bildungsberaterin / Eğitim Danışmanı",
+            city: "Würzburg",
+            email: "eurovizyondanismanlik@gmail.com",
+          },
+          {
+            name: "Turan Sarıkaya",
+            role: "Marketing / Pazarlama",
+            city: "Köln",
+            email: "eurovizyondanismanlik@gmail.com",
+          },
         ]}
       />
 

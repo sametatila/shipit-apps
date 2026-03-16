@@ -115,12 +115,12 @@ export default async function BlogPage() {
             title: post.title,
             description: post.excerpt || "",
             url: `${siteConfig.url}/blog/${post.slug}`,
-            image: `${siteConfig.url}/logo.svg`,
+            image: `${siteConfig.url}/logo.png`,
             datePublished: post.publishedAt || "",
             author: { name: siteConfig.name },
             publisher: {
               name: siteConfig.name,
-              logo: `${siteConfig.url}/logo.svg`,
+              logo: `${siteConfig.url}/logo.png`,
             },
             keywords: getKeywords(post),
           })}

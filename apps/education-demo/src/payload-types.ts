@@ -74,6 +74,7 @@ export interface Config {
     universities: University;
     'success-stories': SuccessStory;
     applications: Application;
+    'form-submissions': FormSubmission;
     testimonials: Testimonial;
     'blog-posts': BlogPost;
     'payload-kv': PayloadKv;
@@ -90,6 +91,7 @@ export interface Config {
     universities: UniversitiesSelect<false> | UniversitiesSelect<true>;
     'success-stories': SuccessStoriesSelect<false> | SuccessStoriesSelect<true>;
     applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
+    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -372,6 +374,7 @@ export interface University {
       )
     | null;
   type?: ('public-uni' | 'tu' | 'fh' | 'private' | 'art') | null;
+  founded?: number | null;
   description?: {
     root: {
       type: string;
@@ -400,6 +403,28 @@ export interface University {
      * Örn: ~310€/dönem
      */
     semesterFee?: string | null;
+  };
+  /**
+   * Üniversite şartlı kabul veriyor mu?
+   */
+  conditionalAcceptance?: ('yes' | 'no' | 'unknown') | null;
+  /**
+   * Şartlı kabul için minimum Almanca seviyesi
+   */
+  conditionalAcceptanceLevel?: ('none' | 'a1' | 'a2' | 'b1' | 'b2' | 'c1') | null;
+  /**
+   * Bu üniversitede Studienkolleg var mı?
+   */
+  studienkolleg?: boolean | null;
+  applicationDeadlines?: {
+    /**
+     * Örn: 15 Temmuz
+     */
+    winterSemester?: string | null;
+    /**
+     * Örn: 15 Ocak
+     */
+    summerSemester?: string | null;
   };
   programs?:
     | {
@@ -497,6 +522,32 @@ export interface Application {
   status?:
     | ('new' | 'contacted' | 'consulting' | 'documents' | 'applied' | 'accepted' | 'visa' | 'enrolled' | 'cancelled')
     | null;
+  assignedTo?: (number | null) | User;
+  notes?:
+    | {
+        date: string;
+        note: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface FormSubmission {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  message?: string | null;
+  /**
+   * Formun gönderildiği sayfa
+   */
+  source?: string | null;
+  status?: ('new' | 'read' | 'replied' | 'closed') | null;
   assignedTo?: (number | null) | User;
   notes?:
     | {
@@ -634,6 +685,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'applications';
         value: number | Application;
+      } | null)
+    | ({
+        relationTo: 'form-submissions';
+        value: number | FormSubmission;
       } | null)
     | ({
         relationTo: 'testimonials';
@@ -837,6 +892,7 @@ export interface UniversitiesSelect<T extends boolean = true> {
   city?: T;
   bundesland?: T;
   type?: T;
+  founded?: T;
   description?: T;
   shortDescription?: T;
   websiteUrl?: T;
@@ -852,6 +908,15 @@ export interface UniversitiesSelect<T extends boolean = true> {
         totalStudents?: T;
         internationalPercent?: T;
         semesterFee?: T;
+      };
+  conditionalAcceptance?: T;
+  conditionalAcceptanceLevel?: T;
+  studienkolleg?: T;
+  applicationDeadlines?:
+    | T
+    | {
+        winterSemester?: T;
+        summerSemester?: T;
       };
   programs?:
     | T
@@ -917,6 +982,28 @@ export interface ApplicationsSelect<T extends boolean = true> {
   germanLevel?: T;
   preferredSemester?: T;
   budget?: T;
+  message?: T;
+  source?: T;
+  status?: T;
+  assignedTo?: T;
+  notes?:
+    | T
+    | {
+        date?: T;
+        note?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
   message?: T;
   source?: T;
   status?: T;

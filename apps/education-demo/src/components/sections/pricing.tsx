@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@shipit/ui";
-import { Link } from "@/i18n/navigation";
 import { Check } from "lucide-react";
 import { cn } from "@shipit/ui";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useContactModal } from "@/contexts/contact-modal-context";
 
 interface PricingPlan {
   name: string;
@@ -13,7 +13,6 @@ interface PricingPlan {
   description: string;
   features: string[];
   ctaText: string;
-  ctaHref: string;
   popular?: boolean;
 }
 
@@ -25,6 +24,7 @@ interface PricingProps {
 
 export function Pricing({ title, subtitle, plans }: PricingProps) {
   const { ref, isVisible } = useScrollReveal();
+  const { open } = useContactModal();
 
   return (
     <section className="py-20 md:py-28">
@@ -57,7 +57,7 @@ export function Pricing({ title, subtitle, plans }: PricingProps) {
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground">
-                    En Populer
+                    En Popüler
                   </span>
                 </div>
               )}
@@ -80,12 +80,12 @@ export function Pricing({ title, subtitle, plans }: PricingProps) {
                 ))}
               </ul>
               <Button
-                asChild
                 variant={plan.popular ? "default" : "outline"}
                 className="w-full"
                 size="lg"
+                onClick={open}
               >
-                <Link href={plan.ctaHref}>{plan.ctaText}</Link>
+                {plan.ctaText}
               </Button>
             </div>
           ))}

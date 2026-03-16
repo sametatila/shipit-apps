@@ -4,152 +4,12 @@ import { generatePageMetadata } from "@shipit/seo";
 import { getSiteConfig } from "@/lib/get-site-config";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { CTA } from "@/components/sections/cta";
-import { Badge } from "@shipit/ui/badge";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@shipit/ui/card";
-import { MapPin, Users, Globe, Trophy, Euro } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-import { Button } from "@shipit/ui";
+import { UniversitySearch, type UniversityData } from "@/components/universities/university-search";
+import { getPayload } from "payload";
+import config from "@/payload.config";
 
 /* ------------------------------------------------------------------ */
-/*  Types & Data                                                      */
-/* ------------------------------------------------------------------ */
-
-type UniversityType = "public-uni" | "tu" | "fh";
-
-interface University {
-  slug: string;
-  name: string;
-  city: string;
-  state: string;
-  type: UniversityType;
-  qsRanking: number;
-  studentCount: number;
-  internationalPercent: number;
-  semesterFee: string;
-  isPartner: boolean;
-}
-
-const TYPE_LABELS: Record<UniversityType, string> = {
-  "public-uni": "Üniversite",
-  tu: "TU",
-  fh: "FH",
-};
-
-const TYPE_FILTERS: { label: string; value: UniversityType | "all" }[] = [
-  { label: "Tümü", value: "all" },
-  { label: "Üniversite", value: "public-uni" },
-  { label: "TU", value: "tu" },
-  { label: "FH", value: "fh" },
-];
-
-const universities: University[] = [
-  {
-    slug: "technische-universitat-munchen",
-    name: "Technische Universität München (TUM)",
-    city: "München",
-    state: "Bayern",
-    type: "public-uni",
-    qsRanking: 49,
-    studentCount: 50000,
-    internationalPercent: 37,
-    semesterFee: "157€/yarıyıl",
-    isPartner: true,
-  },
-  {
-    slug: "ludwig-maximilians-universitat",
-    name: "Ludwig-Maximilians-Universität (LMU)",
-    city: "München",
-    state: "Bayern",
-    type: "public-uni",
-    qsRanking: 59,
-    studentCount: 52000,
-    internationalPercent: 18,
-    semesterFee: "157€/yarıyıl",
-    isPartner: true,
-  },
-  {
-    slug: "technische-universitat-berlin",
-    name: "Technische Universität Berlin",
-    city: "Berlin",
-    state: "Berlin",
-    type: "tu",
-    qsRanking: 106,
-    studentCount: 35000,
-    internationalPercent: 25,
-    semesterFee: "312€/yarıyıl",
-    isPartner: true,
-  },
-  {
-    slug: "rwth-aachen",
-    name: "RWTH Aachen",
-    city: "Aachen",
-    state: "Nordrhein-Westfalen",
-    type: "tu",
-    qsRanking: 87,
-    studentCount: 47000,
-    internationalPercent: 28,
-    semesterFee: "316€/yarıyıl",
-    isPartner: true,
-  },
-  {
-    slug: "universitat-heidelberg",
-    name: "Universität Heidelberg",
-    city: "Heidelberg",
-    state: "Baden-Württemberg",
-    type: "public-uni",
-    qsRanking: 47,
-    studentCount: 31000,
-    internationalPercent: 20,
-    semesterFee: "171€/yarıyıl + 1500€ (AB-dışı)",
-    isPartner: false,
-  },
-  {
-    slug: "freie-universitat-berlin",
-    name: "Freie Universität Berlin",
-    city: "Berlin",
-    state: "Berlin",
-    type: "public-uni",
-    qsRanking: 91,
-    studentCount: 36000,
-    internationalPercent: 22,
-    semesterFee: "312€/yarıyıl",
-    isPartner: true,
-  },
-  {
-    slug: "universitat-hamburg",
-    name: "Universität Hamburg",
-    city: "Hamburg",
-    state: "Hamburg",
-    type: "public-uni",
-    qsRanking: 164,
-    studentCount: 43000,
-    internationalPercent: 14,
-    semesterFee: "335€/yarıyıl",
-    isPartner: false,
-  },
-  {
-    slug: "karlsruher-institut-fur-technologie",
-    name: "Karlsruher Institut für Technologie (KIT)",
-    city: "Karlsruhe",
-    state: "Baden-Württemberg",
-    type: "tu",
-    qsRanking: 119,
-    studentCount: 24000,
-    internationalPercent: 24,
-    semesterFee: "171€/yarıyıl + 1500€ (AB-dışı)",
-    isPartner: true,
-  },
-];
-
-/* ------------------------------------------------------------------ */
-/*  Metadata                                                          */
+/*  Metadata                                                           */
 /* ------------------------------------------------------------------ */
 
 export async function generateMetadata({
@@ -161,20 +21,345 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
-    title: "Anlaşmalı Üniversitelerimiz | Almanya Üniversiteleri",
+    title: "Üniversite Arama | Almanya Üniversiteleri",
     description:
-      "Almanya'daki partner üniversitelerimizi keşfedin. TUM, LMU, RWTH Aachen ve daha fazlası ile iş birliğimiz sayesinde kolay başvuru süreci.",
+      "Almanya'daki üniversiteleri keşfedin. Filtrelerle size en uygun üniversiteyi bulun: tür, eyalet, dil, şartlı kabul ve daha fazlası.",
     path: "/universities",
   });
 }
 
 /* ------------------------------------------------------------------ */
-/*  Page                                                              */
+/*  Data Fetching                                                      */
+/* ------------------------------------------------------------------ */
+
+async function getUniversities(): Promise<UniversityData[]> {
+  try {
+    const payload = await getPayload({ config });
+
+    // Fetch universities
+    const { docs: universities } = await payload.find({
+      collection: "universities",
+      limit: 500,
+      sort: "sortOrder",
+    });
+
+    // Fetch blog posts with category "Üniversite Rehberi" to link
+    const { docs: blogPosts } = await payload.find({
+      collection: "blog-posts",
+      where: {
+        status: { equals: "published" },
+        category: { equals: "Üniversite Rehberi" },
+      },
+      limit: 500,
+    });
+
+    // Build a map: university slug → blog slug
+    const blogSlugMap = new Map<string, string>();
+    for (const post of blogPosts) {
+      // Match blog to university by checking tags or title
+      const uniSlug = findMatchingUniversitySlug(post, universities);
+      if (uniSlug) {
+        blogSlugMap.set(uniSlug, post.slug);
+      }
+    }
+
+    return universities.map((uni) => ({
+      id: uni.id,
+      name: uni.name,
+      slug: uni.slug,
+      city: uni.city,
+      bundesland: uni.bundesland ?? null,
+      type: uni.type ?? null,
+      founded: uni.founded ?? null,
+      shortDescription: uni.shortDescription ?? null,
+      websiteUrl: uni.websiteUrl ?? null,
+      ranking: uni.ranking ?? null,
+      stats: uni.stats ?? null,
+      conditionalAcceptance: uni.conditionalAcceptance ?? null,
+      conditionalAcceptanceLevel: uni.conditionalAcceptanceLevel ?? null,
+      studienkolleg: uni.studienkolleg ?? null,
+      applicationDeadlines: uni.applicationDeadlines ?? null,
+      programs: (uni.programs as UniversityData["programs"]) ?? null,
+      isPartner: uni.isPartner ?? null,
+      blogSlug: blogSlugMap.get(uni.slug) ?? null,
+    }));
+  } catch {
+    // CMS unavailable — return fallback data
+    return FALLBACK_UNIVERSITIES;
+  }
+}
+
+function findMatchingUniversitySlug(
+  blogPost: { title: string; slug: string; tags?: { tag: string; id?: string | null }[] | null },
+  universities: { name: string; slug: string }[]
+): string | null {
+  const blogSlugLower = blogPost.slug.toLowerCase();
+  const blogTitleLower = blogPost.title.toLowerCase();
+
+  for (const uni of universities) {
+    const uniSlugLower = uni.slug.toLowerCase();
+    const uniNameLower = uni.name.toLowerCase();
+
+    // Match by slug similarity
+    if (blogSlugLower.includes(uniSlugLower) || uniSlugLower.includes(blogSlugLower)) {
+      return uni.slug;
+    }
+
+    // Match by name in title
+    const shortName = uniNameLower.replace(/\(.*\)/, "").trim();
+    if (blogTitleLower.includes(shortName) || blogTitleLower.includes(uniNameLower)) {
+      return uni.slug;
+    }
+
+    // Match by abbreviation in parentheses
+    const match = uni.name.match(/\(([^)]+)\)/);
+    if (match && blogTitleLower.includes(match[1].toLowerCase())) {
+      return uni.slug;
+    }
+  }
+
+  return null;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Fallback Data                                                      */
+/* ------------------------------------------------------------------ */
+
+const FALLBACK_UNIVERSITIES: UniversityData[] = [
+  {
+    id: 1,
+    name: "Technische Universität München (TUM)",
+    slug: "technische-universitat-munchen",
+    city: "München",
+    bundesland: "bayern",
+    type: "tu",
+    founded: 1868,
+    shortDescription: "Almanya'nın en iyi teknik üniversitelerinden biri.",
+    ranking: { qsWorld: 37, theWorld: 30 },
+    stats: { totalStudents: 50000, internationalPercent: 37, semesterFee: "~157€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b1",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Makine Mühendisliği", degree: "bachelor", language: "de" },
+      { name: "Bilgisayar Bilimi", degree: "master", language: "en" },
+      { name: "Elektrik Mühendisliği", degree: "bachelor", language: "de" },
+      { name: "İşletme", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "tum-technische-universitat-munchen-rehberi",
+  },
+  {
+    id: 2,
+    name: "Ludwig-Maximilians-Universität (LMU)",
+    slug: "ludwig-maximilians-universitat",
+    city: "München",
+    bundesland: "bayern",
+    type: "public-uni",
+    founded: 1472,
+    shortDescription: "Almanya'nın en köklü ve prestijli üniversitelerinden biri.",
+    ranking: { qsWorld: 54, theWorld: 38 },
+    stats: { totalStudents: 52000, internationalPercent: 18, semesterFee: "~157€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b1",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Tıp", degree: "bachelor", language: "de" },
+      { name: "Hukuk", degree: "bachelor", language: "de" },
+      { name: "Fizik", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "lmu-ludwig-maximilians-universitat-rehberi",
+  },
+  {
+    id: 3,
+    name: "RWTH Aachen",
+    slug: "rwth-aachen",
+    city: "Aachen",
+    bundesland: "nordrhein-westfalen",
+    type: "tu",
+    founded: 1870,
+    shortDescription: "Avrupa'nın önde gelen teknik üniversitelerinden.",
+    ranking: { qsWorld: 87, theWorld: 90 },
+    stats: { totalStudents: 47000, internationalPercent: 28, semesterFee: "~316€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b1",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Makine Mühendisliği", degree: "bachelor", language: "de" },
+      { name: "Bilgisayar Mühendisliği", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "rwth-aachen-rehberi",
+  },
+  {
+    id: 4,
+    name: "Universität Heidelberg",
+    slug: "universitat-heidelberg",
+    city: "Heidelberg",
+    bundesland: "baden-wuerttemberg",
+    type: "public-uni",
+    founded: 1386,
+    shortDescription: "Almanya'nın en eski üniversitesi, araştırma odaklı.",
+    ranking: { qsWorld: 47, theWorld: 43 },
+    stats: { totalStudents: 31000, internationalPercent: 20, semesterFee: "~171€/dönem + 1500€ (AB-dışı)" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b2",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Tıp", degree: "bachelor", language: "de" },
+      { name: "Moleküler Biyoloji", degree: "master", language: "en" },
+    ],
+    isPartner: false,
+    blogSlug: "heidelberg-universitesi-rehberi",
+  },
+  {
+    id: 5,
+    name: "Technische Universität Berlin",
+    slug: "technische-universitat-berlin",
+    city: "Berlin",
+    bundesland: "berlin",
+    type: "tu",
+    founded: 1879,
+    shortDescription: "Berlin'in en büyük teknik üniversitesi.",
+    ranking: { qsWorld: 106, theWorld: 140 },
+    stats: { totalStudents: 35000, internationalPercent: 25, semesterFee: "~312€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b1",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Mimarlık", degree: "bachelor", language: "de" },
+      { name: "Bilgisayar Bilimi", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "tu-berlin-rehberi",
+  },
+  {
+    id: 6,
+    name: "Freie Universität Berlin",
+    slug: "freie-universitat-berlin",
+    city: "Berlin",
+    bundesland: "berlin",
+    type: "public-uni",
+    founded: 1948,
+    shortDescription: "Berlin'in önde gelen araştırma üniversitesi.",
+    ranking: { qsWorld: 91, theWorld: 83 },
+    stats: { totalStudents: 36000, internationalPercent: 22, semesterFee: "~312€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b2",
+    studienkolleg: false,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Siyaset Bilimi", degree: "bachelor", language: "de" },
+      { name: "Biyokimya", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "fu-berlin-rehberi",
+  },
+  {
+    id: 7,
+    name: "Universität Hamburg",
+    slug: "universitat-hamburg",
+    city: "Hamburg",
+    bundesland: "hamburg",
+    type: "public-uni",
+    founded: 1919,
+    shortDescription: "Kuzey Almanya'nın en büyük araştırma üniversitesi.",
+    ranking: { qsWorld: 164, theWorld: 127 },
+    stats: { totalStudents: 43000, internationalPercent: 14, semesterFee: "~335€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b2",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "İşletme", degree: "bachelor", language: "de" },
+      { name: "Fizik", degree: "master", language: "en" },
+    ],
+    isPartner: false,
+    blogSlug: "hamburg-universitesi-rehberi",
+  },
+  {
+    id: 8,
+    name: "Karlsruher Institut für Technologie (KIT)",
+    slug: "karlsruher-institut-fur-technologie",
+    city: "Karlsruhe",
+    bundesland: "baden-wuerttemberg",
+    type: "tu",
+    founded: 1825,
+    shortDescription: "Araştırma ve eğitimde Almanya'nın lider kurumlarından.",
+    ranking: { qsWorld: 119, theWorld: 189 },
+    stats: { totalStudents: 24000, internationalPercent: 24, semesterFee: "~171€/dönem + 1500€ (AB-dışı)" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b1",
+    studienkolleg: true,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Makine Mühendisliği", degree: "bachelor", language: "de" },
+      { name: "Bilişim", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "kit-karlsruhe-rehberi",
+  },
+  {
+    id: 9,
+    name: "Humboldt-Universität zu Berlin",
+    slug: "humboldt-universitat-zu-berlin",
+    city: "Berlin",
+    bundesland: "berlin",
+    type: "public-uni",
+    founded: 1810,
+    shortDescription: "Berlin'in en eski üniversitesi, 29 Nobel ödüllü.",
+    ranking: { qsWorld: 120, theWorld: 87 },
+    stats: { totalStudents: 33000, internationalPercent: 19, semesterFee: "~315€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b2",
+    studienkolleg: false,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Felsefe", degree: "bachelor", language: "de" },
+      { name: "Veri Bilimi", degree: "master", language: "en" },
+    ],
+    isPartner: false,
+    blogSlug: "humboldt-universitesi-rehberi",
+  },
+  {
+    id: 10,
+    name: "Hochschule München (HM)",
+    slug: "hochschule-munchen",
+    city: "München",
+    bundesland: "bayern",
+    type: "fh",
+    founded: 1971,
+    shortDescription: "Almanya'nın en büyük uygulamalı bilimler üniversitelerinden biri.",
+    ranking: { qsWorld: null, theWorld: null },
+    stats: { totalStudents: 18000, internationalPercent: 22, semesterFee: "~157€/dönem" },
+    conditionalAcceptance: "yes",
+    conditionalAcceptanceLevel: "b1",
+    studienkolleg: false,
+    applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
+    programs: [
+      { name: "Bilgisayar Bilimi", degree: "bachelor", language: "de" },
+      { name: "Endüstri Mühendisliği", degree: "bachelor", language: "de" },
+      { name: "Yazılım Mühendisliği", degree: "master", language: "en" },
+    ],
+    isPartner: true,
+    blogSlug: "hochschule-munchen-rehberi",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
 /* ------------------------------------------------------------------ */
 
 export default async function UniversitiesPage() {
   const t = await getTranslations();
   const siteConfig = await getSiteConfig();
+  const universities = await getUniversities();
 
   return (
     <>
@@ -190,108 +375,53 @@ export default async function UniversitiesPage() {
       </div>
 
       {/* Hero */}
-      <section className="py-20">
+      <section className="py-16 pb-10">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Partner Üniversiteler
+            Almanya Üniversiteleri
           </p>
           <h1 className="font-heading text-4xl font-bold md:text-5xl mt-4">
-            Anlaşmalı Üniversitelerimiz
+            Üniversite Ara &amp; Keşfet
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Almanya&apos;nın en prestijli üniversiteleriyle anlaşmalıyız.
-            Öğrencilerimize kolay başvuru süreci, burs imkanları ve akademik
-            danışmanlık hizmeti sunuyoruz.
+            Almanya&apos;daki üniversiteleri filtreleyin, karşılaştırın ve size en uygun olanı bulun.
+            Her üniversite için detaylı rehber yazılarımıza ulaşın.
           </p>
-        </div>
-      </section>
 
-      {/* Filter Buttons */}
-      <section className="pb-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {TYPE_FILTERS.map((filter) => (
-              <Badge
-                key={filter.value}
-                variant={filter.value === "all" ? "default" : "outline"}
-                className="cursor-pointer px-4 py-2 text-sm"
-              >
-                {filter.label}
-              </Badge>
-            ))}
+          {/* Quick Stats */}
+          <div className="flex flex-wrap justify-center gap-6 mt-8">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-primary">{universities.length}</p>
+              <p className="text-xs text-muted-foreground">Üniversite</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-primary">
+                {universities.reduce((sum, u) => sum + (u.programs?.length ?? 0), 0)}
+              </p>
+              <p className="text-xs text-muted-foreground">Program</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-primary">
+                {universities.filter((u) => u.isPartner).length}
+              </p>
+              <p className="text-xs text-muted-foreground">Partner</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-primary">16</p>
+              <p className="text-xs text-muted-foreground">Eyalet</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* University Cards Grid */}
-      <section className="pb-20">
-        <div className="container mx-auto px-4">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {universities.map((uni) => (
-              <Card
-                key={uni.slug}
-                className="group relative flex flex-col transition-shadow hover:shadow-lg"
-              >
-                <CardHeader>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary">
-                        {TYPE_LABELS[uni.type]}
-                      </Badge>
-                      {uni.isPartner && (
-                        <Badge variant="default">Partner</Badge>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1 text-sm font-semibold text-amber-600">
-                      <Trophy className="h-4 w-4" />
-                      <span>#{uni.qsRanking} QS</span>
-                    </div>
-                  </div>
-                  <CardTitle className="mt-3 text-lg leading-snug">
-                    {uni.name}
-                  </CardTitle>
-                  <CardDescription className="flex items-center gap-1">
-                    <MapPin className="h-3.5 w-3.5" />
-                    {uni.city}, {uni.state}
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="flex-1 space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="h-4 w-4 shrink-0" />
-                    <span>
-                      {uni.studentCount.toLocaleString("tr-TR")} öğrenci
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Globe className="h-4 w-4 shrink-0" />
-                    <span>%{uni.internationalPercent} uluslararası öğrenci</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Euro className="h-4 w-4 shrink-0" />
-                    <span>{uni.semesterFee}</span>
-                  </div>
-                </CardContent>
-
-                <CardFooter>
-                  <Button asChild variant="outline" className="w-full">
-                    <Link href={`/universities/${uni.slug}`}>
-                      Detayları Gör
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* University Search */}
+      <UniversitySearch universities={universities} />
 
       {/* CTA */}
       <CTA
-        title="Almanya'da Eğitim Hayalinizi Gerçekleştirin"
-        description="Uzman danışmanlarımız size en uygun üniversiteyi bulmak ve başvuru sürecinde yanınızda olmak için hazır."
+        title="Doğru Üniversiteyi Birlikte Bulalım"
+        description="Akademik profilinize, bütçenize ve kariyer hedeflerinize en uygun üniversiteyi bulmak için uzman danışmanlarımızla ücretsiz görüşme yapın."
         buttonText="Ücretsiz Danışmanlık Al"
-        buttonHref="/contact"
       />
     </>
   );

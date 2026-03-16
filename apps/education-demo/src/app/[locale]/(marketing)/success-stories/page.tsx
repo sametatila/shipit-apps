@@ -126,7 +126,7 @@ export async function generateMetadata({
   return generatePageMetadata(siteConfig, {
     title: "Başarı Hikayeleri",
     description:
-      "Almanya'da eğitim alan öğrencilerimizin başarı hikayeleri. 2000'den fazla öğrencimizin deneyimlerini keşfedin.",
+      "Almanya'da eğitim alan öğrencilerimizin başarı hikayeleri. Öğrencilerimizin deneyimlerini keşfedin.",
     path: "/success-stories",
   });
 }
@@ -167,7 +167,7 @@ export default async function SuccessStoriesPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
             <div className="text-center space-y-2">
-              <p className="text-4xl font-bold text-primary">2000+</p>
+              <p className="text-4xl font-bold text-primary">100+</p>
               <p className="text-muted-foreground">Mutlu Öğrenci</p>
             </div>
             <div className="text-center space-y-2">
@@ -175,7 +175,7 @@ export default async function SuccessStoriesPage() {
               <p className="text-muted-foreground">Memnuniyet Oranı</p>
             </div>
             <div className="text-center space-y-2">
-              <p className="text-4xl font-bold text-primary">40+</p>
+              <p className="text-4xl font-bold text-primary">10+</p>
               <p className="text-muted-foreground">Partner Üniversite</p>
             </div>
           </div>

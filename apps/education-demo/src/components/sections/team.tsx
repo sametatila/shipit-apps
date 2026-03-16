@@ -3,12 +3,16 @@
 import Image from "next/image";
 import { cn } from "@shipit/ui";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 interface TeamMember {
   name: string;
   role: string;
   bio?: string;
   image?: string;
+  city?: string;
+  phone?: string;
+  email?: string;
 }
 
 interface TeamProps {
@@ -33,7 +37,7 @@ export function Team({ title, subtitle, members }: TeamProps) {
         </div>
         <div
           ref={ref}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         >
           {members.map((member, index) => (
             <div
@@ -55,15 +59,41 @@ export function Team({ title, subtitle, members }: TeamProps) {
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-primary/10 text-2xl font-bold text-primary">
-                    {member.name.charAt(0)}
+                    {member.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
                   </div>
                 )}
               </div>
               <h3 className="font-heading text-lg font-semibold">{member.name}</h3>
               <p className="text-sm text-primary">{member.role}</p>
+              {member.city && (
+                <p className="mt-1 flex items-center justify-center gap-1 text-xs text-muted-foreground">
+                  <MapPin className="h-3 w-3" />
+                  {member.city}
+                </p>
+              )}
               {member.bio && (
                 <p className="mt-2 text-sm text-muted-foreground">{member.bio}</p>
               )}
+              <div className="mt-3 flex items-center justify-center gap-3">
+                {member.phone && (
+                  <a
+                    href={`tel:${member.phone.replace(/[\s]/g, "")}`}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    title={member.phone}
+                  >
+                    <Phone className="h-4 w-4" />
+                  </a>
+                )}
+                {member.email && (
+                  <a
+                    href={`mailto:${member.email}`}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    title={member.email}
+                  >
+                    <Mail className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>

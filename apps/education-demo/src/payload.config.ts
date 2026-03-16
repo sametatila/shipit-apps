@@ -14,6 +14,7 @@ import { Courses } from "./collections/Courses";
 import { Universities } from "./collections/Universities";
 import { SuccessStories } from "./collections/SuccessStories";
 import { Applications } from "./collections/Applications";
+import { FormSubmissions } from "./collections/FormSubmissions";
 import { Testimonials } from "./collections/Testimonials";
 import { BlogPosts } from "./collections/BlogPosts";
 import { SiteSettings } from "./globals/SiteSettings";
@@ -36,6 +37,7 @@ export default buildConfig({
     Universities,
     SuccessStories,
     Applications,
+    FormSubmissions,
     Testimonials,
     BlogPosts,
   ],
@@ -60,7 +62,7 @@ export default buildConfig({
   email: process.env.RESEND_API_KEY
     ? resendAdapter({
         defaultFromAddress: process.env.RESEND_FROM_EMAIL || "noreply@example.com",
-        defaultFromName: process.env.RESEND_FROM_NAME || "Almanya Eğitim Danışmanlığı",
+        defaultFromName: process.env.RESEND_FROM_NAME || "EuroVizyon Danışmanlık",
         apiKey: process.env.RESEND_API_KEY,
       })
     : nodemailerAdapter({

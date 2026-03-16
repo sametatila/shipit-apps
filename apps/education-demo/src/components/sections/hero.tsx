@@ -1,14 +1,15 @@
+"use client";
+
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
 import { Button } from "@shipit/ui";
 import { ArrowRight, Phone } from "lucide-react";
+import { useContactModal } from "@/contexts/contact-modal-context";
 
 interface HeroProps {
   title: string;
   subtitle: string;
   description: string;
   ctaText?: string;
-  ctaHref?: string;
   secondaryCtaText?: string;
   secondaryCtaHref?: string;
   image?: string;
@@ -18,12 +19,13 @@ export function Hero({
   title,
   subtitle,
   description,
-  ctaText = "Iletisime Gec",
-  ctaHref = "/contact",
-  secondaryCtaText = "Bizi Arayin",
+  ctaText = "Ücretsiz Danışmanlık",
+  secondaryCtaText = "Bizi Arayın",
   secondaryCtaHref = "tel:+905551234567",
   image,
 }: HeroProps) {
+  const { open } = useContactModal();
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />
@@ -42,11 +44,9 @@ export function Hero({
               {description}
             </p>
             <div className="animate-fade-in flex flex-col sm:flex-row gap-4 [animation-delay:300ms]">
-              <Button asChild size="lg" className="group">
-                <Link href={ctaHref}>
-                  {ctaText}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+              <Button size="lg" className="group" onClick={open}>
+                {ctaText}
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a href={secondaryCtaHref}>

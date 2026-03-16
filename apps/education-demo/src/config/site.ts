@@ -1,7 +1,7 @@
 import type { Locale } from "@/i18n/routing";
 
 export const siteConfig = {
-  name: "Almanya Eğitim Danışmanlığı",
+  name: "EuroVizyon Danışmanlık",
   description: "Türkiye'den Almanya'ya eğitim danışmanlığı - Studienkolleg, Lisans, Yüksek Lisans, Ausbildung ve Almanca dil eğitimi",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ogImage: "/og.jpg",
@@ -20,18 +20,52 @@ export const siteConfig = {
   },
 
   theme: {
-    primary: "221.2 83.2% 53.3%",
-    secondary: "210 40% 96.1%",
+    primary: "214 100% 34%",
+    secondary: "214 49% 48%",
+    accent: "48 100% 50%",
     radius: "0.5rem",
   },
 
   contact: {
     phone: "+90 (212) 000 00 00",
-    email: "info@almanya-egitim.com",
-    address: "Levent Mah. Büyükdere Cad. No:42, Beşiktaş, İstanbul",
+    email: "info@eurovizyon.com",
     whatsapp: "+902120000000",
-    germanyOffice: "Friedrichstraße 123, 10117 Berlin, Deutschland",
   },
+
+  offices: [
+    {
+      name: "Genel Merkez",
+      city: "İstanbul",
+      country: "TR",
+      address: "Levent Mah. Büyükdere Cad. No:42, Beşiktaş, İstanbul",
+      phone: "+90 (212) 000 00 00",
+      isHQ: true,
+    },
+    {
+      name: "Ankara Ofisi",
+      city: "Ankara",
+      country: "TR",
+      address: "Kızılay Mah. Atatürk Bulvarı No:121, Çankaya, Ankara",
+      phone: "+90 (312) 000 00 00",
+      isHQ: false,
+    },
+    {
+      name: "Dortmund Ofisi",
+      city: "Dortmund",
+      country: "DE",
+      address: "Kampstraße 45, 44137 Dortmund, Deutschland",
+      phone: "+49 (231) 000 00 00",
+      isHQ: false,
+    },
+    {
+      name: "Bochum Ofisi",
+      city: "Bochum",
+      country: "DE",
+      address: "Kortumstraße 68, 44787 Bochum, Deutschland",
+      phone: "+49 (234) 000 00 00",
+      isHQ: false,
+    },
+  ],
 
   social: {
     instagram: "https://instagram.com/almanya-egitim",
@@ -64,7 +98,7 @@ export const siteConfig = {
   },
 
   seo: {
-    titleTemplate: "%s | Almanya Eğitim Danışmanlığı",
+    titleTemplate: "%s | EuroVizyon Danışmanlık",
     defaultDescription: "Türkiye'den Almanya'ya eğitim danışmanlığı - Studienkolleg, Lisans, Yüksek Lisans, Ausbildung ve Almanca dil eğitimi",
   },
 };

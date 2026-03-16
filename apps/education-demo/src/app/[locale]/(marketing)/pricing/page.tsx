@@ -76,7 +76,6 @@ export default async function PricingPage() {
               "E-posta ve telefon desteği",
             ],
             ctaText: "Başvuru Yap",
-            ctaHref: "/contact",
           },
           {
             name: "Premium Paket",
@@ -95,7 +94,6 @@ export default async function PricingPage() {
               "Almanya'ya varış sonrası oryantasyon (online)",
             ],
             ctaText: "Başvuru Yap",
-            ctaHref: "/contact",
             popular: true,
           },
           {
@@ -115,7 +113,6 @@ export default async function PricingPage() {
               "Acil durum 7/24 telefon hattı",
             ],
             ctaText: "Başvuru Yap",
-            ctaHref: "/contact",
           },
         ]}
       />
@@ -205,7 +202,6 @@ export default async function PricingPage() {
         title="Almanya Eğitim Hayalinizi Gerçeğe Dönüştürün"
         description="Ücretsiz ön görüşme ile başlayın. Uzman danışmanlarımız sizin için en uygun planı belirlesin."
         buttonText="Ücretsiz Görüşme Ayarlayın"
-        buttonHref="/contact"
       />
     </>
   );

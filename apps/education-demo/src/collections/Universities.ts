@@ -76,6 +76,11 @@ export const Universities: CollectionConfig = {
       ],
     },
     {
+      name: "founded",
+      type: "number",
+      label: "Kuruluş Yılı",
+    },
+    {
       name: "description",
       type: "richText",
       label: "Tanıtım",
@@ -130,6 +135,65 @@ export const Universities: CollectionConfig = {
           admin: {
             description: "Örn: ~310€/dönem",
           },
+        },
+      ],
+    },
+    {
+      name: "conditionalAcceptance",
+      type: "select",
+      label: "Şartlı Kabul",
+      options: [
+        { label: "Var", value: "yes" },
+        { label: "Yok", value: "no" },
+        { label: "Bilinmiyor", value: "unknown" },
+      ],
+      defaultValue: "unknown",
+      admin: {
+        description: "Üniversite şartlı kabul veriyor mu?",
+      },
+    },
+    {
+      name: "conditionalAcceptanceLevel",
+      type: "select",
+      label: "Şartlı Kabul Dil Seviyesi",
+      options: [
+        { label: "Sıfır Almanca", value: "none" },
+        { label: "A1", value: "a1" },
+        { label: "A2", value: "a2" },
+        { label: "B1", value: "b1" },
+        { label: "B2", value: "b2" },
+        { label: "C1", value: "c1" },
+      ],
+      admin: {
+        description: "Şartlı kabul için minimum Almanca seviyesi",
+        condition: (data) => data?.conditionalAcceptance === "yes",
+      },
+    },
+    {
+      name: "studienkolleg",
+      type: "checkbox",
+      label: "Studienkolleg Mevcut",
+      defaultValue: false,
+      admin: {
+        description: "Bu üniversitede Studienkolleg var mı?",
+      },
+    },
+    {
+      name: "applicationDeadlines",
+      type: "group",
+      label: "Başvuru Tarihleri",
+      fields: [
+        {
+          name: "winterSemester",
+          type: "text",
+          label: "Kış Dönemi (Wintersemester)",
+          admin: { description: "Örn: 15 Temmuz" },
+        },
+        {
+          name: "summerSemester",
+          type: "text",
+          label: "Yaz Dönemi (Sommersemester)",
+          admin: { description: "Örn: 15 Ocak" },
         },
       ],
     },

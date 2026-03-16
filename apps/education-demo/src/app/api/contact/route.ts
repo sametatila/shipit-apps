@@ -11,6 +11,7 @@ const contactSchema = z.object({
   email: z.string().email().max(254),
   phone: z.string().max(20).optional(),
   message: z.string().min(10).max(2000),
+  source: z.string().max(50).optional(),
 });
 
 export async function POST(request: Request) {
@@ -51,6 +52,26 @@ export async function POST(request: Request) {
 
     const parsed = contactSchema.parse(body);
     const data = sanitizeObject(parsed);
+
+    // CMS'e kaydet
+    try {
+      const { getPayload } = await import("payload");
+      const config = await import("@/payload.config");
+      const payload = await getPayload({ config: config.default });
+      await payload.create({
+        collection: "form-submissions",
+        data: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone || undefined,
+          message: data.message,
+          source: data.source || "contact",
+          status: "new",
+        },
+      });
+    } catch {
+      // CMS erişilemezse devam et, en azından mail gönder
+    }
 
     // Email gönderimi
     if (process.env.RESEND_API_KEY) {

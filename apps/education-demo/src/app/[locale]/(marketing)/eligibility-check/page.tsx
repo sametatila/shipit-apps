@@ -78,7 +78,6 @@ export default async function EligibilityCheckPage() {
         title="Sonucunuzu Uzmanlarımızla Değerlendirin"
         description="Uygunluk testi sonucunuzu danışman ekibimizle birlikte değerlendirip, size özel eğitim planı oluşturalım."
         buttonText="Ücretsiz Danışmanlık Al"
-        buttonHref="/apply"
       />
     </>
   );

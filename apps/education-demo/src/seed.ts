@@ -76,6 +76,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 24,
         semesterFee: "~155€/dönem",
       },
+      founded: 1868,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b1",
+      studienkolleg: true,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Makine Mühendisliği (B.Sc.)", degree: "bachelor", language: "de" },
         { name: "Bilgisayar Bilimleri (B.Sc.)", degree: "bachelor", language: "de-en" },
@@ -108,6 +113,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 18,
         semesterFee: "~155€/dönem",
       },
+      founded: 1472,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b1",
+      studienkolleg: true,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Tıp (Staatsexamen)", degree: "bachelor", language: "de" },
         { name: "Hukuk (Staatsexamen)", degree: "bachelor", language: "de" },
@@ -139,6 +149,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 20,
         semesterFee: "~172€/dönem",
       },
+      founded: 1386,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b2",
+      studienkolleg: true,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Tıp (Staatsexamen)", degree: "bachelor", language: "de" },
         { name: "Fizik (B.Sc.)", degree: "bachelor", language: "de" },
@@ -169,6 +184,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 19,
         semesterFee: "~316€/dönem",
       },
+      founded: 1810,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b2",
+      studienkolleg: false,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Sosyoloji (B.A.)", degree: "bachelor", language: "de" },
         { name: "Felsefe (B.A.)", degree: "bachelor", language: "de" },
@@ -199,6 +219,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 25,
         semesterFee: "~316€/dönem",
       },
+      founded: 1879,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b1",
+      studienkolleg: true,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Bilgisayar Mühendisliği (B.Sc.)", degree: "bachelor", language: "de" },
         { name: "Endüstri Mühendisliği (B.Sc.)", degree: "bachelor", language: "de" },
@@ -230,6 +255,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 13,
         semesterFee: "~335€/dönem",
       },
+      founded: 1919,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b2",
+      studienkolleg: true,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "İşletme (B.Sc.)", degree: "bachelor", language: "de" },
         { name: "Denizcilik Mühendisliği (M.Sc.)", degree: "master", language: "de-en" },
@@ -259,6 +289,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 15,
         semesterFee: "~130€/dönem",
       },
+      founded: 1971,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b1",
+      studienkolleg: false,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Mekatronik (B.Eng.)", degree: "bachelor", language: "de" },
         { name: "Uygulama Geliştirme (B.Sc.)", degree: "bachelor", language: "de" },
@@ -289,6 +324,11 @@ export async function seed(payload: Payload) {
         internationalPercent: 22,
         semesterFee: "~172€/dönem",
       },
+      founded: 1825,
+      conditionalAcceptance: "yes",
+      conditionalAcceptanceLevel: "b1",
+      studienkolleg: true,
+      applicationDeadlines: { winterSemester: "15 Temmuz", summerSemester: "15 Ocak" },
       programs: [
         { name: "Makine Mühendisliği (B.Sc.)", degree: "bachelor", language: "de" },
         { name: "Elektroteknik (B.Sc.)", degree: "bachelor", language: "de" },
@@ -955,9 +995,9 @@ export async function seed(payload: Payload) {
       slug: "gizlilik-politikasi",
       status: "published",
       seo: {
-        metaTitle: "Gizlilik Politikası | Almanya Eğitim Danışmanlığı",
+        metaTitle: "Gizlilik Politikası | EuroVizyon Danışmanlık",
         metaDescription:
-          "Almanya Eğitim Danışmanlığı gizlilik politikası. Kişisel verilerinizin nasıl korunduğu hakkında bilgi.",
+          "EuroVizyon Danışmanlık gizlilik politikası. Kişisel verilerinizin nasıl korunduğu hakkında bilgi.",
       },
     },
   });
@@ -969,7 +1009,7 @@ export async function seed(payload: Payload) {
       slug: "kullanim-kosullari",
       status: "published",
       seo: {
-        metaTitle: "Kullanım Koşulları | Almanya Eğitim Danışmanlığı",
+        metaTitle: "Kullanım Koşulları | EuroVizyon Danışmanlık",
         metaDescription: "Web sitemizin kullanım koşulları ve yasal bilgiler.",
       },
     },
@@ -982,7 +1022,7 @@ export async function seed(payload: Payload) {
       slug: "kvkk-aydinlatma-metni",
       status: "published",
       seo: {
-        metaTitle: "KVKK Aydınlatma Metni | Almanya Eğitim Danışmanlığı",
+        metaTitle: "KVKK Aydınlatma Metni | EuroVizyon Danışmanlık",
         metaDescription:
           "6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metni.",
       },
@@ -999,7 +1039,7 @@ export async function seed(payload: Payload) {
   await payload.updateGlobal({
     slug: "site-settings",
     data: {
-      siteName: "Almanya Eğitim Danışmanlığı",
+      siteName: "EuroVizyon Danışmanlık",
       siteDescription:
         "Türk öğrencilerin Almanya'da üniversite, Ausbildung ve dil eğitimi süreçlerinde profesyonel danışmanlık hizmeti. Studienkolleg, lisans, yüksek lisans ve doktora programları.",
       contact: {

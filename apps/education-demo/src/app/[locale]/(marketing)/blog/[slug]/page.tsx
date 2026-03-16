@@ -290,7 +290,7 @@ export default async function BlogPostPage({
             author: { name: siteConfig.name },
             publisher: {
               name: siteConfig.name,
-              logo: `${siteConfig.url}/logo.svg`,
+              logo: `${siteConfig.url}/logo.png`,
             },
             keywords,
           })}
@@ -477,7 +477,7 @@ export default async function BlogPostPage({
                     )}
 
                     <Link
-                      href="/apply"
+                      href="/contact"
                       className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
                     >
                       Başvuru Yap
@@ -504,7 +504,7 @@ export default async function BlogPostPage({
           author: { name: siteConfig.name },
           publisher: {
             name: siteConfig.name,
-            logo: `${siteConfig.url}/logo.svg`,
+            logo: `${siteConfig.url}/logo.png`,
           },
           keywords,
         })}

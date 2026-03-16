@@ -4,19 +4,25 @@ import { useTranslations } from "next-intl";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Separator } from "@shipit/ui";
 import { useSiteConfig } from "@/contexts/site-config-context";
+import { useContactModal } from "@/contexts/contact-modal-context";
 import { Link } from "@/i18n/navigation";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const t = useTranslations();
   const siteConfig = useSiteConfig();
+  const { open: openContactModal } = useContactModal();
 
   return (
     <footer className="border-t bg-muted/50">
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-4">
-            <h3 className="font-heading text-lg font-bold">{siteConfig.name}</h3>
+            <img
+              src="/logo.png"
+              alt={siteConfig.name}
+              className="h-10 w-auto"
+            />
             <p className="text-sm text-muted-foreground">{t("common.siteDescription")}</p>
           </div>
 
@@ -40,9 +46,9 @@ export function Footer() {
               <Link href="/pricing" className="text-sm text-muted-foreground transition-colors hover:text-primary">
                 Fiyatlandırma
               </Link>
-              <Link href="/apply" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+              <button onClick={openContactModal} className="text-sm text-muted-foreground transition-colors hover:text-primary text-left">
                 Başvuru Yap
-              </Link>
+              </button>
               <Link href="/gallery" className="text-sm text-muted-foreground transition-colors hover:text-primary">
                 Galeri
               </Link>
@@ -60,10 +66,12 @@ export function Footer() {
                 <Mail className="h-4 w-4" />
                 <span>{siteConfig.contact.email}</span>
               </a>
-              <div className="flex items-start space-x-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-                <span>{siteConfig.contact.address}</span>
-              </div>
+              {siteConfig.offices.map((office) => (
+                <div key={office.name} className="flex items-start space-x-2 text-sm text-muted-foreground">
+                  <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+                  <span>{office.city}{office.isHQ ? " (Merkez)" : ""}</span>
+                </div>
+              ))}
             </div>
           </div>
 
