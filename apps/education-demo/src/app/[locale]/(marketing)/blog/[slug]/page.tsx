@@ -23,8 +23,8 @@ import config from "@payload-config";
 
 function formatTurkishDate(dateStr: string): string {
   const months = [
-    "Ocak", "\u015Eubat", "Mart", "Nisan", "May\u0131s", "Haziran",
-    "Temmuz", "A\u011Fustos", "Eyl\u00FCl", "Ekim", "Kas\u0131m", "Aral\u0131k",
+    "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+    "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık",
   ];
   const date = new Date(dateStr);
   return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
@@ -260,17 +260,17 @@ export default async function BlogPostPage({
 
   if (!post) notFound();
 
-  const isUniversity = post.category === "\u00DCniversite Rehberi";
+  const isUniversity = post.category === "Üniversite Rehberi";
   const keywords = getKeywords(post);
 
   // Extract university metadata from tags
-  const city = getTagValue(post.tags, "\u015Eehir");
+  const city = getTagValue(post.tags, "Şehir");
   const bundesland = getTagValue(post.tags, "Eyalet");
   const qsRanking = getTagValue(post.tags, "QS");
-  const students = getTagValue(post.tags, "\u00D6\u011Frenci");
-  const internationalPercent = getTagValue(post.tags, "Uluslararas\u0131");
-  const uniType = getTagValue(post.tags, "T\u00FCr");
-  const founded = getTagValue(post.tags, "Kurulu\u015F");
+  const students = getTagValue(post.tags, "Öğrenci");
+  const internationalPercent = getTagValue(post.tags, "Uluslararası");
+  const uniType = getTagValue(post.tags, "Tür");
+  const founded = getTagValue(post.tags, "Kuruluş");
   const website = getTagValue(post.tags, "Web");
 
   // Extract programs from tags (format: "Program:Makine Muhendisligi")
@@ -316,7 +316,7 @@ export default async function BlogPostPage({
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Blog&apos;a D\u00F6n
+                Blog&apos;a Dön
               </Link>
 
               <Badge className="mb-4">{post.category}</Badge>
@@ -357,7 +357,7 @@ export default async function BlogPostPage({
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">
-                            QS S\u0131ralama
+                            QS Sıralama
                           </p>
                           <p className="text-sm font-semibold">#{qsRanking}</p>
                         </div>
@@ -369,7 +369,7 @@ export default async function BlogPostPage({
                           <Users className="h-5 w-5 text-primary" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">\u00D6\u011Frenci</p>
+                          <p className="text-xs text-muted-foreground">Öğrenci</p>
                           <p className="text-sm font-semibold">{students}</p>
                         </div>
                       </div>
@@ -381,7 +381,7 @@ export default async function BlogPostPage({
                         </div>
                         <div>
                           <p className="text-xs text-muted-foreground">
-                            Uluslararas\u0131
+                            Uluslararası
                           </p>
                           <p className="text-sm font-semibold">
                             %{internationalPercent}
@@ -407,7 +407,7 @@ export default async function BlogPostPage({
                   ) : (
                     <div className="rounded-xl border bg-muted/50 p-8 text-center">
                       <p className="text-muted-foreground">
-                        \u0130\u00E7erik yak\u0131nda eklenecektir.
+                        İçerik yakında eklenecektir.
                       </p>
                     </div>
                   )}
@@ -420,7 +420,7 @@ export default async function BlogPostPage({
                       <>
                         <h3 className="font-semibold mb-3 flex items-center gap-2">
                           <GraduationCap className="h-4 w-4 text-primary" />
-                          Pop\u00FCler Programlar
+                          Popüler Programlar
                         </h3>
                         <ul className="space-y-2">
                           {programs.map((program: string) => (
@@ -439,18 +439,18 @@ export default async function BlogPostPage({
                     {(founded || uniType || bundesland) && (
                       <div className={programs.length > 0 ? "mt-5 pt-5 border-t" : ""}>
                         <h4 className="text-sm font-semibold mb-2">
-                          \u00DCniversite Bilgileri
+                          Üniversite Bilgileri
                         </h4>
                         <dl className="space-y-2 text-sm">
                           {founded && (
                             <div className="flex justify-between">
-                              <dt className="text-muted-foreground">Kurulu\u015F</dt>
+                              <dt className="text-muted-foreground">Kuruluş</dt>
                               <dd className="font-medium">{founded}</dd>
                             </div>
                           )}
                           {uniType && (
                             <div className="flex justify-between">
-                              <dt className="text-muted-foreground">T\u00FCr</dt>
+                              <dt className="text-muted-foreground">Tür</dt>
                               <dd className="font-medium">{uniType}</dd>
                             </div>
                           )}
@@ -480,7 +480,7 @@ export default async function BlogPostPage({
                       href="/apply"
                       className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
                     >
-                      Ba\u015Fvuru Yap
+                      Başvuru Yap
                     </Link>
                   </div>
                 </aside>
@@ -529,7 +529,7 @@ export default async function BlogPostPage({
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
             >
               <ArrowLeft className="h-4 w-4" />
-              Blog&apos;a D\u00F6n
+              Blog&apos;a Dön
             </Link>
 
             {post.category && <Badge className="mb-4">{post.category}</Badge>}
@@ -557,7 +557,7 @@ export default async function BlogPostPage({
               ) : (
                 <div className="rounded-xl border bg-muted/50 p-8 text-center">
                   <p className="text-muted-foreground">
-                    \u0130\u00E7erik yak\u0131nda eklenecektir.
+                    İçerik yakında eklenecektir.
                   </p>
                 </div>
               )}

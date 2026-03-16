@@ -21,17 +21,17 @@ import config from "@payload-config";
 function formatTurkishDate(dateStr: string): string {
   const months = [
     "Ocak",
-    "\u015Eubat",
+    "Şubat",
     "Mart",
     "Nisan",
-    "May\u0131s",
+    "Mayıs",
     "Haziran",
     "Temmuz",
-    "A\u011Fustos",
-    "Eyl\u00FCl",
+    "Ağustos",
+    "Eylül",
     "Ekim",
-    "Kas\u0131m",
-    "Aral\u0131k",
+    "Kasım",
+    "Aralık",
   ];
   const date = new Date(dateStr);
   return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
@@ -43,8 +43,8 @@ function getCategoryEmoji(category: string): string {
     "Vize & Finans": "\u{1F4B0}",
     "Ausbildung": "\u{1F6E0}\uFE0F",
     "Studienkolleg": "\u{1F393}",
-    "Ya\u015Fam": "\u{1F3E0}",
-    "\u00DCniversite Rehberi": "\u{1F3EB}",
+    "Yaşam": "\u{1F3E0}",
+    "Üniversite Rehberi": "\u{1F3EB}",
   };
   return emojiMap[category] || "\u{1F4DD}";
 }
@@ -58,9 +58,9 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
-    title: "Blog - Almanya E\u011Fitim Rehberleri ve G\u00FCncel Bilgiler",
+    title: "Blog - Almanya Eğitim Rehberleri ve Güncel Bilgiler",
     description:
-      "Almanya'da e\u011Fitim, \u00FCniversite ba\u015Fvurusu, Ausbildung, Studienkolleg, vize s\u00FCrecleri ve ya\u015Fam maliyeti hakk\u0131nda g\u00FCncel rehberler ve makaleler.",
+      "Almanya'da eğitim, üniversite başvurusu, Ausbildung, Studienkolleg, vize süreçleri ve yaşam maliyeti hakkında güncel rehberler ve makaleler.",
     path: "/blog",
   });
 }
@@ -89,14 +89,14 @@ export default async function BlogPage() {
   const postCategories = Array.from(
     new Set(blogPosts.map((post) => post.category).filter(Boolean))
   );
-  const categories = ["T\u00FCm\u00FC", ...postCategories];
+  const categories = ["Tümü", ...postCategories];
 
   // Separate university guide posts
   const universityPosts = blogPosts.filter(
-    (post) => post.category === "\u00DCniversite Rehberi"
+    (post) => post.category === "Üniversite Rehberi"
   );
   const regularPosts = blogPosts.filter(
-    (post) => post.category !== "\u00DCniversite Rehberi"
+    (post) => post.category !== "Üniversite Rehberi"
   );
 
   // Extract tags as keywords
@@ -143,15 +143,15 @@ export default async function BlogPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Almanya E\u011Fitim Rehberleri
+              Almanya Eğitim Rehberleri
             </p>
             <h1 className="font-heading text-4xl font-bold md:text-5xl">
               Blog
             </h1>
             <p className="text-lg text-muted-foreground">
-              Almanya&apos;da e\u011Fitim hayat\u0131n\u0131za dair en g\u00FCncel rehberler,
-              ba\u015Fvuru s\u00FCrecleri ve pratik bilgiler. Uzman dan\u0131\u015Fmanlar\u0131m\u0131z\u0131n
-              kaleminden detayl\u0131 makaleler.
+              Almanya&apos;da eğitim hayatınıza dair en güncel rehberler,
+              başvuru süreçleri ve pratik bilgiler. Uzman danışmanlarımızın
+              kaleminden detaylı makaleler.
             </p>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default async function BlogPage() {
             {categories.map((category) => (
               <Badge
                 key={category}
-                variant={category === "T\u00FCm\u00FC" ? "default" : "outline"}
+                variant={category === "Tümü" ? "default" : "outline"}
                 className="cursor-pointer px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 {category}
@@ -180,14 +180,14 @@ export default async function BlogPage() {
           <div className="container mx-auto px-4">
             <div className="mb-8 text-center">
               <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
-                \u00DCniversite Rehberleri
+                Üniversite Rehberleri
               </p>
               <h2 className="font-heading text-2xl font-bold md:text-3xl">
-                Almanya&apos;n\u0131n En \u0130yi \u00DCniversiteleri
+                Almanya&apos;nın En İyi Üniversiteleri
               </h2>
               <p className="mt-2 text-muted-foreground max-w-2xl mx-auto">
-                Her \u00FCniversite hakk\u0131nda detayl\u0131 bilgi: programlar, ba\u015Fvuru
-                s\u00FCrecleri, ya\u015Fam maliyetleri ve kariyer imkanlar\u0131.
+                Her üniversite hakkında detaylı bilgi: programlar, başvuru
+                süreçleri, yaşam maliyetleri ve kariyer imkanları.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -196,17 +196,17 @@ export default async function BlogPage() {
                 // Try to extract QS ranking from tags (format: "QS:37")
                 const qsTag = tags.find((t) => t.startsWith("QS:"));
                 const qsRanking = qsTag ? qsTag.replace("QS:", "") : null;
-                // Try to extract city from tags (format: "\u015Eehir:M\u00FCnchen")
-                const cityTag = tags.find((t) => t.startsWith("\u015Eehir:"));
-                const city = cityTag ? cityTag.replace("\u015Eehir:", "") : null;
+                // Try to extract city from tags (format: "Şehir:München")
+                const cityTag = tags.find((t) => t.startsWith("Şehir:"));
+                const city = cityTag ? cityTag.replace("Şehir:", "") : null;
                 // Try to extract bundesland from tags (format: "Eyalet:Bayern")
                 const bundeslandTag = tags.find((t) => t.startsWith("Eyalet:"));
                 const bundesland = bundeslandTag
                   ? bundeslandTag.replace("Eyalet:", "")
                   : null;
-                // Try to extract type from tags (format: "T\u00FCr:Teknik \u00DCniversite")
-                const typeTag = tags.find((t) => t.startsWith("T\u00FCr:"));
-                const uniType = typeTag ? typeTag.replace("T\u00FCr:", "") : null;
+                // Try to extract type from tags (format: "Tür:Teknik Üniversite")
+                const typeTag = tags.find((t) => t.startsWith("Tür:"));
+                const uniType = typeTag ? typeTag.replace("Tür:", "") : null;
 
                 return (
                   <Link key={post.slug} href={`/blog/${post.slug}`}>
@@ -301,7 +301,7 @@ export default async function BlogPage() {
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
                   >
-                    Devam\u0131n\u0131 Oku
+                    Devamını Oku
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </CardFooter>
@@ -316,11 +316,11 @@ export default async function BlogPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2 className="font-heading text-3xl font-bold">
-              Almanya E\u011Fitim B\u00FCltenimize Abone Olun
+              Almanya Eğitim Bültenimize Abone Olun
             </h2>
             <p className="text-muted-foreground">
-              Yeni rehberler, burs f\u0131rsatlar\u0131 ve ba\u015Fvuru tarihleri hakk\u0131nda
-              g\u00FCncel bilgileri e-posta adresinize g\u00F6nderelim.
+              Yeni rehberler, burs fırsatları ve başvuru tarihleri hakkında
+              güncel bilgileri e-posta adresinize gönderelim.
             </p>
             <div className="max-w-md mx-auto">
               <NewsletterForm />
