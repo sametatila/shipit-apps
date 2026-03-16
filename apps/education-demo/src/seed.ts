@@ -1,4 +1,5 @@
 import type { Payload } from "payload";
+import { blogPosts } from "./seed-blog-data";
 
 export async function seed(payload: Payload) {
   console.log("🌱 Seeding başlatılıyor...");
@@ -911,87 +912,36 @@ export async function seed(payload: Payload) {
   console.log(`  ✓ ${5} başvuru oluşturuldu`);
 
   // ============================================
-  // 7. BLOG POSTS (3 Blog Yazısı)
+  // 7. BLOG POSTS (26 Blog Yazısı)
   // ============================================
   console.log("📝 Blog yazıları oluşturuluyor...");
 
-  await payload.create({
-    collection: "blog-posts",
-    data: {
-      title: "2026 Yılında Almanya'da Üniversite Okumak: Kapsamlı Rehber",
-      slug: "2026-almanya-universite-rehber",
-      excerpt:
-        "Almanya'da üniversite eğitimi hakkında bilmeniz gereken her şey: başvuru süreci, Studienkolleg, dil gereksinimleri, yaşam maliyetleri ve burs imkânları.",
-      category: "Üniversite Eğitimi",
-      tags: [
-        { tag: "almanya-egitim" },
-        { tag: "universite" },
-        { tag: "studienkolleg" },
-        { tag: "basvuru-rehberi" },
-        { tag: "2026" },
-      ],
-      author: admin.id,
-      publishedAt: "2026-02-15",
-      status: "published",
-      seo: {
-        metaTitle: "2026 Almanya Üniversite Rehberi | Almanya Eğitim Danışmanlığı",
-        metaDescription:
-          "Almanya'da üniversite okumak isteyenler için 2026 güncel rehber. Başvuru süreci, Studienkolleg, dil şartları, yaşam maliyetleri ve burs fırsatları.",
-      },
-    },
-  });
+  const authorMap = {
+    admin: admin.id,
+    consultant1: consultant1.id,
+    consultant2: consultant2.id,
+    consultant3: consultant3.id,
+  };
 
-  await payload.create({
-    collection: "blog-posts",
-    data: {
-      title: "Ausbildung Nedir? Almanya'da Mesleki Eğitimin Tüm Detayları",
-      slug: "ausbildung-nedir-almanya-mesleki-egitim",
-      excerpt:
-        "Almanya'nın dünyaca ünlü Ausbildung sistemi hakkında detaylı bilgi. Başvuru koşulları, maaş bilgileri, popüler meslekler ve Türk öğrenciler için fırsatlar.",
-      category: "Ausbildung",
-      tags: [
-        { tag: "ausbildung" },
-        { tag: "mesleki-egitim" },
-        { tag: "almanya-calisma" },
-        { tag: "maas" },
-      ],
-      author: consultant3.id,
-      publishedAt: "2026-01-20",
-      status: "published",
-      seo: {
-        metaTitle: "Ausbildung Nedir? 2026 Güncel Rehber | Almanya Eğitim Danışmanlığı",
-        metaDescription:
-          "Almanya Ausbildung sistemi nedir? Maaşlar, başvuru koşulları, popüler meslekler. Türk öğrenciler için Ausbildung rehberi.",
+  for (const post of blogPosts) {
+    await payload.create({
+      collection: "blog-posts",
+      data: {
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        category: post.category,
+        tags: post.tags,
+        author: authorMap[post.authorKey],
+        publishedAt: post.publishedAt,
+        status: post.status,
+        markdownBody: post.markdownBody,
+        seo: post.seo,
       },
-    },
-  });
+    });
+  }
 
-  await payload.create({
-    collection: "blog-posts",
-    data: {
-      title: "Sperrkonto Nedir? 2026 Güncel Tutarlar ve Açma Rehberi",
-      slug: "sperrkonto-nedir-2026-rehber",
-      excerpt:
-        "Almanya vize başvurusu için gerekli olan Sperrkonto (bloke hesap) hakkında her şey. 2026 güncel tutarları, en uygun bankalar ve adım adım açma rehberi.",
-      category: "Vize & İdari İşlemler",
-      tags: [
-        { tag: "sperrkonto" },
-        { tag: "bloke-hesap" },
-        { tag: "almanya-vize" },
-        { tag: "2026" },
-      ],
-      author: consultant2.id,
-      publishedAt: "2026-03-01",
-      status: "published",
-      seo: {
-        metaTitle: "Sperrkonto Nedir? 2026 Güncel Tutar ve Rehber",
-        metaDescription:
-          "Sperrkonto (bloke hesap) 2026 güncel tutarı: 11.904€. En uygun bankalar, açma süreci ve dikkat edilmesi gerekenler.",
-      },
-    },
-  });
-
-  console.log(`  ✓ ${3} blog yazısı oluşturuldu`);
+  console.log(`  ✓ ${blogPosts.length} blog yazısı oluşturuldu`);
 
   // ============================================
   // 8. PAGES (3 CMS Sayfası)
@@ -1085,7 +1035,7 @@ export async function seed(payload: Payload) {
   console.log("   - 6 Başarı Hikayesi");
   console.log("   - 5 Referans");
   console.log("   - 5 Başvuru (CRM)");
-  console.log("   - 3 Blog Yazısı");
+  console.log("   - 26 Blog Yazısı (20 Üniversite + 6 Genel)");
   console.log("   - 3 CMS Sayfası");
   console.log("   - 1 Site Ayarları (Global)");
   console.log("\n   Admin giriş: admin@almanya-egitim.com / admin123");

@@ -36,6 +36,14 @@ export const BlogPosts: CollectionConfig = {
       label: "İçerik",
     },
     {
+      name: "markdownBody",
+      type: "textarea",
+      label: "İçerik (Markdown)",
+      admin: {
+        description: "Blog yazısının tam içeriği. Markdown formatında yazabilirsiniz.",
+      },
+    },
+    {
       name: "featuredImage",
       type: "upload",
       label: "Öne Çıkan Görsel",

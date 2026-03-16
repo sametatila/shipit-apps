@@ -9,22 +9,12 @@ export const siteConfig = {
   // i18n ayarları
   i18n: {
     defaultLocale: "tr" as Locale,
-    locales: ["tr", "en", "de", "ar", "ru", "nl"] as Locale[],
+    locales: ["tr"] as Locale[],
     localeLabels: {
       tr: "Türkçe",
-      en: "English",
-      de: "Deutsch",
-      ar: "العربية",
-      ru: "Русский",
-      nl: "Nederlands",
     } as Record<Locale, string>,
     localeCodes: {
       tr: "TR",
-      en: "GB",
-      de: "DE",
-      ar: "SA",
-      ru: "RU",
-      nl: "NL",
     } as Record<Locale, string>,
     enabledLocales: ["tr"] as Locale[],
   },

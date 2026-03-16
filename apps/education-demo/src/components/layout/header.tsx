@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@shipit/ui";
 import { useSiteConfig } from "@/contexts/site-config-context";
 import { trackPhoneClick } from "@shipit/analytics";
 import { Link } from "@/i18n/navigation";
-import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +37,6 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center space-x-2">
-          <LocaleSwitcher />
           <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -52,7 +51,6 @@ export function Header() {
         </div>
 
         <div className="flex md:hidden items-center space-x-2">
-          <LocaleSwitcher />
           <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

@@ -53,10 +53,8 @@ export default async function LocaleLayout({
     getSiteConfig(),
   ]);
 
-  const dir = locale === "ar" ? "rtl" : "ltr";
-
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning>
+    <html lang={locale} dir="ltr" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

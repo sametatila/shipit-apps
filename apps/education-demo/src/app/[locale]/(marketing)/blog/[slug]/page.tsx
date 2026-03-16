@@ -18,114 +18,13 @@ import {
   GraduationCap,
   ExternalLink,
 } from "lucide-react";
-import { universityBlogPosts } from "@/data/university-blog-posts";
-
-// Also include the static blog posts from the listing page
-const staticBlogPosts = [
-  {
-    slug: "almanya-universite-egitimi-2026-basvuru-rehberi",
-    title: "Almanya'da Üniversite Eğitimi: 2026 Başvuru Rehberi",
-    category: "Rehber",
-    date: "2026-02-15",
-    readTime: "12 dk",
-    content: "Bu rehber yakında eklenecektir.",
-    keywords: ["Almanya üniversite başvuru"],
-  },
-  {
-    slug: "sperrkonto-nedir-2026-guncel-tutar",
-    title: "Sperrkonto Nedir? 2026 Güncel Tutarı ve Açılış Rehberi",
-    category: "Vize & Finans",
-    date: "2026-02-01",
-    readTime: "8 dk",
-    content: "Bu rehber yakında eklenecektir.",
-    keywords: ["Sperrkonto"],
-  },
-  {
-    slug: "almanya-ausbildung-maasli-mesleki-egitim",
-    title: "Almanya'da Ausbildung: Maaşlı Mesleki Eğitimin Tüm Detayları",
-    category: "Ausbildung",
-    date: "2026-01-20",
-    readTime: "15 dk",
-    content: "Bu rehber yakında eklenecektir.",
-    keywords: ["Ausbildung"],
-  },
-  {
-    slug: "studienkolleg-rehberi-basvuru-hazirlik-fsp",
-    title: "Studienkolleg Rehberi: Başvuru, Hazırlık ve FSP Sınavı",
-    category: "Studienkolleg",
-    date: "2026-01-10",
-    readTime: "10 dk",
-    content: "Bu rehber yakında eklenecektir.",
-    keywords: ["Studienkolleg"],
-  },
-  {
-    slug: "almanya-yasam-maliyeti-2026-sehir-karsilastirma",
-    title: "Almanya'da Yaşam Maliyeti 2026: Şehir Şehir Karşılaştırma",
-    category: "Yaşam",
-    date: "2025-12-28",
-    readTime: "11 dk",
-    content: "Bu rehber yakında eklenecektir.",
-    keywords: ["Almanya yaşam maliyeti"],
-  },
-  {
-    slug: "almanya-ogrenci-vizesi-gerekli-belgeler",
-    title: "Almanya Öğrenci Vizesi: Gerekli Belgeler ve Başvuru Süreci",
-    category: "Vize & Finans",
-    date: "2025-12-15",
-    readTime: "9 dk",
-    content: "Bu rehber yakında eklenecektir.",
-    keywords: ["Almanya öğrenci vizesi"],
-  },
-];
-
-function findPost(slug: string) {
-  const uniPost = universityBlogPosts.find((p) => p.slug === slug);
-  if (uniPost) return { type: "university" as const, post: uniPost };
-
-  const staticPost = staticBlogPosts.find((p) => p.slug === slug);
-  if (staticPost) return { type: "static" as const, post: staticPost };
-
-  return null;
-}
-
-export async function generateStaticParams() {
-  const allSlugs = [
-    ...universityBlogPosts.map((p) => ({ slug: p.slug })),
-    ...staticBlogPosts.map((p) => ({ slug: p.slug })),
-  ];
-  return allSlugs;
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; slug: string }>;
-}): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const result = findPost(slug);
-  if (!result) return {};
-
-  const siteConfig = await getSiteConfig();
-  const title =
-    result.type === "university"
-      ? result.post.title
-      : result.post.title;
-  const description =
-    result.type === "university"
-      ? (result.post as any).excerpt
-      : result.post.title;
-
-  return generatePageMetadata(siteConfig, {
-    title,
-    description,
-    path: `/blog/${slug}`,
-  });
-}
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 function formatTurkishDate(dateStr: string): string {
   const months = [
-    "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
-    "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık",
+    "Ocak", "\u015Eubat", "Mart", "Nisan", "May\u0131s", "Haziran",
+    "Temmuz", "A\u011Fustos", "Eyl\u00FCl", "Ekim", "Kas\u0131m", "Aral\u0131k",
   ];
   const date = new Date(dateStr);
   return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
@@ -284,6 +183,71 @@ function renderMarkdownContent(content: string) {
   return elements;
 }
 
+// Helper to extract structured tag data
+function getTagValue(tags: any[] | undefined | null, prefix: string): string | null {
+  if (!tags || !Array.isArray(tags)) return null;
+  const found = tags.find((t: any) => t.tag?.startsWith(`${prefix}:`));
+  return found ? found.tag.replace(`${prefix}:`, "") : null;
+}
+
+function getKeywords(post: any): string[] {
+  if (!post.tags || !Array.isArray(post.tags)) return [];
+  return post.tags
+    .map((t: any) => t.tag)
+    .filter((t: string) => t && !t.includes(":"));
+}
+
+async function getPost(slug: string) {
+  try {
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({
+      collection: "blog-posts",
+      where: {
+        slug: { equals: slug },
+        status: { equals: "published" },
+      },
+      limit: 1,
+    });
+    return docs[0] || null;
+  } catch {
+    return null;
+  }
+}
+
+export async function generateStaticParams() {
+  try {
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({
+      collection: "blog-posts",
+      where: {
+        status: { equals: "published" },
+      },
+      limit: 200,
+    });
+    return docs.map((post) => ({ slug: post.slug }));
+  } catch {
+    return [];
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const post = await getPost(slug);
+  if (!post) return {};
+
+  const siteConfig = await getSiteConfig();
+
+  return generatePageMetadata(siteConfig, {
+    title: post.title,
+    description: post.excerpt || post.title,
+    path: `/blog/${slug}`,
+  });
+}
+
 export default async function BlogPostPage({
   params,
 }: {
@@ -292,28 +256,43 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const t = await getTranslations();
   const siteConfig = await getSiteConfig();
-  const result = findPost(slug);
+  const post = await getPost(slug);
 
-  if (!result) notFound();
+  if (!post) notFound();
 
-  const { type, post } = result;
+  const isUniversity = post.category === "\u00DCniversite Rehberi";
+  const keywords = getKeywords(post);
 
-  if (type === "university") {
-    const uni = post as (typeof universityBlogPosts)[number];
+  // Extract university metadata from tags
+  const city = getTagValue(post.tags, "\u015Eehir");
+  const bundesland = getTagValue(post.tags, "Eyalet");
+  const qsRanking = getTagValue(post.tags, "QS");
+  const students = getTagValue(post.tags, "\u00D6\u011Frenci");
+  const internationalPercent = getTagValue(post.tags, "Uluslararas\u0131");
+  const uniType = getTagValue(post.tags, "T\u00FCr");
+  const founded = getTagValue(post.tags, "Kurulu\u015F");
+  const website = getTagValue(post.tags, "Web");
+
+  // Extract programs from tags (format: "Program:Makine Muhendisligi")
+  const programs = (post.tags || [])
+    .filter((t: any) => t.tag?.startsWith("Program:"))
+    .map((t: any) => t.tag.replace("Program:", ""));
+
+  if (isUniversity) {
     return (
       <>
         <JsonLd
           data={blogPostingJsonLd({
-            title: uni.title,
-            description: uni.excerpt,
-            url: `${siteConfig.url}/blog/${uni.slug}`,
-            datePublished: uni.date,
+            title: post.title,
+            description: post.excerpt || "",
+            url: `${siteConfig.url}/blog/${post.slug}`,
+            datePublished: post.publishedAt || "",
             author: { name: siteConfig.name },
             publisher: {
               name: siteConfig.name,
               logo: `${siteConfig.url}/logo.svg`,
             },
-            keywords: uni.keywords,
+            keywords,
           })}
         />
 
@@ -323,7 +302,7 @@ export default async function BlogPostPage({
             items={[
               { label: t("common.home"), href: "/" },
               { label: "Blog", href: "/blog" },
-              { label: uni.universityName },
+              { label: post.title },
             ]}
           />
         </div>
@@ -337,140 +316,171 @@ export default async function BlogPostPage({
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Blog&apos;a Dön
+                Blog&apos;a D\u00F6n
               </Link>
 
-              <Badge className="mb-4">{uni.category}</Badge>
+              <Badge className="mb-4">{post.category}</Badge>
               <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl mb-6 leading-tight">
-                {uni.title}
+                {post.title}
               </h1>
 
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-8">
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="h-4 w-4" />
-                  {formatTurkishDate(uni.date)}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="h-4 w-4" />
-                  {uni.readTime}
-                </span>
+                {post.publishedAt && (
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="h-4 w-4" />
+                    {formatTurkishDate(post.publishedAt)}
+                  </span>
+                )}
               </div>
 
               {/* University Info Card */}
-              <div className="rounded-xl border bg-card p-6 mb-10">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                      <MapPin className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Konum</p>
-                      <p className="text-sm font-semibold">
-                        {uni.city}, {uni.bundesland}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                      <Trophy className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        QS Sıralama
-                      </p>
-                      <p className="text-sm font-semibold">#{uni.qsRanking}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                      <Users className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">Öğrenci</p>
-                      <p className="text-sm font-semibold">{uni.students}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                      <Globe className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        Uluslararası
-                      </p>
-                      <p className="text-sm font-semibold">
-                        %{uni.internationalPercent}
-                      </p>
-                    </div>
+              {(city || qsRanking || students || internationalPercent) && (
+                <div className="rounded-xl border bg-card p-6 mb-10">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {city && (
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                          <MapPin className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Konum</p>
+                          <p className="text-sm font-semibold">
+                            {city}{bundesland ? `, ${bundesland}` : ""}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    {qsRanking && (
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                          <Trophy className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            QS S\u0131ralama
+                          </p>
+                          <p className="text-sm font-semibold">#{qsRanking}</p>
+                        </div>
+                      </div>
+                    )}
+                    {students && (
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                          <Users className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">\u00D6\u011Frenci</p>
+                          <p className="text-sm font-semibold">{students}</p>
+                        </div>
+                      </div>
+                    )}
+                    {internationalPercent && (
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                          <Globe className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            Uluslararas\u0131
+                          </p>
+                          <p className="text-sm font-semibold">
+                            %{internationalPercent}
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* Quick Info Sidebar */}
               <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-10">
                 {/* Main Content */}
                 <article className="prose-custom">
-                  <p className="text-lg leading-relaxed text-muted-foreground mb-8">
-                    {uni.excerpt}
-                  </p>
-                  {renderMarkdownContent(uni.content)}
+                  {post.excerpt && (
+                    <p className="text-lg leading-relaxed text-muted-foreground mb-8">
+                      {post.excerpt}
+                    </p>
+                  )}
+                  {post.markdownBody ? (
+                    renderMarkdownContent(post.markdownBody)
+                  ) : (
+                    <div className="rounded-xl border bg-muted/50 p-8 text-center">
+                      <p className="text-muted-foreground">
+                        \u0130\u00E7erik yak\u0131nda eklenecektir.
+                      </p>
+                    </div>
+                  )}
                 </article>
 
                 {/* Sidebar */}
                 <aside className="space-y-6">
-                  {/* Programs */}
                   <div className="rounded-xl border bg-card p-5 sticky top-24">
-                    <h3 className="font-semibold mb-3 flex items-center gap-2">
-                      <GraduationCap className="h-4 w-4 text-primary" />
-                      Popüler Programlar
-                    </h3>
-                    <ul className="space-y-2">
-                      {uni.programs.map((program) => (
-                        <li
-                          key={program}
-                          className="text-sm text-muted-foreground flex items-center gap-2"
-                        >
-                          <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                          {program}
-                        </li>
-                      ))}
-                    </ul>
+                    {programs.length > 0 && (
+                      <>
+                        <h3 className="font-semibold mb-3 flex items-center gap-2">
+                          <GraduationCap className="h-4 w-4 text-primary" />
+                          Pop\u00FCler Programlar
+                        </h3>
+                        <ul className="space-y-2">
+                          {programs.map((program: string) => (
+                            <li
+                              key={program}
+                              className="text-sm text-muted-foreground flex items-center gap-2"
+                            >
+                              <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                              {program}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
 
-                    <div className="mt-5 pt-5 border-t">
-                      <h4 className="text-sm font-semibold mb-2">
-                        Üniversite Bilgileri
-                      </h4>
-                      <dl className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <dt className="text-muted-foreground">Kuruluş</dt>
-                          <dd className="font-medium">{uni.founded}</dd>
-                        </div>
-                        <div className="flex justify-between">
-                          <dt className="text-muted-foreground">Tür</dt>
-                          <dd className="font-medium">{uni.type}</dd>
-                        </div>
-                        <div className="flex justify-between">
-                          <dt className="text-muted-foreground">Eyalet</dt>
-                          <dd className="font-medium">{uni.bundesland}</dd>
-                        </div>
-                      </dl>
-                    </div>
+                    {(founded || uniType || bundesland) && (
+                      <div className={programs.length > 0 ? "mt-5 pt-5 border-t" : ""}>
+                        <h4 className="text-sm font-semibold mb-2">
+                          \u00DCniversite Bilgileri
+                        </h4>
+                        <dl className="space-y-2 text-sm">
+                          {founded && (
+                            <div className="flex justify-between">
+                              <dt className="text-muted-foreground">Kurulu\u015F</dt>
+                              <dd className="font-medium">{founded}</dd>
+                            </div>
+                          )}
+                          {uniType && (
+                            <div className="flex justify-between">
+                              <dt className="text-muted-foreground">T\u00FCr</dt>
+                              <dd className="font-medium">{uniType}</dd>
+                            </div>
+                          )}
+                          {bundesland && (
+                            <div className="flex justify-between">
+                              <dt className="text-muted-foreground">Eyalet</dt>
+                              <dd className="font-medium">{bundesland}</dd>
+                            </div>
+                          )}
+                        </dl>
+                      </div>
+                    )}
 
-                    <a
-                      href={`https://${uni.website}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-                    >
-                      Resmi Web Sitesi
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
+                    {website && (
+                      <a
+                        href={`https://${website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                      >
+                        Resmi Web Sitesi
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
 
                     <Link
                       href="/apply"
                       className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-primary px-4 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
                     >
-                      Başvuru Yap
+                      Ba\u015Fvuru Yap
                     </Link>
                   </div>
                 </aside>
@@ -482,9 +492,24 @@ export default async function BlogPostPage({
     );
   }
 
-  // Static blog posts (placeholder)
+  // Regular blog post layout
   return (
     <>
+      <JsonLd
+        data={blogPostingJsonLd({
+          title: post.title,
+          description: post.excerpt || "",
+          url: `${siteConfig.url}/blog/${post.slug}`,
+          datePublished: post.publishedAt || "",
+          author: { name: siteConfig.name },
+          publisher: {
+            name: siteConfig.name,
+            logo: `${siteConfig.url}/logo.svg`,
+          },
+          keywords,
+        })}
+      />
+
       <div className="container mx-auto px-4">
         <Breadcrumbs
           baseUrl={siteConfig.url}
@@ -504,30 +529,39 @@ export default async function BlogPostPage({
               className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
             >
               <ArrowLeft className="h-4 w-4" />
-              Blog&apos;a Dön
+              Blog&apos;a D\u00F6n
             </Link>
 
-            <Badge className="mb-4">{post.category}</Badge>
+            {post.category && <Badge className="mb-4">{post.category}</Badge>}
             <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl mb-6">
               {post.title}
             </h1>
 
             <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" />
-                {formatTurkishDate(post.date)}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4" />
-                {post.readTime}
-              </span>
+              {post.publishedAt && (
+                <span className="flex items-center gap-1.5">
+                  <Calendar className="h-4 w-4" />
+                  {formatTurkishDate(post.publishedAt)}
+                </span>
+              )}
             </div>
 
-            <div className="rounded-xl border bg-muted/50 p-8 text-center">
-              <p className="text-muted-foreground">
-                Bu makale yakında yayınlanacaktır.
-              </p>
-            </div>
+            <article className="prose-custom">
+              {post.excerpt && (
+                <p className="text-lg leading-relaxed text-muted-foreground mb-8">
+                  {post.excerpt}
+                </p>
+              )}
+              {post.markdownBody ? (
+                renderMarkdownContent(post.markdownBody)
+              ) : (
+                <div className="rounded-xl border bg-muted/50 p-8 text-center">
+                  <p className="text-muted-foreground">
+                    \u0130\u00E7erik yak\u0131nda eklenecektir.
+                  </p>
+                </div>
+              )}
+            </article>
           </div>
         </div>
       </section>

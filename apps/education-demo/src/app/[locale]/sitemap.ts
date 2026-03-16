@@ -76,9 +76,14 @@ async function fetchDynamicEntries(
   enabledLocales: string[],
   defaultLocale: string
 ): Promise<MetadataRoute.Sitemap> {
-  const { getPayload } = await import("payload");
-  const config = await import("@/payload.config");
-  const payload = await getPayload({ config: config.default });
+  let payload;
+  try {
+    const { getPayload } = await import("payload");
+    const config = await import("@/payload.config");
+    payload = await getPayload({ config: config.default });
+  } catch {
+    return [];
+  }
 
   const entries: MetadataRoute.Sitemap = [];
 
