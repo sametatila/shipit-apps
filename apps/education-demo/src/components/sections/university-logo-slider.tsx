@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -81,7 +80,6 @@ export function UniversityLogoSlider() {
                 <Link href={`/blog/${uni.blogSlug}`} className="block">
                   <div className="group flex flex-col items-center gap-3 rounded-xl border bg-card p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 cursor-pointer">
                     <div className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={uni.logo}
                         alt={`${uni.name} logosu`}
