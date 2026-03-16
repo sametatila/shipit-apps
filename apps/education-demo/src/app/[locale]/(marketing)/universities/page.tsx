@@ -37,14 +37,14 @@ interface University {
 }
 
 const TYPE_LABELS: Record<UniversityType, string> = {
-  "public-uni": "Universitat",
+  "public-uni": "Üniversite",
   tu: "TU",
   fh: "FH",
 };
 
 const TYPE_FILTERS: { label: string; value: UniversityType | "all" }[] = [
-  { label: "Tumu", value: "all" },
-  { label: "Universitat", value: "public-uni" },
+  { label: "Tümü", value: "all" },
+  { label: "Üniversite", value: "public-uni" },
   { label: "TU", value: "tu" },
   { label: "FH", value: "fh" },
 ];
@@ -52,38 +52,38 @@ const TYPE_FILTERS: { label: string; value: UniversityType | "all" }[] = [
 const universities: University[] = [
   {
     slug: "technische-universitat-munchen",
-    name: "Technische Universitat Munchen (TUM)",
-    city: "Munchen",
+    name: "Technische Universität München (TUM)",
+    city: "München",
     state: "Bayern",
     type: "public-uni",
     qsRanking: 49,
     studentCount: 50000,
     internationalPercent: 37,
-    semesterFee: "157\u20AC/yariyil",
+    semesterFee: "157€/yarıyıl",
     isPartner: true,
   },
   {
     slug: "ludwig-maximilians-universitat",
-    name: "Ludwig-Maximilians-Universitat (LMU)",
-    city: "Munchen",
+    name: "Ludwig-Maximilians-Universität (LMU)",
+    city: "München",
     state: "Bayern",
     type: "public-uni",
     qsRanking: 59,
     studentCount: 52000,
     internationalPercent: 18,
-    semesterFee: "157\u20AC/yariyil",
+    semesterFee: "157€/yarıyıl",
     isPartner: true,
   },
   {
     slug: "technische-universitat-berlin",
-    name: "Technische Universitat Berlin",
+    name: "Technische Universität Berlin",
     city: "Berlin",
     state: "Berlin",
     type: "tu",
     qsRanking: 106,
     studentCount: 35000,
     internationalPercent: 25,
-    semesterFee: "312\u20AC/yariyil",
+    semesterFee: "312€/yarıyıl",
     isPartner: true,
   },
   {
@@ -95,55 +95,55 @@ const universities: University[] = [
     qsRanking: 87,
     studentCount: 47000,
     internationalPercent: 28,
-    semesterFee: "316\u20AC/yariyil",
+    semesterFee: "316€/yarıyıl",
     isPartner: true,
   },
   {
     slug: "universitat-heidelberg",
-    name: "Universitat Heidelberg",
+    name: "Universität Heidelberg",
     city: "Heidelberg",
-    state: "Baden-Wurttemberg",
+    state: "Baden-Württemberg",
     type: "public-uni",
     qsRanking: 47,
     studentCount: 31000,
     internationalPercent: 20,
-    semesterFee: "171\u20AC/yariyil + 1500\u20AC (AB-disi)",
+    semesterFee: "171€/yarıyıl + 1500€ (AB-dışı)",
     isPartner: false,
   },
   {
     slug: "freie-universitat-berlin",
-    name: "Freie Universitat Berlin",
+    name: "Freie Universität Berlin",
     city: "Berlin",
     state: "Berlin",
     type: "public-uni",
     qsRanking: 91,
     studentCount: 36000,
     internationalPercent: 22,
-    semesterFee: "312\u20AC/yariyil",
+    semesterFee: "312€/yarıyıl",
     isPartner: true,
   },
   {
     slug: "universitat-hamburg",
-    name: "Universitat Hamburg",
+    name: "Universität Hamburg",
     city: "Hamburg",
     state: "Hamburg",
     type: "public-uni",
     qsRanking: 164,
     studentCount: 43000,
     internationalPercent: 14,
-    semesterFee: "335\u20AC/yariyil",
+    semesterFee: "335€/yarıyıl",
     isPartner: false,
   },
   {
     slug: "karlsruher-institut-fur-technologie",
-    name: "Karlsruher Institut fur Technologie (KIT)",
+    name: "Karlsruher Institut für Technologie (KIT)",
     city: "Karlsruhe",
-    state: "Baden-Wurttemberg",
+    state: "Baden-Württemberg",
     type: "tu",
     qsRanking: 119,
     studentCount: 24000,
     internationalPercent: 24,
-    semesterFee: "171\u20AC/yariyil + 1500\u20AC (AB-disi)",
+    semesterFee: "171€/yarıyıl + 1500€ (AB-dışı)",
     isPartner: true,
   },
 ];
@@ -161,9 +161,9 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
-    title: "Anlasmali Universitelerimiz | Almanya Universiteleri",
+    title: "Anlaşmalı Üniversitelerimiz | Almanya Üniversiteleri",
     description:
-      "Almanya'daki partner universitelerimizi kesfedin. TUM, LMU, RWTH Aachen ve daha fazlasi ile is birligimiz sayesinde kolay basvuru sureci.",
+      "Almanya'daki partner üniversitelerimizi keşfedin. TUM, LMU, RWTH Aachen ve daha fazlası ile iş birliğimiz sayesinde kolay başvuru süreci.",
     path: "/universities",
   });
 }
@@ -184,7 +184,7 @@ export default async function UniversitiesPage() {
           baseUrl={siteConfig.url}
           items={[
             { label: t("common.home"), href: "/" },
-            { label: "Universiteler" },
+            { label: "Üniversiteler" },
           ]}
         />
       </div>
@@ -193,15 +193,15 @@ export default async function UniversitiesPage() {
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Partner Universiteler
+            Partner Üniversiteler
           </p>
           <h1 className="font-heading text-4xl font-bold md:text-5xl mt-4">
-            Anlasmali Universitelerimiz
+            Anlaşmalı Üniversitelerimiz
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Almanya&apos;nin en prestijli universiteleriyle anlasmaliyiz.
-            Ogrencilerimize kolay basvuru sureci, burs imkanlari ve akademik
-            danismanlik hizmeti sunuyoruz.
+            Almanya&apos;nın en prestijli üniversiteleriyle anlaşmalıyız.
+            Öğrencilerimize kolay başvuru süreci, burs imkanları ve akademik
+            danışmanlık hizmeti sunuyoruz.
           </p>
         </div>
       </section>
@@ -260,12 +260,12 @@ export default async function UniversitiesPage() {
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Users className="h-4 w-4 shrink-0" />
                     <span>
-                      {uni.studentCount.toLocaleString("tr-TR")} ogrenci
+                      {uni.studentCount.toLocaleString("tr-TR")} öğrenci
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Globe className="h-4 w-4 shrink-0" />
-                    <span>%{uni.internationalPercent} uluslararasi ogrenci</span>
+                    <span>%{uni.internationalPercent} uluslararası öğrenci</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Euro className="h-4 w-4 shrink-0" />
@@ -276,7 +276,7 @@ export default async function UniversitiesPage() {
                 <CardFooter>
                   <Button asChild variant="outline" className="w-full">
                     <Link href={`/universities/${uni.slug}`}>
-                      Detaylari Gor
+                      Detayları Gör
                     </Link>
                   </Button>
                 </CardFooter>
@@ -288,9 +288,9 @@ export default async function UniversitiesPage() {
 
       {/* CTA */}
       <CTA
-        title="Almanya'da Egitim Hayalinizi Gerceklestirin"
-        description="Uzman danismanlarimiz size en uygun universiteyi bulmak ve basvuru surecinde yaninda olmak icin hazir."
-        buttonText="Ucretsiz Danismanlik Al"
+        title="Almanya'da Eğitim Hayalinizi Gerçekleştirin"
+        description="Uzman danışmanlarımız size en uygun üniversiteyi bulmak ve başvuru sürecinde yanınızda olmak için hazır."
+        buttonText="Ücretsiz Danışmanlık Al"
         buttonHref="/contact"
       />
     </>
