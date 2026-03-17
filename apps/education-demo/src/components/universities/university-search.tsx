@@ -866,30 +866,30 @@ function UniversityListItem({ university: uni }: { university: UniversityData })
       <div className="flex flex-col sm:flex-row">
         {/* Avatar */}
         <div className="flex items-center justify-center sm:w-20 sm:shrink-0 p-4 sm:p-6">
-          <div className="h-14 w-14 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xl font-bold">
+          <div className="h-14 w-14 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xl font-bold shrink-0">
             {uni.name.charAt(0)}
           </div>
         </div>
 
         {/* Content */}
-        <div className="flex-1 p-4 sm:py-4 sm:px-0">
-          <div className="flex items-start justify-between gap-4">
-            <div>
+        <div className="flex-1 min-w-0 p-4 sm:py-4 sm:px-0 sm:pr-4">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="font-semibold">{uni.name}</h3>
+                <h3 className="font-semibold truncate">{uni.name}</h3>
                 {uni.ranking?.qsWorld && (
-                  <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-1.5 py-0.5 rounded-full flex items-center gap-0.5">
+                  <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-1.5 py-0.5 rounded-full flex items-center gap-0.5 shrink-0">
                     <Trophy className="h-3 w-3" />#{uni.ranking.qsWorld}
                   </span>
                 )}
               </div>
               <p className="text-sm text-muted-foreground flex items-center gap-1 mt-0.5">
-                <MapPin className="h-3 w-3" />
+                <MapPin className="h-3 w-3 shrink-0" />
                 {uni.city}
                 {uni.bundesland && `, ${BUNDESLAND_LABELS[uni.bundesland] ?? uni.bundesland}`}
               </p>
             </div>
-            <div className="hidden sm:flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-2 shrink-0">
               {uni.blogSlug ? (
                 <Button asChild variant="default" size="sm">
                   <Link href={`/blog/${uni.blogSlug}`}>
@@ -909,7 +909,7 @@ function UniversityListItem({ university: uni }: { university: UniversityData })
           </div>
 
           {/* Info Row */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-2.5 text-sm text-muted-foreground">
             {uni.type && (
               <Badge variant="secondary" className={`text-[11px] ${TYPE_COLORS[uni.type] ?? ""}`}>
                 {TYPE_LABELS[uni.type] ?? uni.type}
@@ -923,31 +923,31 @@ function UniversityListItem({ university: uni }: { university: UniversityData })
             )}
             {uni.stats?.totalStudents && (
               <span className="flex items-center gap-1">
-                <Users className="h-3.5 w-3.5" />
+                <Users className="h-3.5 w-3.5 shrink-0" />
                 {uni.stats.totalStudents.toLocaleString("tr-TR")}
               </span>
             )}
             {uni.stats?.internationalPercent != null && (
               <span className="flex items-center gap-1">
-                <Globe className="h-3.5 w-3.5" />
+                <Globe className="h-3.5 w-3.5 shrink-0" />
                 %{uni.stats.internationalPercent}
               </span>
             )}
             {uni.stats?.semesterFee && (
               <span className="flex items-center gap-1">
-                <Euro className="h-3.5 w-3.5" />
+                <Euro className="h-3.5 w-3.5 shrink-0" />
                 {uni.stats.semesterFee}
               </span>
             )}
             {programCount > 0 && (
               <span className="flex items-center gap-1">
-                <GraduationCap className="h-3.5 w-3.5" />
+                <GraduationCap className="h-3.5 w-3.5 shrink-0" />
                 {programCount} program
               </span>
             )}
             {uni.conditionalAcceptance === "yes" && (
               <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
-                <CheckCircle className="h-3.5 w-3.5" />
+                <CheckCircle className="h-3.5 w-3.5 shrink-0" />
                 Şartlı kabul
               </span>
             )}

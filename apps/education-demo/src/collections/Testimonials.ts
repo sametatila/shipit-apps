@@ -5,6 +5,7 @@ export const Testimonials: CollectionConfig = {
   admin: {
     useAsTitle: "author",
     defaultColumns: ["author", "rating", "isActive"],
+    group: "İçerik",
   },
   fields: [
     {

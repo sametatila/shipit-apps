@@ -1,5 +1,6 @@
 import type { Payload } from "payload";
 import { blogPosts } from "./seed-blog-data";
+import { siteConfig } from "./config/site";
 
 export async function seed(payload: Payload) {
   console.log("🌱 Seeding başlatılıyor...");
@@ -974,17 +975,17 @@ export async function seed(payload: Payload) {
       siteDescription:
         "Türk öğrencilerin Almanya'da üniversite, Ausbildung ve dil eğitimi süreçlerinde profesyonel danışmanlık hizmeti. Studienkolleg, lisans, yüksek lisans ve Almanca kurs programları.",
       contact: {
-        phone: "+90 212 555 0100",
-        email: "info@almanya-egitim.com",
-        address: "Levent Mahallesi, Büyükdere Caddesi No:185, Şişli / İstanbul, 34340",
-        whatsapp: "+90 532 555 0100",
+        phone: siteConfig.contact.phone,
+        email: siteConfig.contact.email,
+        address: siteConfig.offices[0].address,
+        whatsapp: siteConfig.contact.whatsapp,
       },
       social: {
-        instagram: "https://instagram.com/almanya-egitim",
-        facebook: "https://facebook.com/almanyaegitim",
-        twitter: "https://twitter.com/almanyaegitim",
-        youtube: "https://youtube.com/@almanyaegitim",
-        linkedin: "https://linkedin.com/company/almanya-egitim",
+        instagram: siteConfig.social.instagram,
+        facebook: siteConfig.social.facebook,
+        twitter: "",
+        youtube: siteConfig.social.youtube,
+        linkedin: siteConfig.social.linkedin,
       },
       businessHours: [
         { day: "Pazartesi - Cuma", hours: "09:00 - 18:00" },
@@ -1121,7 +1122,7 @@ export async function seed(payload: Payload) {
   console.log("   - 6 Başarı Hikayesi");
   console.log("   - 5 Referans");
   console.log("   - 5 Başvuru (CRM)");
-  console.log("   - 26 Blog Yazısı (20 Üniversite + 6 Genel)");
+  console.log("   - 28 Blog Yazısı (20 Üniversite + 8 Genel)");
   console.log("   - 3 CMS Sayfası");
   console.log("   - 3 Hizmet Paketi");
   console.log("   - 1 Site Ayarları (Global)");

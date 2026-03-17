@@ -220,7 +220,6 @@ export default async function ProgramsPage() {
                 title={program.title}
                 description={program.description}
                 icon={programTypeIcons[program.programType] || GraduationCap}
-                href={`/programs/${program.slug}`}
                 duration={program.duration}
                 level={program.level}
               />
@@ -229,27 +228,28 @@ export default async function ProgramsPage() {
         </div>
       </section>
 
-      {/* Uygunluk Testi Banner */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto rounded-2xl border bg-card p-8 md:p-12 text-center shadow-sm">
-            <div className="flex justify-center mb-6">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-                <CheckCircle className="h-7 w-7 text-primary" />
+      {/* Uygunluk Testi Banner - Şerit Tasarım */}
+      <section className="bg-primary/5 border-y">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                <CheckCircle className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold">
+                  Hangi program size uygun? 2 dakikada öğrenin!
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Eğitim geçmişiniz ve kariyer hedeflerinize göre en uygun programı belirleyin.
+                </p>
               </div>
             </div>
-            <h2 className="font-heading text-2xl font-bold md:text-3xl">
-              Hangi Program Size Uygun?
-            </h2>
-            <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-              Eğitim geçmişiniz, Almanca seviyeniz ve kariyer hedeflerinize göre
-              size en uygun programı 2 dakikada öğrenin.
-            </p>
             <Link
               href="/eligibility-check"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              Ücretsiz Uygunluk Testi
+              Uygunluk Testi
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

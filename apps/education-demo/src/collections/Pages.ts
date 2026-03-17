@@ -6,6 +6,7 @@ export const Pages: CollectionConfig = {
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "status", "updatedAt"],
+    group: "İçerik",
   },
   versions: {
     drafts: true,

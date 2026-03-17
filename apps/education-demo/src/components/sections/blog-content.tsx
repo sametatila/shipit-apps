@@ -25,18 +25,38 @@ interface BlogContentProps {
   regularPosts: any[];
   universityPosts: any[];
   categories: string[];
-  getCategoryEmoji: (category: string) => string;
-  formatDate: (dateStr: string) => string;
-  getKeywords: (post: any) => string[];
+}
+
+function getCategoryEmoji(category: string): string {
+  const emojiMap: Record<string, string> = {
+    Rehber: "\u{1F4D8}",
+    "Vize & Finans": "\u{1F4B0}",
+    Ausbildung: "\u{1F6E0}\uFE0F",
+    Studienkolleg: "\u{1F393}",
+    "Ya\u015Fam": "\u{1F3E0}",
+    "\u00DCniversite Rehberi": "\u{1F3EB}",
+  };
+  return emojiMap[category] || "\u{1F4DD}";
+}
+
+function formatTurkishDate(dateStr: string): string {
+  const months = [
+    "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+    "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık",
+  ];
+  const date = new Date(dateStr);
+  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+function getKeywords(post: any): string[] {
+  if (!post.tags || !Array.isArray(post.tags)) return [];
+  return post.tags.map((t: any) => t.tag).filter(Boolean);
 }
 
 export function BlogContent({
   regularPosts,
   universityPosts,
   categories,
-  getCategoryEmoji,
-  formatDate,
-  getKeywords,
 }: BlogContentProps) {
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [uniShowCount, setUniShowCount] = useState(12);
@@ -226,7 +246,7 @@ export function BlogContent({
                         {post.publishedAt && (
                           <span className="flex items-center gap-1">
                             <Calendar className="h-3.5 w-3.5" />
-                            {formatDate(post.publishedAt)}
+                            {formatTurkishDate(post.publishedAt)}
                           </span>
                         )}
                       </div>

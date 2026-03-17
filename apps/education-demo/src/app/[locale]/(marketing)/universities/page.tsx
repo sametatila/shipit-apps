@@ -5,8 +5,10 @@ import { getSiteConfig } from "@/lib/get-site-config";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { CTA } from "@/components/sections/cta";
 import { UniversitySearch, type UniversityData } from "@/components/universities/university-search";
+import { Link } from "@/i18n/navigation";
 import { getPayload } from "payload";
 import config from "@/payload.config";
+import { CheckCircle, ArrowRight } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
 /*  Metadata                                                           */
@@ -410,6 +412,34 @@ export default async function UniversitiesPage() {
               <p className="text-2xl font-bold text-primary">16</p>
               <p className="text-xs text-muted-foreground">Eyalet</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Uygunluk Testi Banner - Şerit Tasarım */}
+      <section className="bg-primary/5 border-y mb-10">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                <CheckCircle className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold">
+                  Hangi program size uygun? 2 dakikada öğrenin!
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Ücretsiz uygunluk testimizle profilinize en uygun programı belirleyin.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/eligibility-check"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 shrink-0"
+            >
+              Uygunluk Testi
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>

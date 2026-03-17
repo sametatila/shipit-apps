@@ -21,7 +21,7 @@ export function Hero({
   description,
   ctaText = "Ücretsiz Danışmanlık",
   secondaryCtaText = "Bizi Arayın",
-  secondaryCtaHref = "tel:+905551234567",
+  secondaryCtaHref,
   image,
 }: HeroProps) {
   const { open } = useContactModal();
@@ -70,17 +70,19 @@ export function Hero({
               {ctaText}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-white/30 text-white hover:bg-white/10 hover:text-white"
-            >
-              <a href={secondaryCtaHref}>
-                <Phone className="mr-2 h-4 w-4" />
-                {secondaryCtaText}
-              </a>
-            </Button>
+            {secondaryCtaHref && (
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="border-white/30 text-white hover:bg-white/10 hover:text-white"
+              >
+                <a href={secondaryCtaHref}>
+                  <Phone className="mr-2 h-4 w-4" />
+                  {secondaryCtaText}
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </div>

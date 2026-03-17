@@ -9,37 +9,6 @@ import { BlogContent } from "@/components/sections/blog-content";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
-function formatTurkishDate(dateStr: string): string {
-  const months = [
-    "Ocak",
-    "Şubat",
-    "Mart",
-    "Nisan",
-    "Mayıs",
-    "Haziran",
-    "Temmuz",
-    "Ağustos",
-    "Eylül",
-    "Ekim",
-    "Kasım",
-    "Aralık",
-  ];
-  const date = new Date(dateStr);
-  return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-}
-
-function getCategoryEmoji(category: string): string {
-  const emojiMap: Record<string, string> = {
-    "Rehber": "\u{1F4D8}",
-    "Vize & Finans": "\u{1F4B0}",
-    "Ausbildung": "\u{1F6E0}\uFE0F",
-    "Studienkolleg": "\u{1F393}",
-    "Yaşam": "\u{1F3E0}",
-    "Üniversite Rehberi": "\u{1F3EB}",
-  };
-  return emojiMap[category] || "\u{1F4DD}";
-}
-
 export async function generateMetadata({
   params,
 }: {
@@ -90,11 +59,11 @@ export default async function BlogPage() {
     (post) => post.category !== "Üniversite Rehberi"
   );
 
-  // Extract tags as keywords
-  const getKeywords = (post: (typeof blogPosts)[number]): string[] => {
+  // Extract tags as keywords (server-side only for JSON-LD)
+  function getKeywords(post: any): string[] {
     if (!post.tags || !Array.isArray(post.tags)) return [];
     return post.tags.map((t: any) => t.tag).filter(Boolean);
-  };
+  }
 
   return (
     <>
@@ -153,9 +122,6 @@ export default async function BlogPage() {
         regularPosts={regularPosts}
         universityPosts={universityPosts}
         categories={categories}
-        getCategoryEmoji={getCategoryEmoji}
-        formatDate={formatTurkishDate}
-        getKeywords={getKeywords}
       />
 
       {/* Newsletter Section */}

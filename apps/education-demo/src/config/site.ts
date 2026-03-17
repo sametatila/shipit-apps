@@ -27,52 +27,51 @@ export const siteConfig = {
   },
 
   contact: {
-    phone: "+90 (212) 000 00 00",
-    email: "info@eurovizyon.com",
-    whatsapp: "+902120000000",
+    phone: "+90 539 497 14 38",
+    email: "eurovizyondanismanlik@gmail.com",
+    whatsapp: "+905394971438",
   },
 
   offices: [
     {
       name: "Genel Merkez",
-      city: "İstanbul",
+      city: "Bursa",
       country: "TR",
-      address: "Levent Mah. Büyükdere Cad. No:42, Beşiktaş, İstanbul",
-      phone: "+90 (212) 000 00 00",
+      address: "Odunluk Mah. Okul Sok. No: 26 Moon Plaza Kat: 3 Ofis No: 15 Nilüfer/Bursa",
+      phone: "+90 505 400 89 89",
       isHQ: true,
     },
     {
       name: "Ankara Ofisi",
       city: "Ankara",
       country: "TR",
-      address: "Kızılay Mah. Atatürk Bulvarı No:121, Çankaya, Ankara",
-      phone: "+90 (312) 000 00 00",
+      address: "Balgat Mah. Ceyhun Atuf Kansu Cad. No:20/10 Balgat, Çankaya/Ankara",
+      phone: "+90 505 400 89 89",
       isHQ: false,
     },
     {
       name: "Dortmund Ofisi",
       city: "Dortmund",
       country: "DE",
-      address: "Kampstraße 45, 44137 Dortmund, Deutschland",
-      phone: "+49 (231) 000 00 00",
+      address: "Schiller Straße 4/A, 44147 Dortmund, Deutschland",
+      phone: "+49 176 63132614",
       isHQ: false,
     },
     {
       name: "Bochum Ofisi",
       city: "Bochum",
       country: "DE",
-      address: "Kortumstraße 68, 44787 Bochum, Deutschland",
-      phone: "+49 (234) 000 00 00",
+      address: "Schiller Straße 4/A, 44147 Dortmund, Deutschland",
+      phone: "+49 1522 7343732",
       isHQ: false,
     },
   ],
 
   social: {
-    instagram: "https://instagram.com/almanya-egitim",
-    facebook: "https://facebook.com/almanya-egitim",
-    twitter: "",
-    linkedin: "https://linkedin.com/company/almanya-egitim",
-    youtube: "https://youtube.com/@almanya-egitim",
+    instagram: "https://instagram.com/eurovizyondanismanlik",
+    facebook: "https://facebook.com/eurovizyondanismanlik",
+    linkedin: "https://linkedin.com/company/eurovizyondanismanlik",
+    youtube: "https://youtube.com/@eurovizyondanismanlik",
   },
 
   navigation: [
@@ -82,6 +81,37 @@ export const siteConfig = {
     { label: "nav.blog", href: "/blog" },
     { label: "nav.about", href: "/about" },
     { label: "nav.contact", href: "/contact" },
+  ],
+
+  team: [
+    {
+      name: "Ömer Faruk Şanlı",
+      role: "Geschäftsführender Direktor / Yönetici Direktör",
+      city: "Bochum",
+      phone: "+49 152 27343732",
+    },
+    {
+      name: "Ömer Selçuk Köroğlu",
+      role: "Geschäftsführer / Yönetici",
+      city: "Dortmund",
+      phone: "+49 176 63132614",
+    },
+    {
+      name: "Yusuf Altun",
+      role: "IT-Spezialist / IT Uzmanı",
+      city: "Essen",
+      phone: "+49 176 80839294",
+    },
+    {
+      name: "Özge Ceren",
+      role: "Bildungsberaterin / Eğitim Danışmanı",
+      city: "Würzburg",
+    },
+    {
+      name: "Turan Sarıkaya",
+      role: "Marketing / Pazarlama",
+      city: "Köln",
+    },
   ],
 
   business: {

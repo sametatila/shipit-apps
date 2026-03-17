@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { generatePageMetadata } from "@shipit/seo";
 import { getSiteConfig } from "@/lib/get-site-config";
+import { siteConfig as staticConfig } from "@/config/site";
 import { Stats } from "@/components/sections/stats";
 import { Team } from "@/components/sections/team";
 import { CTA } from "@/components/sections/cta";
@@ -56,41 +57,10 @@ export default async function AboutPage() {
       <Team
         title={t("about.teamTitle")}
         subtitle={t("about.teamSubtitle")}
-        members={[
-          {
-            name: "Ömer Faruk Şanlı",
-            role: "Geschäftsführender Direktor / Yönetici Direktör",
-            city: "Bochum",
-            phone: "+49 152 27343732",
-            email: "eurovizyondanismanlik@gmail.com",
-          },
-          {
-            name: "Ömer Selçuk Köroğlu",
-            role: "Geschäftsführer / Yönetici",
-            city: "Dortmund",
-            phone: "+49 176 63132614",
-            email: "eurovizyondanismanlik@gmail.com",
-          },
-          {
-            name: "Yusuf Altun",
-            role: "IT-Spezialist / IT Uzmanı",
-            city: "Essen",
-            phone: "+49 176 80839294",
-            email: "eurovizyondanismanlik@gmail.com",
-          },
-          {
-            name: "Özge Ceren",
-            role: "Bildungsberaterin / Eğitim Danışmanı",
-            city: "Würzburg",
-            email: "eurovizyondanismanlik@gmail.com",
-          },
-          {
-            name: "Turan Sarıkaya",
-            role: "Marketing / Pazarlama",
-            city: "Köln",
-            email: "eurovizyondanismanlik@gmail.com",
-          },
-        ]}
+        members={staticConfig.team.map((member) => ({
+          ...member,
+          email: staticConfig.contact.email,
+        }))}
       />
 
       <CTA
