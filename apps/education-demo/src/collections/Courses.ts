@@ -31,10 +31,8 @@ export const Courses: CollectionConfig = {
         { label: "Studienkolleg", value: "studienkolleg" },
         { label: "Lisans (Bachelor)", value: "bachelor" },
         { label: "Yüksek Lisans (Master)", value: "master" },
-        { label: "Doktora (PhD)", value: "phd" },
         { label: "Ausbildung (Mesleki Eğitim)", value: "ausbildung" },
         { label: "Almanca Dil Kursu", value: "language" },
-        { label: "Yaz Okulu", value: "summer-school" },
       ],
     },
     {

@@ -16,15 +16,291 @@ import {
   Award,
   Wrench,
   Languages,
-  Lightbulb,
   ArrowRight,
   CheckCircle,
 } from "lucide-react";
 import { UniversityLogoSlider } from "@/components/sections/university-logo-slider";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import type { LucideIcon } from "lucide-react";
+
+/* ------------------------------------------------------------------ */
+/*  Mappings                                                           */
+/* ------------------------------------------------------------------ */
+
+const programTypeIcons: Record<string, LucideIcon> = {
+  studienkolleg: GraduationCap,
+  bachelor: BookOpen,
+  master: Award,
+  ausbildung: Wrench,
+  language: Languages,
+};
+
+/* ------------------------------------------------------------------ */
+/*  Fallback data                                                      */
+/* ------------------------------------------------------------------ */
+
+const FALLBACK_PROGRAMS = [
+  { icon: GraduationCap, title: "Studienkolleg", desc: "1 yıllık üniversite hazırlık programı", badge: "B1 Almanca" },
+  { icon: BookOpen, title: "Lisans (Bachelor)", desc: "Devlet üniversitelerinde ücretsiz eğitim", badge: "3-4 Yıl" },
+  { icon: Award, title: "Yüksek Lisans (Master)", desc: "İngilizce ve Almanca program seçenekleri", badge: "2 Yıl" },
+  { icon: Wrench, title: "Ausbildung", desc: "Maaşlı mesleki eğitim (800-1.200€/ay)", badge: "2-3 Yıl" },
+  { icon: Languages, title: "Almanca Kursları", desc: "A1'den C2'ye, TestDaF & DSH hazırlık", badge: "3-12 Ay" },
+];
+
+const FALLBACK_TESTIMONIALS = [
+  {
+    name: "Elif Yıldırım",
+    role: "TU München - Makine Mühendisliği",
+    content: "Studienkolleg sürecinden üniversite başvurusuna kadar her adımda yanımdaydılar. Şimdi TU München'de hayallerimin bölümünde okuyorum. Vize sürecindeki destekleri olmasaydı bu kadar kolay olmazdı.",
+    rating: 5,
+  },
+  {
+    name: "Burak Arslan",
+    role: "Ausbildung - Berlin, IT-Systemelektroniker",
+    content: "Lisans yerine Ausbildung tercih ettim ve çok doğru bir karardı. Firma eşleştirmesinden Almanca kursuna kadar her şeyi organize ettiler. Şimdi Berlin'de hem eğitim alıyor hem maaş kazanıyorum.",
+    rating: 5,
+  },
+  {
+    name: "Zeynep Koç",
+    role: "Veli - Kızı Heidelberg Üniversitesi'nde",
+    content: "Kızımızın Almanya'da üniversite okuması için danışmanlık aldık. Sperrkonto'dan vize randevusuna, Anmeldung'dan sağlık sigortasına kadar tüm süreçte bize rehberlik ettiler. Çok teşekkür ederiz.",
+    rating: 5,
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Data Fetching                                                      */
+/* ------------------------------------------------------------------ */
+
+interface ProgramPreview {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+  badge: string;
+}
+
+interface TestimonialData {
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+}
+
+const germanLevelLabels: Record<string, string> = {
+  none: "Gerekmiyor",
+  a1: "A1 Almanca",
+  a2: "A2 Almanca",
+  b1: "B1 Almanca",
+  b2: "B2 Almanca",
+  c1: "C1 Almanca",
+  c2: "C2 Almanca",
+};
+
+const programTypeLabels: Record<string, string> = {
+  studienkolleg: "Studienkolleg",
+  bachelor: "Lisans",
+  master: "Master",
+  ausbildung: "Ausbildung",
+  language: "Dil Kursu",
+};
+
+async function getHomepagePrograms(): Promise<ProgramPreview[]> {
+  try {
+    const payload = await getPayload({ config });
+    const { docs: courses } = await payload.find({
+      collection: "courses",
+      where: {
+        status: { equals: "active" },
+      },
+      sort: "sortOrder",
+      limit: 6,
+    });
+
+    if (courses.length === 0) return FALLBACK_PROGRAMS;
+
+    return courses.map((course) => ({
+      icon: programTypeIcons[course.programType as string] || GraduationCap,
+      title: course.title as string,
+      desc: (course.shortDescription as string) || "",
+      badge: course.duration
+        ? (course.duration as string)
+        : course.germanLevel
+          ? germanLevelLabels[course.germanLevel as string] || ""
+          : "",
+    }));
+  } catch {
+    return FALLBACK_PROGRAMS;
+  }
+}
+
+interface PricingPlanData {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  ctaText: string;
+  popular?: boolean;
+}
+
+const FALLBACK_PRICING: PricingPlanData[] = [
+  {
+    name: "Basic Paket",
+    price: "1.000€",
+    description: "Üniversite başvuru sürecinizi profesyonel destekle başlatın.",
+    features: [
+      "Üniversite başvuru dosyası hazırlama",
+      "%100 kabul garantisi",
+      "1 üniversiteye başvuru",
+      "Anlaşmalı dil kursu desteği",
+    ],
+    ctaText: "Başvuru Yap",
+  },
+  {
+    name: "Standart Paket",
+    price: "1.500€",
+    description: "Başvurudan vize sürecine kadar uçtan uca danışmanlık.",
+    features: [
+      "Vize dosyası hazırlama ve randevu",
+      "WhatsApp grubu & Zoom toplantısı",
+      "Vize kabul ve iade garantisi",
+      "En uygun 3 dil kursu desteği",
+    ],
+    ctaText: "Başvuru Yap",
+    popular: true,
+  },
+  {
+    name: "Premium Paket",
+    price: "2.000€",
+    description: "Türkiye'den Almanya'ya tam kapsamlı premium hizmet.",
+    features: [
+      "3 üniversiteye başvuru",
+      "%100 vize kabul ve iade garantisi",
+      "Adres kaydı ve oturum desteği",
+      "İlk 6 ay iletişim desteği",
+    ],
+    ctaText: "Başvuru Yap",
+  },
+];
+
+async function getHomepagePricing(): Promise<PricingPlanData[]> {
+  try {
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({
+      collection: "service-packages" as any,
+      where: { status: { equals: "active" } },
+      sort: "sortOrder",
+      limit: 3,
+    });
+
+    if (docs.length === 0) return FALLBACK_PRICING;
+
+    return (docs as any[]).map((doc) => {
+      const price = doc.price as number;
+      const currency = (doc.currency as string) || "EUR";
+      const formattedPrice =
+        currency === "EUR"
+          ? `${price.toLocaleString("tr-TR")}€`
+          : `₺${price.toLocaleString("tr-TR")}`;
+
+      const highlights =
+        (doc.highlights as { text: string }[] | null)?.map((h) => h.text) || [];
+
+      return {
+        name: doc.name as string,
+        price: formattedPrice,
+        description: (doc.description as string) || "",
+        features: highlights.length > 0 ? highlights : [],
+        ctaText: (doc.ctaText as string) || "Başvuru Yap",
+        popular: (doc.popular as boolean) || false,
+      };
+    });
+  } catch {
+    return FALLBACK_PRICING;
+  }
+}
+
+async function getHomepageTestimonials(): Promise<TestimonialData[]> {
+  try {
+    const payload = await getPayload({ config });
+    const { docs: stories } = await payload.find({
+      collection: "success-stories",
+      where: {
+        isActive: { equals: true },
+        featured: { equals: true },
+      },
+      sort: "-year",
+      limit: 3,
+      depth: 1,
+    });
+
+    if (stories.length === 0) {
+      // Try without featured filter
+      const { docs: allStories } = await payload.find({
+        collection: "success-stories",
+        where: {
+          isActive: { equals: true },
+        },
+        sort: "-year",
+        limit: 3,
+        depth: 1,
+      });
+
+      if (allStories.length === 0) return FALLBACK_TESTIMONIALS;
+
+      return allStories.map((story) => {
+        const uniRelation = story.university as { name?: string } | null;
+        const universityName =
+          (uniRelation && typeof uniRelation === "object" && uniRelation.name) ||
+          (story.universityName as string) ||
+          "";
+        const programType = story.isParentTestimonial
+          ? "Veli"
+          : programTypeLabels[story.programType as string] || "";
+
+        return {
+          name: story.studentName as string,
+          role: `${programType} - ${universityName}${story.city ? `, ${story.city}` : ""}`,
+          content: story.testimonial as string,
+          rating: (story.rating as number) || 5,
+        };
+      });
+    }
+
+    return stories.map((story) => {
+      const uniRelation = story.university as { name?: string } | null;
+      const universityName =
+        (uniRelation && typeof uniRelation === "object" && uniRelation.name) ||
+        (story.universityName as string) ||
+        "";
+      const programType = story.isParentTestimonial
+        ? "Veli"
+        : programTypeLabels[story.programType as string] || "";
+
+      return {
+        name: story.studentName as string,
+        role: `${programType} - ${universityName}${story.city ? `, ${story.city}` : ""}`,
+        content: story.testimonial as string,
+        rating: (story.rating as number) || 5,
+      };
+    });
+  } catch {
+    return FALLBACK_TESTIMONIALS;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
 
 export default async function HomePage() {
   const t = await getTranslations();
   const siteConfig = await getSiteConfig();
+  const [programs, testimonials, pricingPlans] = await Promise.all([
+    getHomepagePrograms(),
+    getHomepageTestimonials(),
+    getHomepagePricing(),
+  ]);
 
   return (
     <>
@@ -98,44 +374,7 @@ export default async function HomePage() {
             </h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                icon: GraduationCap,
-                title: "Studienkolleg",
-                desc: "1 yıllık üniversite hazırlık programı",
-                badge: "B1 Almanca",
-              },
-              {
-                icon: BookOpen,
-                title: "Lisans (Bachelor)",
-                desc: "Devlet üniversitelerinde ücretsiz eğitim",
-                badge: "3-4 Yıl",
-              },
-              {
-                icon: Award,
-                title: "Yüksek Lisans (Master)",
-                desc: "İngilizce ve Almanca program seçenekleri",
-                badge: "2 Yıl",
-              },
-              {
-                icon: Wrench,
-                title: "Ausbildung",
-                desc: "Maaşlı mesleki eğitim (800-1.200€/ay)",
-                badge: "2-3 Yıl",
-              },
-              {
-                icon: Languages,
-                title: "Almanca Kursları",
-                desc: "A1'den C2'ye, TestDaF & DSH hazırlık",
-                badge: "3-12 Ay",
-              },
-              {
-                icon: Lightbulb,
-                title: "Doktora (PhD)",
-                desc: "Araştırma pozisyonuyla finanse edilen programlar",
-                badge: "3-5 Yıl",
-              },
-            ].map((program) => (
+            {programs.map((program) => (
               <Link
                 key={program.title}
                 href="/programs"
@@ -149,9 +388,11 @@ export default async function HomePage() {
                     <h3 className="font-semibold transition-colors group-hover:text-primary">
                       {program.title}
                     </h3>
-                    <Badge variant="secondary" className="text-[10px]">
-                      {program.badge}
-                    </Badge>
+                    {program.badge && (
+                      <Badge variant="secondary" className="text-[10px]">
+                        {program.badge}
+                      </Badge>
+                    )}
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">
                     {program.desc}
@@ -243,76 +484,14 @@ export default async function HomePage() {
       <Pricing
         title="Hizmet Paketlerimiz"
         subtitle="Fiyatlandırma"
-        plans={[
-          {
-            name: "Başlangıç",
-            price: "₺24.900",
-            description: "Temel danışmanlık ve 3 üniversiteye başvuru",
-            features: [
-              "Program araştırması ve eşleştirme",
-              "3 üniversiteye başvuru",
-              "Motivasyon mektubu düzenleme",
-              "E-posta ve telefon desteği",
-            ],
-            ctaText: "Başvuru Yap",
-          },
-          {
-            name: "Premium",
-            price: "₺39.900",
-            description: "Kapsamlı destek: başvuru + vize + varış",
-            features: [
-              "5 üniversiteye başvuru",
-              "Sperrkonto danışmanlığı",
-              "Vize başvuru desteği",
-              "7/24 WhatsApp desteği",
-              "Varış sonrası oryantasyon",
-            ],
-            ctaText: "Başvuru Yap",
-            popular: true,
-          },
-          {
-            name: "VIP",
-            price: "₺59.900",
-            description: "Uçtan uca tam destek ve 6 ay mentörlük",
-            features: [
-              "Sınırsız üniversite başvurusu",
-              "Konaklama bulma desteği",
-              "Havaalanı karşılama",
-              "6 ay birebir mentörlük",
-              "7/24 acil durum hattı",
-            ],
-            ctaText: "Başvuru Yap",
-          },
-        ]}
+        plans={pricingPlans}
       />
 
       {/* Başarı Hikayeleri */}
       <Testimonials
         title={t("home.testimonials.title")}
         subtitle={t("home.testimonials.subtitle")}
-        testimonials={[
-          {
-            name: "Elif Yıldırım",
-            role: "TU München - Makine Mühendisliği",
-            content:
-              "Studienkolleg sürecinden üniversite başvurusuna kadar her adımda yanımdaydılar. Şimdi TU München'de hayallerimin bölümünde okuyorum. Vize sürecindeki destekleri olmasaydı bu kadar kolay olmazdı.",
-            rating: 5,
-          },
-          {
-            name: "Burak Arslan",
-            role: "Ausbildung - Berlin, IT-Systemelektroniker",
-            content:
-              "Lisans yerine Ausbildung tercih ettim ve çok doğru bir karardı. Firma eşleştirmesinden Almanca kursuna kadar her şeyi organize ettiler. Şimdi Berlin'de hem eğitim alıyor hem maaş kazanıyorum.",
-            rating: 5,
-          },
-          {
-            name: "Zeynep Koç",
-            role: "Veli - Kızı Heidelberg Üniversitesi'nde",
-            content:
-              "Kızımızın Almanya'da üniversite okuması için danışmanlık aldık. Sperrkonto'dan vize randevusuna, Anmeldung'dan sağlık sigortasına kadar tüm süreçte bize rehberlik ettiler. Çok teşekkür ederiz.",
-            rating: 5,
-          },
-        ]}
+        testimonials={testimonials}
       />
 
       {/* SSS */}

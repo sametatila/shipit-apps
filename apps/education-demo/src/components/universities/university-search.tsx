@@ -43,7 +43,7 @@ import {
 
 interface UniversityProgram {
   name: string;
-  degree?: "bachelor" | "master" | "phd" | null;
+  degree?: "bachelor" | "master" | null;
   language?: "de" | "en" | "de-en" | null;
   id?: string | null;
 }
@@ -122,7 +122,6 @@ const BUNDESLAND_LABELS: Record<string, string> = {
 const DEGREE_LABELS: Record<string, string> = {
   bachelor: "Lisans",
   master: "Yüksek Lisans",
-  phd: "Doktora",
 };
 
 const LANGUAGE_LABELS: Record<string, string> = {

@@ -24,7 +24,6 @@ import {
   RotateCcw,
   Star,
   AlertTriangle,
-  Lightbulb,
 } from "lucide-react";
 import { cn } from "@shipit/ui";
 
@@ -101,18 +100,19 @@ export function EligibilityChecker() {
     const { education, germanLevel, goal, age, budget } = formData;
 
     const germanScore = { none: 0, a1: 1, a2: 2, b1: 3, b2: 4, c1: 5, c2: 6 }[germanLevel] ?? 0;
-    const ageNum = { "17-19": 18, "20-24": 22, "25-30": 27, "31+": 35 }[age] ?? 22;
+    const ageNum = { "18-22": 20, "23-27": 25, "28-34": 31, "35+": 38 }[age] ?? 22;
     const budgetScore = { low: 1, medium: 2, high: 3, veryHigh: 4 }[budget] ?? 2;
 
     // Studienkolleg
     if (
-      (education === "highschool" || education === "highschoolStudent") &&
+      (education === "highschoolRegular" || education === "highschoolOpen") &&
       goal !== "ausbildung"
     ) {
       let match = 85;
       if (germanScore >= 3) match += 10; // B1+
       if (germanScore < 2) match -= 20;
       if (ageNum > 25) match -= 15;
+      if (education === "highschoolOpen") match -= 5; // Açık öğretim biraz daha zor
       results.push({
         name: "Studienkolleg",
         icon: GraduationCap,
@@ -132,19 +132,19 @@ export function EligibilityChecker() {
           "T-Kurs, M-Kurs veya W-Kurs arasında seçim yapın",
         ],
         href: "/programs",
-        highlight: education === "highschool" ? "Profiliniz için en uygun başlangıç noktası" : undefined,
+        highlight: "Profiliniz için en uygun başlangıç noktası",
       });
     }
 
     // Lisans
     if (
-      (education === "highschool" || education === "highschoolStudent") &&
+      (education === "highschoolRegular" || education === "highschoolOpen") &&
       (goal === "university" || goal === "career")
     ) {
       let match = 70;
       if (germanScore >= 5) match += 20; // C1
       if (germanScore < 3) match -= 10;
-      if (education === "highschoolStudent") match -= 10;
+      if (education === "highschoolOpen") match -= 5;
       results.push({
         name: "Lisans (Bachelor)",
         icon: BookOpen,
@@ -261,34 +261,6 @@ export function EligibilityChecker() {
       });
     }
 
-    // Doktora
-    if (education === "masters") {
-      let match = 85;
-      if (budgetScore >= 3) match += 5;
-      results.push({
-        name: "Doktora (PhD)",
-        icon: Lightbulb,
-        match: Math.min(100, Math.max(0, match)),
-        description:
-          "Araştırma pozisyonuyla finanse edilen doktora programları. Almanca veya İngilizce. Maaşlı pozisyonlar mevcut.",
-        requirements: [
-          "Yüksek lisans diploması",
-          "Araştırma teklifi / proje planı",
-          "İngilizce veya Almanca yeterlilik",
-          "Akademik referans mektupları",
-        ],
-        duration: "3-5 yıl",
-        cost: "Ücretsiz + Araştırma pozisyonu maaşı (2.500-4.500€/ay)",
-        nextSteps: [
-          "Araştırma alanınızda profesör/lab araştırın",
-          "DAAD veya DFG burs programlarına başvurun",
-          "Araştırma teklifi hazırlayın",
-        ],
-        href: "/programs",
-        highlight: "Akademik kariyerinizi Almanya'da sürdürün",
-      });
-    }
-
     // Sort by match score
     return results.sort((a, b) => b.match - a.match);
   }
@@ -318,8 +290,8 @@ export function EligibilityChecker() {
         <StepCard title="Mevcut eğitim durumunuz nedir?">
           <OptionGrid
             options={[
-              { value: "highschoolStudent", label: "Lise Öğrencisi", desc: "Henüz mezun olmadım" },
-              { value: "highschool", label: "Lise Mezunu", desc: "Lise diplomam var" },
+              { value: "highschoolRegular", label: "Lise Mezunu (Örgün)", desc: "Örgün lise diplomam var" },
+              { value: "highschoolOpen", label: "Lise Mezunu (Açık Öğretim)", desc: "Açık öğretim lise diplomam var" },
               { value: "bachelors", label: "Lisans Mezunu", desc: "Üniversite diplomam var" },
               { value: "masters", label: "Yüksek Lisans Mezunu", desc: "Master/YL diplomam var" },
             ]}
@@ -381,10 +353,10 @@ export function EligibilityChecker() {
         <StepCard title="Yaş aralığınız nedir?" onBack={goBack}>
           <OptionGrid
             options={[
-              { value: "17-19", label: "17-19", desc: "Lise çağı" },
-              { value: "20-24", label: "20-24", desc: "Üniversite çağı" },
-              { value: "25-30", label: "25-30", desc: "Genç profesyonel" },
-              { value: "31+", label: "31+", desc: "Deneyimli profesyonel" },
+              { value: "18-22", label: "18-22", desc: "Yeni mezun" },
+              { value: "23-27", label: "23-27", desc: "Üniversite çağı" },
+              { value: "28-34", label: "28-34", desc: "Genç profesyonel" },
+              { value: "35+", label: "35+", desc: "Deneyimli profesyonel" },
             ]}
             selected={formData.age}
             onSelect={(v) => selectOption("age", v)}

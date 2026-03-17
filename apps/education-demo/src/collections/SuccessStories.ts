@@ -49,7 +49,6 @@ export const SuccessStories: CollectionConfig = {
         { label: "Studienkolleg", value: "studienkolleg" },
         { label: "Lisans", value: "bachelor" },
         { label: "Yüksek Lisans", value: "master" },
-        { label: "Doktora", value: "phd" },
         { label: "Ausbildung", value: "ausbildung" },
         { label: "Dil Kursu", value: "language" },
       ],

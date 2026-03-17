@@ -36,11 +36,11 @@ export function Stats({ title, stats }: StatsProps) {
               )}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl text-primary">
+              <div className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl text-foreground">
                 {stat.value}
-                {stat.suffix && <span className="text-[hsl(var(--accent))]">{stat.suffix}</span>}
+                {stat.suffix && <span className="text-primary">{stat.suffix}</span>}
               </div>
-              <div className="mx-auto mt-2 h-1 w-8 rounded-full bg-[hsl(var(--accent))]" />
+              <div className="mx-auto mt-2 h-1 w-8 rounded-full bg-primary" />
               <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}

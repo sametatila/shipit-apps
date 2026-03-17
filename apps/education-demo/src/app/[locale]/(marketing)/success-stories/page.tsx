@@ -5,10 +5,86 @@ import { getSiteConfig } from "@/lib/get-site-config";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { CTA } from "@/components/sections/cta";
 import { Badge } from "@shipit/ui/badge";
-import { Card, CardHeader, CardContent, CardFooter } from "@shipit/ui/card";
-import { Star, GraduationCap, MapPin, Quote } from "lucide-react";
+import { Play } from "lucide-react";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import { SuccessStoriesGrid } from "@/components/sections/success-stories-grid";
 
-const successStories = [
+/* ------------------------------------------------------------------ */
+/*  Types & Mappings                                                   */
+/* ------------------------------------------------------------------ */
+
+interface StoryData {
+  name: string;
+  initials: string;
+  university: string;
+  program: string;
+  programType: string;
+  city: string;
+  year: number;
+  rating: number;
+  quote: string;
+  videoUrl?: string;
+}
+
+function getYouTubeThumbnail(url: string): string | null {
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return `https://img.youtube.com/vi/${match[1]}/hqdefault.jpg`;
+  }
+  return null;
+}
+
+function getVideoEmbedUrl(url: string): string | null {
+  // YouTube
+  const ytPatterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const pattern of ytPatterns) {
+    const match = url.match(pattern);
+    if (match) return `https://www.youtube.com/watch?v=${match[1]}`;
+  }
+  // Vimeo
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) return `https://vimeo.com/${vimeoMatch[1]}`;
+  return url;
+}
+
+const programTypeLabels: Record<string, string> = {
+  studienkolleg: "Studienkolleg",
+  bachelor: "Lisans",
+  master: "Master",
+  ausbildung: "Ausbildung",
+  language: "Dil Kursu",
+};
+
+const programTypeColors: Record<string, string> = {
+  Master: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+  Lisans: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+  Ausbildung: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+  Veli: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+  Studienkolleg: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
+  "Dil Kursu": "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+};
+
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((w) => w.charAt(0))
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+/* ------------------------------------------------------------------ */
+/*  Fallback data                                                      */
+/* ------------------------------------------------------------------ */
+
+const FALLBACK_STORIES: StoryData[] = [
   {
     name: "Elif Yıldırım",
     initials: "EY",
@@ -107,13 +183,58 @@ const successStories = [
   },
 ];
 
-const programTypeColors: Record<string, string> = {
-  Master: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  Lisans: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  Ausbildung:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  Veli: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-};
+/* ------------------------------------------------------------------ */
+/*  Data Fetching                                                      */
+/* ------------------------------------------------------------------ */
+
+async function getSuccessStories(): Promise<StoryData[]> {
+  try {
+    const payload = await getPayload({ config });
+    const { docs: stories } = await payload.find({
+      collection: "success-stories",
+      where: {
+        isActive: { equals: true },
+      },
+      sort: "-year",
+      limit: 100,
+      depth: 1,
+    });
+
+    if (stories.length === 0) return FALLBACK_STORIES;
+
+    return stories.map((story) => {
+      const uniRelation = story.university as { name?: string } | null;
+      const universityName =
+        (uniRelation && typeof uniRelation === "object" && uniRelation.name) ||
+        (story.universityName as string) ||
+        "";
+
+      const programTypeValue = story.programType as string;
+      const displayType = story.isParentTestimonial
+        ? "Veli"
+        : programTypeLabels[programTypeValue] || programTypeValue || "";
+
+      return {
+        name: story.studentName as string,
+        initials: getInitials(story.studentName as string),
+        university: universityName,
+        program: story.program as string,
+        programType: displayType,
+        city: (story.city as string) || "",
+        year: story.year as number,
+        rating: (story.rating as number) || 5,
+        quote: story.testimonial as string,
+        videoUrl: (story.videoUrl as string) || undefined,
+      };
+    });
+  } catch {
+    return FALLBACK_STORIES;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Metadata                                                           */
+/* ------------------------------------------------------------------ */
 
 export async function generateMetadata({
   params,
@@ -121,7 +242,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "metadata" });
+  const _t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
     title: "Başarı Hikayeleri",
@@ -131,9 +252,16 @@ export async function generateMetadata({
   });
 }
 
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
+
 export default async function SuccessStoriesPage() {
   const t = await getTranslations();
   const siteConfig = await getSiteConfig();
+  const successStories = await getSuccessStories();
+
+  const videoStories = successStories.filter((s) => s.videoUrl);
 
   return (
     <>
@@ -167,7 +295,7 @@ export default async function SuccessStoriesPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
             <div className="text-center space-y-2">
-              <p className="text-4xl font-bold text-primary">100+</p>
+              <p className="text-4xl font-bold text-primary">{successStories.length}+</p>
               <p className="text-muted-foreground">Mutlu Öğrenci</p>
             </div>
             <div className="text-center space-y-2">
@@ -182,159 +310,91 @@ export default async function SuccessStoriesPage() {
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="pb-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-3">
-            <Badge
-              variant="outline"
-              className="cursor-pointer px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              Tümü
-            </Badge>
-            <Badge
-              variant="outline"
-              className="cursor-pointer px-4 py-2 text-sm hover:bg-blue-100 hover:text-blue-800 transition-colors"
-            >
-              <GraduationCap className="mr-1 h-3.5 w-3.5" />
-              Master
-            </Badge>
-            <Badge
-              variant="outline"
-              className="cursor-pointer px-4 py-2 text-sm hover:bg-green-100 hover:text-green-800 transition-colors"
-            >
-              <GraduationCap className="mr-1 h-3.5 w-3.5" />
-              Lisans
-            </Badge>
-            <Badge
-              variant="outline"
-              className="cursor-pointer px-4 py-2 text-sm hover:bg-orange-100 hover:text-orange-800 transition-colors"
-            >
-              <GraduationCap className="mr-1 h-3.5 w-3.5" />
-              Ausbildung
-            </Badge>
-            <Badge
-              variant="outline"
-              className="cursor-pointer px-4 py-2 text-sm hover:bg-purple-100 hover:text-purple-800 transition-colors"
-            >
-              Veli
-            </Badge>
-          </div>
-        </div>
-      </section>
+      {/* Video Testimonials — CMS'den videoUrl'i olan hikayeler */}
+      {videoStories.length > 0 && (
+        <section className="py-16 md:py-20 bg-muted/50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
+              <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+                Video Hikayeler
+              </p>
+              <h2 className="font-heading text-3xl font-bold md:text-4xl">
+                Öğrencilerimizi Dinleyin
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Almanya&apos;daki öğrencilerimiz deneyimlerini kendi
+                ağızlarından anlatıyor.
+              </p>
+            </div>
 
-      {/* Success Stories Grid */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {successStories.map((story) => (
-              <Card key={story.name} className="flex flex-col h-full">
-                <CardHeader className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    {/* Avatar with initials */}
-                    <div className="flex-shrink-0 h-14 w-14 rounded-full bg-primary/10 text-primary flex items-center justify-center text-lg font-bold">
-                      {story.initials}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-lg leading-tight">
-                        {story.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-0.5">
-                        {story.university} &middot; {story.program}
-                      </p>
-                      {/* Rating */}
-                      <div className="flex items-center gap-0.5 mt-1.5">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-4 w-4 ${
-                              i < story.rating
-                                ? "fill-yellow-400 text-yellow-400"
-                                : "fill-muted text-muted"
-                            }`}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {videoStories.map((story) => {
+                const thumbnail = getYouTubeThumbnail(story.videoUrl!);
+                const videoLink = getVideoEmbedUrl(story.videoUrl!);
+
+                return (
+                  <a
+                    key={`video-${story.name}`}
+                    href={videoLink || story.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                  >
+                    <div className="relative overflow-hidden rounded-xl border bg-card transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50">
+                      {/* Thumbnail */}
+                      <div className="relative aspect-video bg-muted">
+                        {thumbnail ? (
+                          <img
+                            src={thumbnail}
+                            alt={`${story.name} video`}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
-                        ))}
-                        <span className="text-xs text-muted-foreground ml-1">
-                          {story.year}
-                        </span>
+                        ) : (
+                          <div className="h-full w-full bg-gradient-to-br from-primary/20 to-primary/5" />
+                        )}
+                        {/* Play button overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors group-hover:bg-black/40">
+                          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-110">
+                            <Play className="h-7 w-7 ml-1" fill="currentColor" />
+                          </div>
+                        </div>
+                        {/* Program type badge */}
+                        <div className="absolute top-3 left-3">
+                          <Badge
+                            variant="secondary"
+                            className={`${programTypeColors[story.programType] || ""} backdrop-blur-sm`}
+                          >
+                            {story.programType}
+                          </Badge>
+                        </div>
+                      </div>
+                      {/* Info */}
+                      <div className="p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-sm font-bold">
+                            {story.initials}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="font-semibold text-sm truncate">
+                              {story.name}
+                            </p>
+                            <p className="text-xs text-muted-foreground truncate">
+                              {story.university} &middot; {story.program}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="flex-1">
-                  <div className="relative">
-                    <Quote className="absolute -top-1 -left-1 h-6 w-6 text-primary/20" />
-                    <p className="text-sm text-muted-foreground leading-relaxed pl-6">
-                      {story.quote}
-                    </p>
-                  </div>
-                </CardContent>
-
-                <CardFooter className="gap-2 flex-wrap">
-                  <Badge
-                    variant="secondary"
-                    className={programTypeColors[story.programType]}
-                  >
-                    <GraduationCap className="mr-1 h-3 w-3" />
-                    {story.programType}
-                  </Badge>
-                  <Badge variant="secondary">
-                    <MapPin className="mr-1 h-3 w-3" />
-                    {story.city}
-                  </Badge>
-                </CardFooter>
-              </Card>
-            ))}
+                  </a>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Video Testimonial Placeholder */}
-      <section className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-              Video Hikayeler
-            </p>
-            <h2 className="font-heading text-3xl font-bold md:text-4xl">
-              Öğrencilerimizi Dinleyin
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Almanya&apos;daki öğrencilerimiz deneyimlerini kendi
-              ağızlarından anlatıyor.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-5xl mx-auto">
-            {[
-              { name: "Elif Yıldırım", label: "TU München'de Master" },
-              { name: "Burak Arslan", label: "Siemens'te Ausbildung" },
-              { name: "Zeynep Demir", label: "Heidelberg'de Tıp" },
-            ].map((video) => (
-              <div
-                key={video.name}
-                className="group relative aspect-video rounded-xl bg-muted border-2 border-dashed border-muted-foreground/20 flex flex-col items-center justify-center gap-3 hover:border-primary/40 transition-colors cursor-pointer"
-              >
-                <div className="h-14 w-14 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-6 w-6"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <div className="text-center">
-                  <p className="font-medium text-sm">{video.name}</p>
-                  <p className="text-xs text-muted-foreground">{video.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Filterable Stories Grid — client component */}
+      <SuccessStoriesGrid stories={successStories} />
 
       {/* CTA */}
       <CTA

@@ -26,11 +26,11 @@ const applicationSchema = z.object({
   phone: z.string().min(10, "Geçerli bir telefon numarası giriniz."),
   whatsapp: z.string().optional(),
   currentEducation: z.enum(
-    ["high-school", "high-school-grad", "university", "bachelor-grad", "master-grad", "working"],
+    ["high-school-regular", "high-school-open", "university", "bachelor-grad", "master-grad", "working"],
     { required_error: "Mevcut eğitim durumunuzu seçiniz." }
   ),
   programType: z.enum(
-    ["studienkolleg", "bachelor", "master", "phd", "ausbildung", "language", "undecided"],
+    ["studienkolleg", "bachelor", "master", "ausbildung", "language", "undecided"],
     { required_error: "İlgilendiğiniz program türünü seçiniz." }
   ),
   fieldOfStudy: z.string().optional(),
@@ -56,8 +56,8 @@ const applicationSchema = z.object({
 type ApplicationFormData = z.infer<typeof applicationSchema>;
 
 const educationOptions = [
-  { value: "high-school", label: "Lise Öğrencisi" },
-  { value: "high-school-grad", label: "Lise Mezunu" },
+  { value: "high-school-regular", label: "Lise Mezunu (Örgün)" },
+  { value: "high-school-open", label: "Lise Mezunu (Açık Öğretim)" },
   { value: "university", label: "Üniversite Öğrencisi" },
   { value: "bachelor-grad", label: "Lisans Mezunu" },
   { value: "master-grad", label: "Yüksek Lisans Mezunu" },
@@ -68,7 +68,6 @@ const programOptions = [
   { value: "studienkolleg", label: "Studienkolleg" },
   { value: "bachelor", label: "Lisans" },
   { value: "master", label: "Yüksek Lisans" },
-  { value: "phd", label: "Doktora" },
   { value: "ausbildung", label: "Ausbildung" },
   { value: "language", label: "Almanca Dil Kursu" },
   { value: "undecided", label: "Henüz Karar Vermedim" },

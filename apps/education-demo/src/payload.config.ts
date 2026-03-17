@@ -17,6 +17,9 @@ import { Applications } from "./collections/Applications";
 import { FormSubmissions } from "./collections/FormSubmissions";
 import { Testimonials } from "./collections/Testimonials";
 import { BlogPosts } from "./collections/BlogPosts";
+import { ServicePackages } from "./collections/ServicePackages";
+import { NewsletterSubscribers } from "./collections/NewsletterSubscribers";
+import { NewsletterCampaigns } from "./collections/NewsletterCampaigns";
 import { SiteSettings } from "./globals/SiteSettings";
 
 const filename = fileURLToPath(import.meta.url);
@@ -40,6 +43,9 @@ export default buildConfig({
     FormSubmissions,
     Testimonials,
     BlogPosts,
+    ServicePackages,
+    NewsletterSubscribers,
+    NewsletterCampaigns,
   ],
   globals: [SiteSettings],
   graphQL: {

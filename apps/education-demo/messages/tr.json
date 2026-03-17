@@ -149,8 +149,8 @@
       "description": "A1'den C2'ye kadar yoğun Almanca eğitimi. TestDaF, DSH, TELC ve Goethe sınavlarına hazırlık. Türkiye veya Almanya'da eğitim seçeneği."
     },
     "customerService": {
-      "title": "Doktora (PhD)",
-      "description": "Araştırma pozisyonlarıyla finanse edilen doktora programları. Yapılandırılmış ve bireysel doktora seçenekleri. Almanca veya İngilizce."
+      "title": "Kariyer Danışmanlığı",
+      "description": "Almanya'da eğitim sonrası kariyer planlaması, iş başvurusu desteği ve CV/motivasyon mektubu hazırlama hizmeti."
     },
     "ctaTitle": "Profilinize En Uygun Programı Birlikte Belirleyelim",
     "ctaDescription": "Eğitim geçmişiniz, dil seviyeniz ve kariyer hedeflerinize göre size özel Almanya eğitim planı oluşturuyoruz."
@@ -232,7 +232,7 @@
     "contactTitle": "İletişim",
     "contactDescription": "{siteName} ile iletişime geçin. Almanya eğitimi için ücretsiz danışmanlık randevusu alın.",
     "programsTitle": "Eğitim Programları",
-    "programsDescription": "Almanya'daki tüm eğitim programları: Studienkolleg, Lisans, Yüksek Lisans, Doktora, Ausbildung, Almanca kursları.",
+    "programsDescription": "Almanya'daki tüm eğitim programları: Studienkolleg, Lisans, Yüksek Lisans, Ausbildung ve Almanca kursları.",
     "universitiesTitle": "Anlaşmalı Üniversiteler",
     "universitiesDescription": "Almanya'daki anlaşmalı üniversitelerimiz. TU München, RWTH Aachen, Heidelberg ve daha fazlası.",
     "successStoriesTitle": "Başarı Hikayeleri",

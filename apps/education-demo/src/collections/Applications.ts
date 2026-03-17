@@ -36,8 +36,8 @@ export const Applications: CollectionConfig = {
       type: "select",
       label: "Mevcut Eğitim Durumu",
       options: [
-        { label: "Lise Öğrencisi", value: "high-school" },
-        { label: "Lise Mezunu", value: "high-school-grad" },
+        { label: "Lise Mezunu (Örgün)", value: "high-school-regular" },
+        { label: "Lise Mezunu (Açık Öğretim)", value: "high-school-open" },
         { label: "Üniversite Öğrencisi", value: "university" },
         { label: "Lisans Mezunu", value: "bachelor-grad" },
         { label: "Yüksek Lisans Mezunu", value: "master-grad" },
@@ -53,7 +53,6 @@ export const Applications: CollectionConfig = {
         { label: "Studienkolleg", value: "studienkolleg" },
         { label: "Lisans (Bachelor)", value: "bachelor" },
         { label: "Yüksek Lisans (Master)", value: "master" },
-        { label: "Doktora (PhD)", value: "phd" },
         { label: "Ausbildung", value: "ausbildung" },
         { label: "Almanca Dil Kursu", value: "language" },
         { label: "Henüz Karar Vermedim", value: "undecided" },

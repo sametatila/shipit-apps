@@ -215,7 +215,6 @@ export const Universities: CollectionConfig = {
           options: [
             { label: "Lisans (B.Sc./B.A.)", value: "bachelor" },
             { label: "Yüksek Lisans (M.Sc./M.A.)", value: "master" },
-            { label: "Doktora", value: "phd" },
           ],
         },
         {

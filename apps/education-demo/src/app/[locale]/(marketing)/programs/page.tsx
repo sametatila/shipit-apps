@@ -6,87 +6,146 @@ import { getSiteConfig } from "@/lib/get-site-config";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { CourseCard } from "@/components/sector/course-card";
 import { CTA } from "@/components/sections/cta";
-import { GraduationCap, BookOpen, Award, Lightbulb, Wrench, Languages, Globe } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import { GraduationCap, BookOpen, Award, Wrench, Languages, ArrowRight, CheckCircle } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const programs = [
+/* ------------------------------------------------------------------ */
+/*  Program type → icon mapping                                        */
+/* ------------------------------------------------------------------ */
+
+const programTypeIcons: Record<string, LucideIcon> = {
+  studienkolleg: GraduationCap,
+  bachelor: BookOpen,
+  master: Award,
+  ausbildung: Wrench,
+  language: Languages,
+};
+
+const germanLevelLabels: Record<string, string> = {
+  none: "Gerekmiyor",
+  a1: "A1 seviye",
+  a2: "A2 seviye",
+  b1: "B1 seviye",
+  b2: "B2 seviye",
+  c1: "C1 seviye",
+  c2: "C2 seviye",
+};
+
+const programTypeDurations: Record<string, string> = {
+  studienkolleg: "P1Y",
+  bachelor: "P3Y",
+  master: "P2Y",
+  ausbildung: "P2Y6M",
+  language: "P6M",
+};
+
+/* ------------------------------------------------------------------ */
+/*  Fallback data                                                      */
+/* ------------------------------------------------------------------ */
+
+const FALLBACK_PROGRAMS = [
   {
     slug: "studienkolleg",
     title: "Studienkolleg",
     description:
       "Almanya'da üniversite eğitimine hazırlık programı. Türk lise diploması ile doğrudan üniversiteye kabul alamayan öğrenciler için zorunlu hazırlık yılı. Matematik, fen bilimleri veya sosyal bilimler alanında yoğun Almanca eğitimle birlikte akademik temel dersleri içerir.",
-    icon: GraduationCap,
+    programType: "studienkolleg",
     duration: "1 yıl",
     level: "B1 seviye",
     language: "de",
-    timeRequired: "P1Y",
   },
   {
     slug: "lisans",
     title: "Lisans (Bachelor)",
     description:
       "Almanya'nın dünyaca ünlü üniversitelerinde lisans eğitimi. Mühendislik, tıp, işletme, bilgisayar bilimleri ve daha birçok alanda ücretsiz veya düşük harçlı eğitim imkanı. Uluslararası geçerliliğe sahip diploma ile küresel kariyer fırsatları.",
-    icon: BookOpen,
+    programType: "bachelor",
     duration: "3-4 yıl",
     level: "C1 seviye",
     language: "de",
-    timeRequired: "P3Y",
   },
   {
     slug: "yuksek-lisans",
     title: "Yüksek Lisans (Master)",
     description:
       "Alanında uzmanlaşmak isteyen mezunlar için Almanya'da yüksek lisans programları. İngilizce ve Almanca seçenekleriyle 300'den fazla üniversitede 10.000'i aşkın program. Araştırma odaklı veya uygulamalı master seçenekleri mevcuttur.",
-    icon: Award,
+    programType: "master",
     duration: "2 yıl",
     level: "B2-C1 seviye",
     language: "de",
-    timeRequired: "P2Y",
-  },
-  {
-    slug: "doktora",
-    title: "Doktora (PhD)",
-    description:
-      "Almanya'da doktora programları ile akademik kariyerinizi zirveye taşıyın. Max Planck, Fraunhofer gibi dünyaca ünlü araştırma enstitülerinde çalışma imkanı. Doktora öğrencilerine maaşlı pozisyonlar ve araştırma bursları sunulmaktadır.",
-    icon: Lightbulb,
-    duration: "3-5 yıl",
-    level: "C1 seviye",
-    language: "de",
-    timeRequired: "P4Y",
   },
   {
     slug: "ausbildung",
     title: "Ausbildung (Mesleki Eğitim)",
     description:
       "Almanya'nın dünyaca ünlü ikili mesleki eğitim sistemi. Haftanın bir kısmı okulda teorik eğitim, diğer kısmı işletmede pratik uygulama. Eğitim süresince maaş alarak 350'den fazla meslek dalında sertifika sahibi olun.",
-    icon: Wrench,
+    programType: "ausbildung",
     duration: "2-3 yıl",
     level: "B1-B2 seviye",
     language: "de",
-    timeRequired: "P2Y6M",
   },
   {
     slug: "almanca-dil-kurslari",
     title: "Almanca Dil Kursları",
     description:
       "A1'den C2'ye kadar tüm seviyelerde yoğun Almanca dil eğitimi. Goethe-Institut, TestDaF ve DSH sınavlarına hazırlık programları. Almanya'da veya Türkiye'de yüz yüze ve online eğitim seçenekleri ile hedefinize en hızlı şekilde ulaşın.",
-    icon: Languages,
+    programType: "language",
     duration: "3-12 ay",
     level: "A1-C2",
     language: "de",
-    timeRequired: "P6M",
-  },
-  {
-    slug: "yaz-okulu",
-    title: "Yaz Okulu (Summer School)",
-    description:
-      "Almanya'yı kısa süreli deneyimlemek isteyenler için yaz okulu programları. Alman üniversitelerinde akademik dersler, dil kursları ve kültürel aktiviteler. Almanya'da eğitim almayı düşünenler için mükemmel bir ön deneyim fırsatı.",
-    icon: Globe,
-    duration: "4-8 hafta",
-    level: "B1 seviye",
-    language: "de",
-    timeRequired: "P6W",
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/*  Data Fetching                                                      */
+/* ------------------------------------------------------------------ */
+
+interface ProgramData {
+  slug: string;
+  title: string;
+  description: string;
+  programType: string;
+  duration: string;
+  level: string;
+  language: string;
+}
+
+async function getPrograms(): Promise<ProgramData[]> {
+  try {
+    const payload = await getPayload({ config });
+    const { docs: courses } = await payload.find({
+      collection: "courses",
+      where: {
+        status: { equals: "active" },
+      },
+      sort: "sortOrder",
+      limit: 100,
+    });
+
+    if (courses.length === 0) return FALLBACK_PROGRAMS;
+
+    return courses.map((course) => ({
+      slug: course.slug as string,
+      title: course.title as string,
+      description: (course.shortDescription as string) || "",
+      programType: (course.programType as string) || "studienkolleg",
+      duration: (course.duration as string) || "",
+      level: course.germanLevel
+        ? germanLevelLabels[course.germanLevel as string] || (course.germanLevel as string)
+        : "",
+      language: (course.language as string) || "de",
+    }));
+  } catch {
+    return FALLBACK_PROGRAMS;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Metadata                                                           */
+/* ------------------------------------------------------------------ */
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -94,14 +153,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
     title: "Eğitim Programları",
-    description: "Almanya'daki tüm eğitim programları: Studienkolleg, lisans, yüksek lisans, doktora, Ausbildung, dil kursları ve yaz okulları hakkında detaylı bilgi edinin.",
+    description: "Almanya'daki tüm eğitim programları: Studienkolleg, lisans, yüksek lisans, Ausbildung ve Almanca dil kursları hakkında detaylı bilgi edinin.",
     path: "/programs",
   });
 }
 
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
+
 export default async function ProgramsPage() {
   const t = await getTranslations();
   const siteConfig = await getSiteConfig();
+  const programs = await getPrograms();
 
   const jsonLdData = programs.map((program) =>
     courseJsonLd({
@@ -109,7 +173,7 @@ export default async function ProgramsPage() {
       description: program.description,
       provider: { name: siteConfig.name, url: siteConfig.url },
       url: `${siteConfig.url}/programs/${program.slug}`,
-      duration: program.timeRequired,
+      duration: programTypeDurations[program.programType] || "P1Y",
       language: program.language,
     })
   );
@@ -140,7 +204,7 @@ export default async function ProgramsPage() {
             Eğitim Programları
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Almanya&apos;da eğitim hayalinizi gerçeğe dönüştürün. Studienkolleg&apos;den doktoraya,
+            Almanya&apos;da eğitim hayalinizi gerçeğe dönüştürün. Studienkolleg&apos;den yüksek lisansa,
             Ausbildung&apos;dan dil kurslarına kadar tüm programlarda yanınızdayız.
           </p>
         </div>
@@ -155,12 +219,39 @@ export default async function ProgramsPage() {
                 key={program.slug}
                 title={program.title}
                 description={program.description}
-                icon={program.icon}
+                icon={programTypeIcons[program.programType] || GraduationCap}
                 href={`/programs/${program.slug}`}
                 duration={program.duration}
                 level={program.level}
               />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Uygunluk Testi Banner */}
+      <section className="py-16 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto rounded-2xl border bg-card p-8 md:p-12 text-center shadow-sm">
+            <div className="flex justify-center mb-6">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                <CheckCircle className="h-7 w-7 text-primary" />
+              </div>
+            </div>
+            <h2 className="font-heading text-2xl font-bold md:text-3xl">
+              Hangi Program Size Uygun?
+            </h2>
+            <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
+              Eğitim geçmişiniz, Almanca seviyeniz ve kariyer hedeflerinize göre
+              size en uygun programı 2 dakikada öğrenin.
+            </p>
+            <Link
+              href="/eligibility-check"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Ücretsiz Uygunluk Testi
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>

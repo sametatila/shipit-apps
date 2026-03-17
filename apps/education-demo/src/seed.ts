@@ -443,7 +443,7 @@ export async function seed(payload: Payload) {
         { text: "DAAD, Erasmus+ ve Deutschlandstipendium bursları" },
         { text: "Araştırma asistanlığı ile gelir imkânı" },
         { text: "Almanya'nın güçlü Ar-Ge altyapısı" },
-        { text: "Doktora programlarına geçiş kolaylığı" },
+        { text: "Mezuniyet sonrası Almanya'da kariyer imkânı" },
       ],
       applicationDeadline: "Program ve üniversiteye göre değişir. Genellikle dönemden 3-6 ay önce.",
       relatedUniversities: [uniTUM.id, uniHeidelberg.id, uniHumboldt.id, uniKIT.id],
@@ -522,77 +522,8 @@ export async function seed(payload: Payload) {
     },
   });
 
-  await payload.create({
-    collection: "courses",
-    data: {
-      title: "Doktora Programları (PhD / Promotion)",
-      slug: "doktora-phd",
-      programType: "phd",
-      field: "science",
-      shortDescription:
-        "Almanya'da doktora eğitimi ile akademik kariyerinizi zirveye taşıyın. Yapılandırılmış programlar ve bireysel doktora seçenekleri. Araştırma asistanı olarak maaş imkânı.",
-      language: "de-en",
-      duration: "3-5 Yıl",
-      germanLevel: "b1",
-      tuitionInfo: "Genellikle ücretsiz. Araştırma asistanı pozisyonu ile aylık 2.000-4.000€ brüt maaş. Stipendium ile 1.200-2.000€/ay burs.",
-      requirements: [
-        { text: "Yüksek lisans diploması (bazı alanlarda direkt lisanstan geçiş mümkün)" },
-        { text: "Yüksek akademik başarı (min. 'gut' / 2.0 Alman notu)" },
-        { text: "Araştırma önerisi (Exposé)" },
-        { text: "Doktora danışmanı (Doktorvater/Doktormutter) kabul mektubu" },
-        { text: "İngilizce ve/veya Almanca yeterlilik" },
-        { text: "Akademik yayınlar (varsa büyük avantaj)" },
-      ],
-      highlights: [
-        { text: "Araştırma asistanı olarak aylık 2.000-4.000€ maaş" },
-        { text: "Max Planck, Fraunhofer, Helmholtz enstitülerinde araştırma" },
-        { text: "Uluslararası akademik ağ ve konferans fırsatları" },
-        { text: "Tamamlayanlara kalıcı oturma izni" },
-        { text: "Almanya ve AB genelinde akademik kariyer fırsatları" },
-      ],
-      applicationDeadline: "Yıl boyunca, danışman ile bağımsız olarak belirlenir.",
-      relatedUniversities: [uniHeidelberg.id, uniLMU.id, uniHumboldt.id],
-      status: "active",
-      featured: false,
-      sortOrder: 6,
-    },
-  });
 
-  await payload.create({
-    collection: "courses",
-    data: {
-      title: "Yaz Okulu Programları",
-      slug: "yaz-okulu",
-      programType: "summer-school",
-      field: "business",
-      shortDescription:
-        "Almanya'yı tanımak ve akademik deneyim kazanmak için yaz okulu programları. 2-8 haftalık kısa süreli programlar ile Alman üniversite hayatını deneyimleyin.",
-      language: "de-en",
-      duration: "2-8 Hafta",
-      germanLevel: "none",
-      tuitionInfo: "500-3.000€ arası (programa göre değişir). Bazı programlar DAAD bursu ile desteklenir.",
-      requirements: [
-        { text: "Üniversite öğrencisi veya mezunu olmak" },
-        { text: "İngilizce B2 seviyesi (çoğu program için)" },
-        { text: "Motivasyon mektubu" },
-        { text: "Transkript (not belgesi)" },
-      ],
-      highlights: [
-        { text: "Almanya'yı kısa sürede tanıma fırsatı" },
-        { text: "ECTS kredisi kazanma imkânı" },
-        { text: "Uluslararası networking" },
-        { text: "Kültürel etkinlikler ve şehir turları" },
-        { text: "Lisans başvurusu öncesi deneyim" },
-      ],
-      applicationDeadline: "Genellikle Şubat-Nisan arası başvuru, Temmuz-Ağustos programları.",
-      relatedUniversities: [uniTUM.id, uniHumboldt.id, uniHamburg.id],
-      status: "upcoming",
-      featured: false,
-      sortOrder: 7,
-    },
-  });
-
-  console.log(`  ✓ ${7} eğitim programı oluşturuldu`);
+  console.log(`  ✓ ${5} eğitim programı oluşturuldu`);
 
   // ============================================
   // 4. SUCCESS STORIES (6 Başarı Hikayesi)
@@ -1041,7 +972,7 @@ export async function seed(payload: Payload) {
     data: {
       siteName: "EuroVizyon Danışmanlık",
       siteDescription:
-        "Türk öğrencilerin Almanya'da üniversite, Ausbildung ve dil eğitimi süreçlerinde profesyonel danışmanlık hizmeti. Studienkolleg, lisans, yüksek lisans ve doktora programları.",
+        "Türk öğrencilerin Almanya'da üniversite, Ausbildung ve dil eğitimi süreçlerinde profesyonel danışmanlık hizmeti. Studienkolleg, lisans, yüksek lisans ve Almanca kurs programları.",
       contact: {
         phone: "+90 212 555 0100",
         email: "info@almanya-egitim.com",
@@ -1068,15 +999,131 @@ export async function seed(payload: Payload) {
   console.log("  ✓ Site ayarları güncellendi");
 
   // ============================================
+  // SERVICE PACKAGES (Hizmet Paketleri)
+  // ============================================
+  console.log("📦 Hizmet paketleri oluşturuluyor...");
+
+  await payload.create({
+    collection: "service-packages" as any,
+    data: {
+      name: "Basic Paket",
+      slug: "basic",
+      description: "Üniversite başvuru sürecinizi profesyonel destekle başlatın.",
+      price: 1000,
+      currency: "EUR",
+      popular: false,
+      sortOrder: 1,
+      status: "active",
+      ctaText: "Başvuru Yap",
+      note: "Yeminli tercüme ve başvuru masrafları pakete dahildir.",
+      highlights: [
+        { text: "Üniversite başvuru dosyası hazırlama" },
+        { text: "%100 kabul garantisi" },
+        { text: "1 üniversiteye başvuru" },
+        { text: "Anlaşmalı dil kursu desteği" },
+      ],
+      features: [
+        { featureName: "Üniversite başvuru dosyasının hazırlanması", value: "Dahil" },
+        { featureName: "Üniversite başvurusu, masraflar, çeviriler", value: "Dahil" },
+        { featureName: "%100 Alman devlet üniversitesi kabul garantisi", value: "Dahil" },
+        { featureName: "Danışmanla bire-bir toplantı", value: "1" },
+        { featureName: "Üniversite başvuru imkanı", value: "1" },
+        { featureName: "Whatsapp grubu - haftalık Zoom toplantısı", value: "Dahil değil" },
+        { featureName: "Almanya'da dil kursu kayıt desteği", value: "Anlaşmalı dil kursu" },
+        { featureName: "Vize dosyasının hazırlanması ve kontrolü", value: "Dahil değil" },
+        { featureName: "Vize randevusunun erken planlanması ve başvurusu", value: "Dahil değil" },
+        { featureName: "Vize kabul ve iade garantisi", value: "Dahil değil" },
+        { featureName: "Almanya'da adres kaydı / oturum başvurusu desteği", value: "Dahil değil" },
+        { featureName: "Almanya'daki ilk 6 ay iletişim desteği", value: "Dahil değil" },
+      ],
+    },
+  });
+
+  await payload.create({
+    collection: "service-packages" as any,
+    data: {
+      name: "Standart Paket",
+      slug: "standart",
+      description: "Başvurudan vize sürecine kadar uçtan uca danışmanlık.",
+      price: 1500,
+      currency: "EUR",
+      popular: false,
+      sortOrder: 2,
+      status: "active",
+      ctaText: "Başvuru Yap",
+      note: "Yeminli tercüme ve başvuru masrafları pakete dahildir.",
+      highlights: [
+        { text: "Vize dosyası hazırlama ve randevu" },
+        { text: "WhatsApp grubu & Zoom toplantısı" },
+        { text: "Vize kabul ve iade garantisi" },
+        { text: "En uygun 3 dil kursu desteği" },
+      ],
+      features: [
+        { featureName: "Üniversite başvuru dosyasının hazırlanması", value: "Dahil" },
+        { featureName: "Üniversite başvurusu, masraflar, çeviriler", value: "Dahil" },
+        { featureName: "%100 Alman devlet üniversitesi kabul garantisi", value: "Dahil" },
+        { featureName: "Danışmanla bire-bir toplantı", value: "Dahil" },
+        { featureName: "Üniversite başvuru imkanı", value: "1" },
+        { featureName: "Whatsapp grubu - haftalık Zoom toplantısı", value: "Dahil" },
+        { featureName: "Almanya'da dil kursu kayıt desteği", value: "En uygun 3 dil kursu" },
+        { featureName: "Vize dosyasının hazırlanması ve kontrolü", value: "Dahil" },
+        { featureName: "Vize randevusunun erken planlanması ve başvurusu", value: "Dahil" },
+        { featureName: "Vize kabul ve iade garantisi", value: "Dahil" },
+        { featureName: "Almanya'da adres kaydı / oturum başvurusu desteği", value: "Dahil değil" },
+        { featureName: "Almanya'daki ilk 6 ay iletişim desteği", value: "Dahil değil" },
+      ],
+    },
+  });
+
+  await payload.create({
+    collection: "service-packages" as any,
+    data: {
+      name: "Premium Paket",
+      slug: "premium",
+      description: "Türkiye'den Almanya'ya tam kapsamlı premium hizmet.",
+      price: 2000,
+      currency: "EUR",
+      popular: true,
+      sortOrder: 3,
+      status: "active",
+      ctaText: "Başvuru Yap",
+      note: "Yeminli tercüme ve başvuru masrafları pakete dahildir.",
+      highlights: [
+        { text: "3 üniversiteye başvuru" },
+        { text: "%100 vize kabul ve iade garantisi" },
+        { text: "Adres kaydı ve oturum desteği" },
+        { text: "İlk 6 ay iletişim desteği" },
+      ],
+      features: [
+        { featureName: "Üniversite başvuru dosyasının hazırlanması", value: "Dahil" },
+        { featureName: "Üniversite başvurusu, masraflar, çeviriler", value: "Dahil" },
+        { featureName: "%100 Alman devlet üniversitesi kabul garantisi", value: "Dahil" },
+        { featureName: "Danışmanla bire-bir toplantı", value: "Dahil" },
+        { featureName: "Üniversite başvuru imkanı", value: "3" },
+        { featureName: "Whatsapp grubu - haftalık Zoom toplantısı", value: "Dahil" },
+        { featureName: "Almanya'da dil kursu kayıt desteği", value: "Üniversite bünyesinde" },
+        { featureName: "Vize dosyasının hazırlanması ve kontrolü", value: "Dahil" },
+        { featureName: "Vize randevusunun erken planlanması ve başvurusu", value: "Dahil" },
+        { featureName: "Vize kabul ve iade garantisi", value: "%100" },
+        { featureName: "Almanya'da adres kaydı / oturum başvurusu desteği", value: "Dahil" },
+        { featureName: "Almanya'daki ilk 6 ay iletişim desteği", value: "Dahil" },
+      ],
+    },
+  });
+
+  console.log("  ✓ 3 Hizmet paketi oluşturuldu");
+
+  // ============================================
   console.log("\n✅ Seed tamamlandı!");
   console.log("   - 4 Kullanıcı (1 admin + 3 danışman)");
   console.log("   - 8 Üniversite");
-  console.log("   - 7 Eğitim Programı");
+  console.log("   - 5 Eğitim Programı");
   console.log("   - 6 Başarı Hikayesi");
   console.log("   - 5 Referans");
   console.log("   - 5 Başvuru (CRM)");
   console.log("   - 26 Blog Yazısı (20 Üniversite + 6 Genel)");
   console.log("   - 3 CMS Sayfası");
+  console.log("   - 3 Hizmet Paketi");
   console.log("   - 1 Site Ayarları (Global)");
   console.log("\n   Admin giriş: admin@almanya-egitim.com / admin123");
 }

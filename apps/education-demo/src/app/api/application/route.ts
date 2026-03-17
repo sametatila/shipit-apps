@@ -12,8 +12,8 @@ const applicationSchema = z.object({
   phone: z.string().min(10).max(20),
   whatsapp: z.string().max(20).optional(),
   currentEducation: z.enum([
-    "high-school",
-    "high-school-grad",
+    "high-school-regular",
+    "high-school-open",
     "university",
     "bachelor-grad",
     "master-grad",
@@ -23,7 +23,6 @@ const applicationSchema = z.object({
     "studienkolleg",
     "bachelor",
     "master",
-    "phd",
     "ausbildung",
     "language",
     "undecided",
@@ -97,7 +96,7 @@ export async function POST(request: Request) {
           email: data.email,
           phone: data.phone,
           whatsapp: data.whatsapp,
-          currentEducation: data.currentEducation,
+          currentEducation: data.currentEducation as any,
           programType: data.programType,
           fieldOfStudy: data.fieldOfStudy,
           germanLevel: data.germanLevel,
@@ -122,10 +121,8 @@ export async function POST(request: Request) {
         studienkolleg: "Studienkolleg",
         bachelor: "Lisans (Bachelor)",
         master: "Yüksek Lisans (Master)",
-        phd: "Doktora (PhD)",
         ausbildung: "Ausbildung",
         language: "Almanca Dil Kursu",
-        "summer-school": "Yaz Okulu",
       };
 
       await sendEmail({
