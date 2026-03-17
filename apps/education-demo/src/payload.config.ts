@@ -16,7 +16,7 @@ import { Universities } from "./collections/Universities";
 import { SuccessStories } from "./collections/SuccessStories";
 import { Applications } from "./collections/Applications";
 import { FormSubmissions } from "./collections/FormSubmissions";
-import { Testimonials } from "./collections/Testimonials";
+
 import { BlogPosts } from "./collections/BlogPosts";
 import { ServicePackages } from "./collections/ServicePackages";
 import { NewsletterSubscribers } from "./collections/NewsletterSubscribers";
@@ -46,7 +46,6 @@ export default buildConfig({
     SuccessStories,
     Applications,
     FormSubmissions,
-    Testimonials,
     BlogPosts,
     ServicePackages,
     NewsletterSubscribers,

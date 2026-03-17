@@ -48,26 +48,6 @@ const FALLBACK_PROGRAMS = [
   { icon: Languages, title: "Almanca Kursları", desc: "A1'den C2'ye, TestDaF & DSH hazırlık", badge: "3-12 Ay" },
 ];
 
-const FALLBACK_TESTIMONIALS = [
-  {
-    name: "Elif Yıldırım",
-    role: "TU München - Makine Mühendisliği",
-    content: "Studienkolleg sürecinden üniversite başvurusuna kadar her adımda yanımdaydılar. Şimdi TU München'de hayallerimin bölümünde okuyorum. Vize sürecindeki destekleri olmasaydı bu kadar kolay olmazdı.",
-    rating: 5,
-  },
-  {
-    name: "Burak Arslan",
-    role: "Ausbildung - Berlin, IT-Systemelektroniker",
-    content: "Lisans yerine Ausbildung tercih ettim ve çok doğru bir karardı. Firma eşleştirmesinden Almanca kursuna kadar her şeyi organize ettiler. Şimdi Berlin'de hem eğitim alıyor hem maaş kazanıyorum.",
-    rating: 5,
-  },
-  {
-    name: "Zeynep Koç",
-    role: "Veli - Kızı Heidelberg Üniversitesi'nde",
-    content: "Kızımızın Almanya'da üniversite okuması için danışmanlık aldık. Sperrkonto'dan vize randevusuna, Anmeldung'dan sağlık sigortasına kadar tüm süreçte bize rehberlik ettiler. Çok teşekkür ederiz.",
-    rating: 5,
-  },
-];
 
 /* ------------------------------------------------------------------ */
 /*  Data Fetching                                                      */
@@ -223,7 +203,9 @@ async function getHomepagePricing(): Promise<PricingPlanData[]> {
 async function getHomepageTestimonials(): Promise<TestimonialData[]> {
   try {
     const payload = await getPayload({ config });
-    const { docs: stories } = await payload.find({
+
+    // First try featured stories
+    let stories = (await payload.find({
       collection: "success-stories",
       where: {
         isActive: { equals: true },
@@ -232,39 +214,17 @@ async function getHomepageTestimonials(): Promise<TestimonialData[]> {
       sort: "-year",
       limit: 3,
       depth: 1,
-    });
+    })).docs;
 
+    // Fallback to any active stories if no featured ones
     if (stories.length === 0) {
-      // Try without featured filter
-      const { docs: allStories } = await payload.find({
+      stories = (await payload.find({
         collection: "success-stories",
-        where: {
-          isActive: { equals: true },
-        },
+        where: { isActive: { equals: true } },
         sort: "-year",
         limit: 3,
         depth: 1,
-      });
-
-      if (allStories.length === 0) return FALLBACK_TESTIMONIALS;
-
-      return allStories.map((story) => {
-        const uniRelation = story.university as { name?: string } | null;
-        const universityName =
-          (uniRelation && typeof uniRelation === "object" && uniRelation.name) ||
-          (story.universityName as string) ||
-          "";
-        const programType = story.isParentTestimonial
-          ? "Veli"
-          : programTypeLabels[story.programType as string] || "";
-
-        return {
-          name: story.studentName as string,
-          role: `${programType} - ${universityName}${story.city ? `, ${story.city}` : ""}`,
-          content: story.testimonial as string,
-          rating: (story.rating as number) || 5,
-        };
-      });
+      })).docs;
     }
 
     return stories.map((story) => {
@@ -285,7 +245,7 @@ async function getHomepageTestimonials(): Promise<TestimonialData[]> {
       };
     });
   } catch {
-    return FALLBACK_TESTIMONIALS;
+    return [];
   }
 }
 
@@ -488,11 +448,13 @@ export default async function HomePage() {
       />
 
       {/* Başarı Hikayeleri */}
-      <Testimonials
-        title={t("home.testimonials.title")}
-        subtitle={t("home.testimonials.subtitle")}
-        testimonials={testimonials}
-      />
+      {testimonials.length > 0 && (
+        <Testimonials
+          title={t("home.testimonials.title")}
+          subtitle={t("home.testimonials.subtitle")}
+          testimonials={testimonials}
+        />
+      )}
 
       {/* SSS */}
       <JsonLd

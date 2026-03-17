@@ -649,74 +649,7 @@ export async function seed(payload: Payload) {
   console.log(`  ✓ ${6} başarı hikayesi oluşturuldu`);
 
   // ============================================
-  // 5. TESTIMONIALS (5 Referans)
-  // ============================================
-  console.log("💬 Referanslar oluşturuluyor...");
-
-  await payload.create({
-    collection: "testimonials",
-    data: {
-      author: "Elif Yıldırım",
-      role: "TU München - Makine Mühendisliği Öğrencisi",
-      content:
-        "Studienkolleg sürecinden üniversite başvurusuna kadar her adımda yanımdaydılar. Şimdi TU München'de hayallerimin bölümünde okuyorum. Vize sürecindeki destekleri olmasaydı bu kadar kolay olmazdı.",
-      rating: 5,
-      isActive: true,
-    },
-  });
-
-  await payload.create({
-    collection: "testimonials",
-    data: {
-      author: "Burak Arslan",
-      role: "IT-Systemelektroniker Ausbildung - Berlin",
-      content:
-        "Lisans yerine Ausbildung tercih ettim ve çok doğru bir karardı. Firma eşleştirmesinden Almanca kursuna kadar her şeyi organize ettiler. Şimdi Berlin'de hem eğitim alıyor hem maaş kazanıyorum.",
-      rating: 5,
-      isActive: true,
-    },
-  });
-
-  await payload.create({
-    collection: "testimonials",
-    data: {
-      author: "Zeynep Koç",
-      role: "Veli - Kızı Heidelberg Üniversitesi'nde Tıp Okuyor",
-      content:
-        "Kızımızın Almanya'da üniversite okuması için danışmanlık aldık. Sperrkonto'dan vize randevusuna, Anmeldung'dan sağlık sigortasına kadar tüm süreçte bize rehberlik ettiler.",
-      rating: 5,
-      isActive: true,
-    },
-  });
-
-  await payload.create({
-    collection: "testimonials",
-    data: {
-      author: "Oğuzhan Demir",
-      role: "TU Berlin - Bilgisayar Bilimleri Yüksek Lisans",
-      content:
-        "DAAD bursu başvurumda bile yardımcı oldular. Berlin'in teknoloji ekosistemi inanılmaz, profesyonel ve samimi danışmanlık sayesinde tüm süreç sorunsuz ilerledi.",
-      rating: 5,
-      isActive: true,
-    },
-  });
-
-  await payload.create({
-    collection: "testimonials",
-    data: {
-      author: "Fatma Çelik",
-      role: "Veli - Oğlu Hamburg'da Ausbildung Yapıyor",
-      content:
-        "Oğlumuz lise mezuniyetinden sonra ne yapacağını bilemiyordu. Ausbildung programını öğrenince hemen başvurduk. Şimdi Hamburg'da otelcilik eğitimi alıyor ve kendi ayakları üzerinde duruyor. Bir anne olarak çok mutluyum.",
-      rating: 4,
-      isActive: true,
-    },
-  });
-
-  console.log(`  ✓ ${5} referans oluşturuldu`);
-
-  // ============================================
-  // 6. APPLICATIONS (5 Örnek Başvuru - CRM)
+  // 5. APPLICATIONS (5 Örnek Başvuru - CRM)
   // ============================================
   console.log("📋 Örnek başvurular oluşturuluyor...");
 
@@ -1120,7 +1053,6 @@ export async function seed(payload: Payload) {
   console.log("   - 8 Üniversite");
   console.log("   - 5 Eğitim Programı");
   console.log("   - 6 Başarı Hikayesi");
-  console.log("   - 5 Referans");
   console.log("   - 5 Başvuru (CRM)");
   console.log("   - 28 Blog Yazısı (20 Üniversite + 8 Genel)");
   console.log("   - 3 CMS Sayfası");
