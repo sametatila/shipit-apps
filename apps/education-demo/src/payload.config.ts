@@ -6,6 +6,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { resendAdapter } from "@payloadcms/email-resend";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import sharp from "sharp";
+import { tr } from "@payloadcms/translations/languages/tr";
 
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
@@ -26,6 +27,10 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
+  i18n: {
+    supportedLanguages: { tr },
+    fallbackLanguage: "tr",
+  },
   admin: {
     user: Users.slug,
     importMap: {
