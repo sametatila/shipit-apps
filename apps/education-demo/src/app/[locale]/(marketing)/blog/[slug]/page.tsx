@@ -318,7 +318,9 @@ export default async function BlogPostPage({
                 Blog&apos;a Dön
               </Link>
 
-              <Badge className="mb-4">{post.category}</Badge>
+              <div className="mb-4">
+                <Badge>{post.category}</Badge>
+              </div>
               <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl mb-6 leading-tight">
                 {post.title}
               </h1>
@@ -531,7 +533,11 @@ export default async function BlogPostPage({
               Blog&apos;a Dön
             </Link>
 
-            {post.category && <Badge className="mb-4">{post.category}</Badge>}
+            {post.category && (
+              <div className="mb-4">
+                <Badge>{post.category}</Badge>
+              </div>
+            )}
             <h1 className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl mb-6">
               {post.title}
             </h1>
