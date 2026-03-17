@@ -76,6 +76,7 @@ export const siteConfig = {
 
   navigation: [
     { label: "nav.programs", href: "/programs" },
+    { label: "nav.roadmap", href: "/roadmap" },
     { label: "nav.universities", href: "/universities" },
     { label: "nav.successStories", href: "/success-stories" },
     { label: "nav.blog", href: "/blog" },
