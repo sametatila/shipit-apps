@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
-    "build:deploy": "payload migrate && next build",
+    "build": "payload migrate:push --force && next build",
     "start": "next start",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit",
