@@ -90,7 +90,7 @@ const programs = [
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "metadata" });
+  const _t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
     title: "Eğitim Programları",

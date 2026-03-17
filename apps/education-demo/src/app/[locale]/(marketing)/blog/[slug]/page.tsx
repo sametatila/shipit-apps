@@ -9,7 +9,6 @@ import { Badge } from "@shipit/ui/badge";
 import { Link } from "@/i18n/navigation";
 import {
   Calendar,
-  Clock,
   ArrowLeft,
   MapPin,
   Trophy,
@@ -235,7 +234,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { locale, slug } = await params;
+  const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return {};
 

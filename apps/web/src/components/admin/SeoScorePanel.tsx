@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { useField, useFormFields } from "@payloadcms/ui";
+import { useFormFields } from "@payloadcms/ui";
 import { analyzeSeo } from "@shipit/seo/scoring";
 import type { SeoAnalysis, SeoCheckResult, SeoStatus } from "@shipit/seo/scoring";
 

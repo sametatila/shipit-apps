@@ -6,13 +6,12 @@ import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { Pricing } from "@/components/sections/pricing";
 import { Faq } from "@/components/sections/faq";
 import { CTA } from "@/components/sections/cta";
-import { Badge } from "@shipit/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@shipit/ui/card";
-import { Check, CreditCard } from "lucide-react";
+import { CreditCard } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "metadata" });
+  const _t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
     title: "Hizmet Paketleri & Fiyatlandırma",

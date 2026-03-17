@@ -12,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale: _locale } = await params;
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
     title: "Uygunluk Testi",

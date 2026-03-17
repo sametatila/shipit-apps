@@ -12,7 +12,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@shipit/ui/card";
-import { Calendar, Clock, ArrowRight, MapPin, Trophy } from "lucide-react";
+import { Calendar, ArrowRight, MapPin, Trophy } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { NewsletterForm } from "@/components/shared/newsletter-form";
 import { getPayload } from "payload";
@@ -55,7 +55,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "metadata" });
+  const _t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
     title: "Blog - Almanya Eğitim Rehberleri ve Güncel Bilgiler",
