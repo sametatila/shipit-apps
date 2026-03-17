@@ -53,14 +53,15 @@ const steps: Step[] = [
   {
     number: 3,
     icon: GraduationCap,
-    title: "Üniversite Başvurusu",
-    description: "Motivasyon mektubu hazırlanır ve hedef üniversitelere başvurular yapılır.",
+    title: "Program Başvurusu",
+    description: "Hedeflerinize uygun programa başvuru yapılır: Lisans, Yüksek Lisans, Studienkolleg, Ausbildung veya Dil Kursu.",
     details: [
-      "Motivasyon mektubu hazırlama",
-      "Üniversite başvurularının yapılması",
-      "%100 kabul garantisi",
+      "Motivasyon mektubu / başvuru dosyası hazırlama",
+      "Üniversite, Studienkolleg veya Ausbildung başvurusu",
+      "Dil kursu kayıt işlemleri",
+      "Başvuru takibi ve kabul süreci yönetimi",
     ],
-    duration: "1 – 2 ay",
+    duration: "1 – 3 ay",
     accent: "from-violet-500 to-violet-600",
   },
   {

@@ -21,6 +21,7 @@ import { BlogPosts } from "./collections/BlogPosts";
 import { ServicePackages } from "./collections/ServicePackages";
 import { NewsletterSubscribers } from "./collections/NewsletterSubscribers";
 import { NewsletterCampaigns } from "./collections/NewsletterCampaigns";
+import { Galleries } from "./collections/Galleries";
 import { SiteSettings } from "./globals/SiteSettings";
 
 const filename = fileURLToPath(import.meta.url);
@@ -50,6 +51,7 @@ export default buildConfig({
     ServicePackages,
     NewsletterSubscribers,
     NewsletterCampaigns,
+    Galleries,
   ],
   globals: [SiteSettings],
   graphQL: {

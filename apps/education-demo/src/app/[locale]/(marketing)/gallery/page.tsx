@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-const images = [
+const fallbackImages = [
   {
     src: "/images/gallery/gallery-1.svg",
     alt: "Alman üniversite kampüsü - Modern mimari, geniş avlu ve yürüyen öğrenciler",
@@ -51,10 +51,48 @@ const images = [
   },
 ];
 
+async function getGalleryImages(): Promise<{ src: string; alt: string }[]> {
+  try {
+    const { getPayload } = await import("payload");
+    const config = await import("@/payload.config");
+    const payload = await getPayload({ config: config.default });
+
+    const galleries = await payload.find({
+      collection: "galleries",
+      where: { status: { equals: "published" } },
+      limit: 100,
+      sort: "-createdAt",
+    });
+
+    if (galleries.docs.length === 0) return fallbackImages;
+
+    const images: { src: string; alt: string }[] = [];
+    for (const gallery of galleries.docs) {
+      const galleryImages = gallery.images as any[];
+      if (!galleryImages) continue;
+      for (const item of galleryImages) {
+        const media = item.image;
+        if (!media) continue;
+        const src = typeof media === "object" && media.url ? media.url : null;
+        if (!src) continue;
+        images.push({
+          src,
+          alt: item.caption || (typeof media === "object" && media.alt) || gallery.title || "",
+        });
+      }
+    }
+
+    return images.length > 0 ? images : fallbackImages;
+  } catch {
+    return fallbackImages;
+  }
+}
+
 export default async function GalleryPage() {
   const t = await getTranslations("gallery");
   const tCommon = await getTranslations();
   const siteConfig = await getSiteConfig();
+  const images = await getGalleryImages();
 
   return (
     <section className="py-20">
