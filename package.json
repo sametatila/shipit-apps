@@ -21,6 +21,12 @@
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   },
+  "pnpm": {
+    "overrides": {
+      "undici": ">=7.24.0",
+      "immutable": ">=4.3.8"
+    }
+  },
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=18.0.0"
