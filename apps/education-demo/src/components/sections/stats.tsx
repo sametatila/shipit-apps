@@ -38,8 +38,9 @@ export function Stats({ title, stats }: StatsProps) {
             >
               <div className="font-heading text-3xl font-bold md:text-4xl lg:text-5xl text-primary">
                 {stat.value}
-                {stat.suffix && <span>{stat.suffix}</span>}
+                {stat.suffix && <span className="text-[hsl(var(--accent))]">{stat.suffix}</span>}
               </div>
+              <div className="mx-auto mt-2 h-1 w-8 rounded-full bg-[hsl(var(--accent))]" />
               <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}

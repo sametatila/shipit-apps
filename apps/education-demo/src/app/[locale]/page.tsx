@@ -54,7 +54,7 @@ export default async function HomePage() {
         ctaText={t("home.hero.cta")}
         secondaryCtaText={t("home.hero.secondaryCta")}
         secondaryCtaHref={`tel:${siteConfig.contact.phone}`}
-        image="/images/hero/almanya-egitim.svg"
+        image="/images/hero/hero-bg.svg"
       />
 
       {/* Uygunluk Testi Banner */}

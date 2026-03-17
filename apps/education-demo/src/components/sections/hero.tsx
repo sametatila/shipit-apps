@@ -27,48 +27,61 @@ export function Hero({
   const { open } = useContactModal();
 
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-50 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+    <section className="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden">
+      {/* Background Image */}
+      {image ? (
+        <Image
+          src={image}
+          alt=""
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+      ) : (
+        /* Placeholder: gradient background when no image */
+        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--primary))] via-[hsl(214,80%,25%)] to-[hsl(214,60%,15%)]" />
+      )}
 
-      <div className="container mx-auto px-4 py-20 md:py-32">
-        <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
-          <div className="space-y-6">
-            <p className="animate-fade-in text-sm font-semibold uppercase tracking-wider text-primary">
-              {subtitle}
-            </p>
-            <h1 className="animate-fade-in font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl [animation-delay:100ms]">
-              {title}
-            </h1>
-            <p className="animate-fade-in max-w-lg text-lg text-muted-foreground [animation-delay:200ms]">
-              {description}
-            </p>
-            <div className="animate-fade-in flex flex-col sm:flex-row gap-4 [animation-delay:300ms]">
-              <Button size="lg" className="group" onClick={open}>
-                {ctaText}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <a href={secondaryCtaHref}>
-                  <Phone className="mr-2 h-4 w-4" />
-                  {secondaryCtaText}
-                </a>
-              </Button>
-            </div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+
+      {/* Accent bottom border */}
+      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[hsl(var(--accent))] via-[hsl(var(--accent-medium))] to-[hsl(var(--accent))] z-10" />
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 py-24 md:py-32">
+        <div className="max-w-2xl space-y-6">
+          <p className="animate-fade-in text-sm font-semibold uppercase tracking-wider text-[hsl(var(--accent))]">
+            {subtitle}
+          </p>
+          <h1 className="animate-fade-in font-heading text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl [animation-delay:100ms]">
+            {title}
+          </h1>
+          <p className="animate-fade-in max-w-lg text-lg text-white/80 [animation-delay:200ms]">
+            {description}
+          </p>
+          <div className="animate-fade-in flex flex-col sm:flex-row gap-4 [animation-delay:300ms]">
+            <Button
+              size="lg"
+              className="group bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent-medium))] font-semibold shadow-lg shadow-[hsl(var(--accent)/.3)]"
+              onClick={open}
+            >
+              {ctaText}
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-white/30 text-white hover:bg-white/10 hover:text-white"
+            >
+              <a href={secondaryCtaHref}>
+                <Phone className="mr-2 h-4 w-4" />
+                {secondaryCtaText}
+              </a>
+            </Button>
           </div>
-
-          {image && (
-            <div className="animate-scale-in relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.02] hover:shadow-3xl">
-              <Image
-                src={image}
-                alt={title}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-          )}
         </div>
       </div>
     </section>

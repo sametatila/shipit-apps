@@ -77,16 +77,16 @@ export function UniversityLogoSlider() {
                 key={uni.slug}
                 className="pl-2 md:pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-[14.28%]"
               >
-                <Link href={`/blog/${uni.blogSlug}`} className="block">
-                  <div className="group flex flex-col items-center gap-3 rounded-xl border bg-card p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 cursor-pointer">
-                    <div className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                <Link href={`/blog/${uni.blogSlug}`} className="block h-full">
+                  <div className="group flex flex-col items-center justify-between gap-3 rounded-xl border bg-card p-4 md:p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50 cursor-pointer h-full">
+                    <div className="flex h-16 w-16 md:h-20 md:w-20 shrink-0 items-center justify-center transition-transform duration-300 group-hover:scale-110">
                       <img
                         src={uni.logo}
                         alt={`${uni.name} logosu`}
                         className="h-full w-full object-contain"
                       />
                     </div>
-                    <p className="text-[11px] md:text-xs font-medium text-center text-muted-foreground group-hover:text-foreground transition-colors leading-tight line-clamp-2">
+                    <p className="text-[11px] md:text-xs font-medium text-center text-muted-foreground group-hover:text-foreground transition-colors leading-tight line-clamp-2 min-h-[2.5em]">
                       {uni.name}
                     </p>
                   </div>

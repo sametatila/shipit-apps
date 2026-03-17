@@ -30,7 +30,7 @@ export function CTA({
         <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
           {description}
         </p>
-        <Button size="lg" variant="secondary" className="mt-8 group" onClick={open}>
+        <Button size="lg" className="mt-8 group bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent-medium))] font-semibold shadow-lg shadow-[hsl(var(--accent)/.3)]" onClick={open}>
           {buttonText}
           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Button>

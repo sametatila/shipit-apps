@@ -21,6 +21,12 @@
     --input: 214 20% 90%;
     --ring: 214 100% 34%;
     --radius: 0.5rem;
+
+    /* Navbar & accent surfaces */
+    --accent-soft: 48 90% 92%;
+    --accent-medium: 48 95% 80%;
+    --navbar: 48 90% 92%;
+    --navbar-foreground: 214 100% 12%;
   }
 
   .dark {
@@ -41,6 +47,11 @@
     --border: 214 30% 18%;
     --input: 214 30% 18%;
     --ring: 214 80% 55%;
+
+    --accent-soft: 48 60% 18%;
+    --accent-medium: 48 70% 25%;
+    --navbar: 214 50% 10%;
+    --navbar-foreground: 214 20% 95%;
   }
 }
 

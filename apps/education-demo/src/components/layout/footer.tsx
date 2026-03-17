@@ -14,7 +14,9 @@ export function Footer() {
   const { open: openContactModal } = useContactModal();
 
   return (
-    <footer className="border-t bg-muted/50">
+    <footer className="border-t bg-muted/50 relative">
+      {/* Accent top line */}
+      <div className="h-1 w-full bg-gradient-to-r from-[hsl(var(--primary))] via-[hsl(var(--accent))] to-[hsl(var(--primary))]" />
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           <div className="space-y-4">

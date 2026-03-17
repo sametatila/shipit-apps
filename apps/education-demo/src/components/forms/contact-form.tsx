@@ -112,7 +112,7 @@ export function ContactForm({ source, onSuccess }: ContactFormProps) {
         {errors.message && <p id="message-error" className="text-sm text-destructive" role="alert">{errors.message.message}</p>}
       </div>
       <TurnstileWidget onVerify={(token) => { turnstileTokenRef.current = token; }} onExpire={() => { turnstileTokenRef.current = ""; }} />
-      <Button type="submit" disabled={isSubmitting} className="w-full">
+      <Button type="submit" disabled={isSubmitting} className="w-full bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] hover:bg-[hsl(var(--accent-medium))] font-semibold">
         {isSubmitting ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" />{t("sending")}</>) : (<><Send className="mr-2 h-4 w-4" />{t("send")}</>)}
       </Button>
       {submitStatus === "error" && <p className="text-sm text-destructive text-center" role="alert" aria-live="assertive">{t("errorGeneral")}</p>}
