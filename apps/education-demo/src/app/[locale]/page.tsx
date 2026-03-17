@@ -146,7 +146,7 @@ interface PricingPlanData {
 const FALLBACK_PRICING: PricingPlanData[] = [
   {
     name: "Basic Paket",
-    price: "1.000€",
+    price: "",
     description: "Üniversite başvuru sürecinizi profesyonel destekle başlatın.",
     features: [
       "Üniversite başvuru dosyası hazırlama",
@@ -158,7 +158,7 @@ const FALLBACK_PRICING: PricingPlanData[] = [
   },
   {
     name: "Standart Paket",
-    price: "1.500€",
+    price: "",
     description: "Başvurudan vize sürecine kadar uçtan uca danışmanlık.",
     features: [
       "Vize dosyası hazırlama ve randevu",
@@ -171,7 +171,7 @@ const FALLBACK_PRICING: PricingPlanData[] = [
   },
   {
     name: "Premium Paket",
-    price: "2.000€",
+    price: "",
     description: "Türkiye'den Almanya'ya tam kapsamlı premium hizmet.",
     features: [
       "3 üniversiteye başvuru",
@@ -483,7 +483,7 @@ export default async function HomePage() {
       {/* Hizmet Paketleri Önizleme */}
       <Pricing
         title="Hizmet Paketlerimiz"
-        subtitle="Fiyatlandırma"
+        subtitle="Danışmanlık Hizmetleri"
         plans={pricingPlans}
       />
 

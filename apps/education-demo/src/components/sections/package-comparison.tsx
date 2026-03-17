@@ -149,11 +149,6 @@ export function PackageComparison({
                     </div>
                     <h3 className="font-heading text-lg font-bold">{pkg.name}</h3>
                     <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{pkg.description}</p>
-                    <div className="mt-4">
-                      <span className="font-heading text-3xl font-bold">
-                        {formatPrice(pkg.price, pkg.currency)}
-                      </span>
-                    </div>
                   </div>
                 );
               })}
@@ -258,11 +253,6 @@ export function PackageComparison({
                   </div>
                 </div>
 
-                <div className="mb-5 pb-5 border-b">
-                  <span className="font-heading text-3xl font-bold">
-                    {formatPrice(pkg.price, pkg.currency)}
-                  </span>
-                </div>
 
                 <ul className="space-y-3 mb-6">
                   {pkg.features.map((feature) => (

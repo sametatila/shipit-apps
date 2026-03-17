@@ -65,12 +65,6 @@ export function Pricing({ title, subtitle, plans }: PricingProps) {
                 <h3 className="font-heading text-xl font-bold">{plan.name}</h3>
                 <p className="text-sm text-muted-foreground mt-2">{plan.description}</p>
               </div>
-              <div className="mb-6">
-                <span className="font-heading text-4xl font-bold">{plan.price}</span>
-                {plan.period && (
-                  <span className="text-muted-foreground ml-1">/{plan.period}</span>
-                )}
-              </div>
               <ul className="mb-8 flex-1 space-y-3">
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm">

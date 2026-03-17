@@ -155,7 +155,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const _t = await getTranslations({ locale, namespace: "metadata" });
   const siteConfig = await getSiteConfig();
   return generatePageMetadata(siteConfig, {
-    title: "Hizmet Paketleri & Fiyatlandırma",
+    title: "Hizmet Paketleri",
     description: "Almanya eğitim danışmanlığı hizmet paketleri. Üniversite başvurusu, vize desteği ve %100 kabul garantili danışmanlık hizmetleri.",
     path: "/pricing",
   });
@@ -185,7 +185,7 @@ export default async function PricingPage() {
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-            Fiyatlandırma
+            Danışmanlık Hizmetleri
           </p>
           <h1 className="font-heading text-4xl font-bold md:text-5xl mt-4">
             Hizmet Paketleri
@@ -200,7 +200,7 @@ export default async function PricingPage() {
       {/* Karşılaştırma Tablosu */}
       <PackageComparison packages={packages} globalNote={GLOBAL_NOTE} />
 
-      {/* Taksit İmkanı */}
+      {/* Bilgilendirme */}
       <section className="py-16">
         <div className="container mx-auto px-4 max-w-3xl">
           <Card className="border-primary/20 bg-primary/5">
@@ -210,13 +210,12 @@ export default async function PricingPage() {
               </div>
               <div className="text-center md:text-left">
                 <h3 className="font-heading text-xl font-bold mb-2">
-                  Taksit İmkanı
+                  Detaylı Bilgi ve Fiyatlandırma
                 </h3>
                 <p className="text-muted-foreground">
-                  Tüm paketlerimizde kredi kartına 6 veya 9 taksit imkanı
-                  sunuyoruz. Ayrıca havale/EFT ile ödemelerde %5 indirim
-                  fırsatından yararlanabilirsiniz. Detaylı bilgi için bizimle
-                  iletişime geçin.
+                  Paket detayları ve fiyatlandırma hakkında bilgi almak için
+                  ücretsiz danışmanlık görüşmesi talep edebilirsiniz.
+                  Uzman danışmanlarımız size en uygun paketi önersin.
                 </p>
               </div>
             </CardContent>
@@ -229,17 +228,17 @@ export default async function PricingPage() {
         subtitle="Fiyatlandırma Hakkında"
         faqs={[
           {
-            question: "Ödeme nasıl yapılır, taksit seçenekleri nelerdir?",
+            question: "Paketler neleri kapsıyor?",
             answer:
-              "Kredi kartı, havale/EFT ve Papara ile ödeme kabul ediyoruz. Kredi kartına 6 veya 9 taksit imkanı sunuyoruz. Havale/EFT ile yapılan ödemelerde %5 indirim uygulanmaktadır.",
+              "Her paket farklı seviyede destek sunar. Temel üniversite başvurusundan vize sürecine, Almanya'ya yerleşme desteğine kadar ihtiyacınıza göre paket seçebilirsiniz. Detaylı bilgi için ücretsiz danışmanlık görüşmesi talep edin.",
           },
           {
             question: "Paket satın aldıktan sonra ek ücret ödenir mi?",
             answer:
-              "Hayır, paket kapsamında belirtilen tüm hizmetler dahildir. Yeminli tercüme ve başvuru masrafları pakete dahildir. Ancak noter onayı, vize harcı gibi resmi masraflar tarafınıza aittir.",
+              "Paket kapsamında belirtilen tüm hizmetler dahildir. Yeminli tercüme ve başvuru masrafları pakete dahildir. Ancak noter onayı, vize harcı gibi resmi masraflar tarafınıza aittir.",
           },
           {
-            question: "Başvurum kabul edilmezse ücret iadesi yapılır mı?",
+            question: "Başvurum kabul edilmezse ne olur?",
             answer:
               "Tüm paketlerimizde %100 Alman devlet üniversitesi kabul garantisi sunuyoruz. Standart ve Premium paketlerde vize kabul ve iade garantisi de mevcuttur.",
           },
