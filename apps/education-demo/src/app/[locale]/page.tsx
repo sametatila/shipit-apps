@@ -291,7 +291,7 @@ export default async function HomePage() {
         ctaText={t("home.hero.cta")}
         secondaryCtaText={t("home.hero.secondaryCta")}
         secondaryCtaHref={`tel:${siteConfig.contact.phone}`}
-        image="/images/hero/hero-bg.svg"
+        image="/images/hero/hero-bg.jpg"
       />
 
       {/* Uygunluk Testi Banner */}

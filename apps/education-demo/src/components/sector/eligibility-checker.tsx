@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "@shipit/ui";
-import { Badge } from "@shipit/ui/badge";
 import {
   Card,
   CardHeader,
@@ -12,6 +11,7 @@ import {
   CardFooter,
 } from "@shipit/ui/card";
 import { Link } from "@/i18n/navigation";
+import { useContactModal } from "@/contexts/contact-modal-context";
 import {
   GraduationCap,
   BookOpen,
@@ -22,8 +22,9 @@ import {
   ArrowRight,
   ArrowLeft,
   RotateCcw,
-  Star,
   AlertTriangle,
+  Route,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@shipit/ui";
 
@@ -71,13 +72,13 @@ export function EligibilityChecker() {
     age: "",
     budget: "",
   });
+  const { open } = useContactModal();
 
   const currentIndex = steps.indexOf(currentStep);
   const progress = ((currentIndex) / (steps.length - 1)) * 100;
 
   function selectOption(field: keyof FormData, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    // Auto-advance to next step
     const nextIndex = currentIndex + 1;
     if (nextIndex < steps.length) {
       setCurrentStep(steps[nextIndex]);
@@ -103,165 +104,172 @@ export function EligibilityChecker() {
     const ageNum = { "18-22": 20, "23-27": 25, "28-34": 31, "35+": 38 }[age] ?? 22;
     const budgetScore = { low: 1, medium: 2, high: 3, veryHigh: 4 }[budget] ?? 2;
 
-    // Studienkolleg
-    if (
-      (education === "highschoolRegular" || education === "highschoolOpen") &&
-      goal !== "ausbildung"
-    ) {
-      let match = 85;
-      if (germanScore >= 3) match += 10; // B1+
-      if (germanScore < 2) match -= 20;
-      if (ageNum > 25) match -= 15;
-      if (education === "highschoolOpen") match -= 5; // Açık öğretim biraz daha zor
+    const isHighSchool = education === "highschoolRegular" || education === "highschoolOpen";
+    const isUniStudent = education === "uniStudent";
+    const hasBachelors = education === "bachelors" || education === "masters" || isUniStudent;
+
+    // ─── Studienkolleg (lise mezunları için ana yol) ───
+    if (isHighSchool && goal !== "ausbildung" && goal !== "language") {
+      let match = 92;
+      if (germanScore >= 3) match += 5; // B1+ var, hazır
+      if (germanScore < 2) match -= 15; // Önce dil kursu gerekir
+      if (ageNum > 28) match -= 20;
+      if (education === "highschoolOpen") match -= 5;
       results.push({
         name: "Studienkolleg",
         icon: GraduationCap,
         match: Math.min(100, Math.max(0, match)),
         description:
-          "Almanya'da üniversite öncesi 1 yıllık hazırlık programı. Türkiye lise diploması doğrudan tanınmadığı için ilk adım.",
+          "Almanya'da üniversite öncesi 1 yıllık hazırlık programı. Türkiye lise diploması doğrudan tanınmadığı için üniversiteye giden en güvenilir yol.",
         requirements: [
-          "Lise diploması (min. 2.5 ortalama)",
+          "Lise diploması (min. 60/100 ortalama)",
           `Almanca B1 seviyesi ${germanScore < 3 ? "(henüz yok - hazırlanmanız gerekiyor)" : "(var)"}`,
           "Aufnahmetest (giriş sınavı) başarısı",
         ],
         duration: "1 yıl (2 dönem)",
         cost: "Ücretsiz (sadece Semesterbeitrag ~150-350€/dönem)",
         nextSteps: [
-          "Almanca B1 seviyesine ulaşın",
-          "Studienkolleg başvuru tarihlerini kontrol edin",
-          "T-Kurs, M-Kurs veya W-Kurs arasında seçim yapın",
+          germanScore < 3 ? "Almanca B1 seviyesine ulaşın" : "B1 sertifikanızı hazırlayın",
+          "T-Kurs (teknik), M-Kurs (tıp), W-Kurs (işletme) veya G-Kurs (beşeri) arasında seçim yapın",
+          "Studienkolleg başvuru tarihlerini kontrol edin (Kış: 15 Temmuz, Yaz: 15 Ocak)",
         ],
         href: "/programs",
-        highlight: "Profiliniz için en uygun başlangıç noktası",
+        highlight: "Üniversiteye giden en güvenilir yol",
       });
     }
 
-    // Lisans
-    if (
-      (education === "highschoolRegular" || education === "highschoolOpen") &&
-      (goal === "university" || goal === "career")
-    ) {
-      let match = 70;
-      if (germanScore >= 5) match += 20; // C1
+    // ─── Lisans (Bachelor) ───
+    if (isHighSchool && (goal === "university" || goal === "career")) {
+      let match = 88;
+      if (germanScore >= 5) match += 8; // C1 var, doğrudan başvurabilir
       if (germanScore < 3) match -= 10;
       if (education === "highschoolOpen") match -= 5;
+      if (budgetScore >= 2) match += 2;
       results.push({
         name: "Lisans (Bachelor)",
         icon: BookOpen,
         match: Math.min(100, Math.max(0, match)),
         description:
-          "3-4 yıllık lisans programları. Studienkolleg sonrası veya doğrudan başvuru (bazı üniversiteler).",
+          "Almanya'nın dünyaca ünlü devlet üniversitelerinde 3-4 yıllık ücretsiz lisans eğitimi. Studienkolleg sonrası veya yüksek notla doğrudan başvuru imkanı.",
         requirements: [
-          "Studienkolleg + FSP sınavı VEYA uluslararası lise diploması",
-          `Almanca C1 (TestDaF 4x4) ${germanScore >= 5 ? "(var)" : "(henüz yok)"}`,
-          "Sperrkonto: 11.208€/yıl",
+          "Studienkolleg + FSP sınavı VEYA yüksek not ortalamalı lise diploması",
+          `Almanca C1 (TestDaF 4×4 veya DSH-2) ${germanScore >= 5 ? "(var)" : "(henüz yok)"}`,
+          "Sperrkonto: 11.904€/yıl (2026)",
         ],
         duration: "3-4 yıl (6-8 dönem)",
-        cost: "Ücretsiz (BW eyaletinde 1.500€/dönem)",
+        cost: "Devlet üniversiteleri ücretsiz (BW eyaletinde 1.500€/dönem)",
         nextSteps: [
-          "Önce Studienkolleg'i tamamlayın",
+          "Önce Studienkolleg'i tamamlayın (FSP sınavı ile bitirme)",
           "TestDaF veya DSH sınavına hazırlanın",
-          "uni-assist üzerinden başvuru yapın",
+          "uni-assist üzerinden hedef üniversitelere başvurun",
         ],
         href: "/programs",
+        highlight: germanScore >= 5 ? "Dil seviyeniz yeterli - doğrudan başvurabilirsiniz" : undefined,
       });
     }
 
-    // Yüksek Lisans
-    if (education === "bachelors" || education === "masters") {
-      let match = 90;
-      if (germanScore >= 4) match += 5;
-      if (budgetScore >= 2) match += 5;
-      if (education === "masters") match -= 10; // already has masters
+    // ─── Yüksek Lisans (Master) - EN YÜKSEK ÖNCELİK lisans mezunları için ───
+    if (hasBachelors && goal !== "ausbildung" && goal !== "language") {
+      let match = 95; // Lisans mezunu için en güçlü öneri
+      if (germanScore >= 4 || germanScore === 0) match += 3; // B2+ veya İngilizce program
+      if (budgetScore >= 2) match += 2;
+      if (education === "masters") match -= 15; // Zaten master var, ikinci master daha az mantıklı
+      if (isUniStudent) match -= 5; // Henüz mezun değil
+      if (ageNum > 35) match -= 5;
       results.push({
         name: "Yüksek Lisans (Master)",
         icon: Award,
         match: Math.min(100, Math.max(0, match)),
         description:
-          "2 yıllık yüksek lisans programları. İngilizce ve Almanca seçenekleri mevcut. Türk lisans diplomasıyla doğrudan başvuru.",
+          "Almanya'da 2 yıllık ücretsiz yüksek lisans eğitimi. 1.800+ İngilizce program seçeneği. Türk lisans diplomasıyla doğrudan başvuru. DAAD ve Deutschlandstipendium burs imkanları.",
         requirements: [
-          "Lisans diploması (ilgili alanda)",
-          `İngilizce (IELTS 6.5+ / TOEFL 90+) veya Almanca C1`,
-          "Sperrkonto: 11.208€/yıl",
-          "Motivasyon mektubu + CV",
+          `Lisans diploması ${isUniStudent ? "(devam ediyor - mezuniyet sonrası başvurabilirsiniz)" : "(var)"}`,
+          `İngilizce (IELTS 6.5+ / TOEFL 90+) veya Almanca C1 ${germanScore >= 5 ? "(var)" : germanScore === 0 ? "(İngilizce programlar mevcut)" : "(henüz yok)"}`,
+          "Sperrkonto: 11.904€/yıl (2026)",
+          "Motivasyon mektubu + CV + 2 referans mektubu",
         ],
-        duration: "2 yıl (4 dönem)",
-        cost: "Ücretsiz (BW eyaletinde 1.500€/dönem)",
+        duration: "1.5-2 yıl (3-4 dönem)",
+        cost: "Devlet üniversiteleri ücretsiz (BW eyaletinde 1.500€/dönem)",
         nextSteps: [
           "İngilizce veya Almanca program tercihi yapın",
-          "DAAD burs başvurusu değerlendirin",
-          "uni-assist veya direkt üniversite portalı üzerinden başvurun",
+          "DAAD burs başvurusunu değerlendirin (son tarih: genellikle Ekim-Kasım)",
+          "uni-assist veya doğrudan üniversite portalı üzerinden başvurun",
         ],
         href: "/programs",
-        highlight:
-          education === "bachelors" ? "Profilinize en uygun program" : undefined,
+        highlight: education === "bachelors"
+          ? "Profiliniz için en güçlü öneri"
+          : isUniStudent
+            ? "Mezuniyetiniz sonrası en uygun program"
+            : undefined,
       });
     }
 
-    // Ausbildung
-    if (goal === "ausbildung" || goal === "career") {
-      let match = goal === "ausbildung" ? 95 : 65;
+    // ─── Ausbildung - lisans/master'a göre daha düşük öncelik ───
+    if (goal === "ausbildung" || (goal === "career" && education === "working")) {
+      let match = goal === "ausbildung" ? 80 : 55;
       if (germanScore >= 3) match += 5;
-      if (germanScore < 2) match -= 25;
-      if (ageNum > 30) match -= 10;
-      if (education === "bachelors" || education === "masters") match -= 10;
+      if (germanScore < 2) match -= 20;
+      if (ageNum > 35) match -= 15;
+      // Lisans/master mezunlarında ausbildung daha az önerilir
+      if (education === "bachelors") match -= 20;
+      if (education === "masters") match -= 25;
+      if (isUniStudent) match -= 15;
       results.push({
         name: "Ausbildung (Mesleki Eğitim)",
         icon: Wrench,
         match: Math.min(100, Math.max(0, match)),
         description:
-          "2-3 yıllık maaşlı mesleki eğitim. Haftada 2 gün okul + 3 gün işyeri. Aylık 800-1.200€ maaş.",
+          "2-3.5 yıllık maaşlı mesleki eğitim. Haftada 2 gün okul + 3 gün işyeri. 300+ meslek dalı. Eğitim sırasında aylık 800-1.200€ maaş.",
         requirements: [
-          "Lise diploması",
-          `Almanca B1-B2 ${germanScore >= 3 ? "(var)" : "(henüz yok)"}`,
-          "Firma ile eğitim sözleşmesi",
+          "Lise diploması (herhangi bir tür yeterli)",
+          `Almanca B1-B2 ${germanScore >= 3 ? "(var)" : "(henüz yok - hazırlanmanız gerekiyor)"}`,
+          "İşveren ile eğitim sözleşmesi (Ausbildungsvertrag)",
         ],
-        duration: "2-3 yıl",
-        cost: "Ücretsiz + Aylık 800-1.200€ maaş",
+        duration: "2-3.5 yıl",
+        cost: "Ücretsiz + Aylık 800-1.200€ maaş (işveren sigortanızı karşılar)",
         nextSteps: [
-          "Almanca B1 seviyesine ulaşın",
-          "Meslek dalı seçimi yapın (300+ seçenek)",
-          "Firma eşleştirme sürecini başlatın",
+          germanScore < 3 ? "Almanca B1 seviyesine ulaşın" : "Almanca seviyenizi B2'ye yükseltin",
+          "İlgilendiğiniz meslek dalını belirleyin (IT, sağlık, mekatronik, otelcilik vb.)",
+          "Firma eşleştirme sürecini danışmanlarımızla başlatın",
         ],
         href: "/programs",
-        highlight:
-          goal === "ausbildung"
-            ? "Hem eğitim alın hem para kazanın"
-            : undefined,
+        highlight: goal === "ausbildung" ? "Hem eğitim alın hem para kazanın" : undefined,
       });
     }
 
-    // Almanca Dil Kursu
+    // ─── Almanca Dil Kursu (destek programı, ana hedef değil) ───
     if (germanScore < 4) {
-      let match = 80;
-      if (germanScore === 0) match = 95;
-      if (germanScore >= 3) match = 50;
+      let match = 60; // Temel olarak destek programı
+      if (germanScore === 0) match = 75;
+      if (germanScore >= 3) match = 40; // B1 zaten var, dil kursu çok gerekli değil
+      if (goal === "language") match = 95; // Sadece dil öğrenmek istiyorsa ana öneri
       results.push({
         name: "Almanca Dil Kursu",
         icon: Languages,
         match: Math.min(100, Math.max(0, match)),
         description:
-          "Türkiye veya Almanya'da yoğun Almanca eğitimi. Diğer programlara başvuru öncesi gerekli dil seviyesine ulaşmanızı sağlar.",
+          "Almanya'daki eğitiminize hazırlık için Almanca dil kursu. A1'den C1'e kadar tüm seviyelerde yoğun eğitim. TestDaF, DSH ve TELC sınavlarına hazırlık.",
         requirements: [
-          "Herhangi bir ön koşul yok",
-          "Pasaport (Almanya'da kurs için vize gerekebilir)",
+          "Herhangi bir ön koşul yok (A1'den başlanabilir)",
+          "Almanya'da kurs için dil kursu vizesi gerekebilir",
         ],
         duration: "3-12 ay (seviyeye göre)",
-        cost: "Türkiye: ~₺15.000-25.000 | Almanya: 500-800€/ay",
+        cost: "Türkiye: ~₺15.000-25.000/seviye | Almanya: 500-800€/ay",
         nextSteps: [
-          "Mevcut seviyenizi tespit ettirin",
-          "Yoğun veya standart program seçin",
-          "TestDaF/DSH/TELC hedef sınav belirleyin",
+          "Mevcut Almanca seviyenizi tespit ettirin",
+          "Yoğun (intensiv) veya standart kurs arasında seçim yapın",
+          "Hedef sınavınızı belirleyin (TestDaF, DSH veya TELC)",
         ],
         href: "/programs",
         highlight:
           germanScore === 0
             ? "Almanya eğitimine ilk adım: Almanca öğrenin"
-            : undefined,
+            : goal === "language"
+              ? "Size uygun program"
+              : "Diğer programlara hazırlık için önerilen",
       });
     }
 
-    // Sort by match score
     return results.sort((a, b) => b.match - a.match);
   }
 
@@ -292,8 +300,10 @@ export function EligibilityChecker() {
             options={[
               { value: "highschoolRegular", label: "Lise Mezunu (Örgün)", desc: "Örgün lise diplomam var" },
               { value: "highschoolOpen", label: "Lise Mezunu (Açık Öğretim)", desc: "Açık öğretim lise diplomam var" },
+              { value: "uniStudent", label: "Üniversite Öğrencisi", desc: "Henüz lisans eğitimim devam ediyor" },
               { value: "bachelors", label: "Lisans Mezunu", desc: "Üniversite diplomam var" },
-              { value: "masters", label: "Yüksek Lisans Mezunu", desc: "Master/YL diplomam var" },
+              { value: "masters", label: "Yüksek Lisans Mezunu", desc: "Master / YL diplomam var" },
+              { value: "working", label: "Çalışan", desc: "İş hayatındayım, kariyer değişikliği istiyorum" },
             ]}
             selected={formData.education}
             onSelect={(v) => selectOption("education", v)}
@@ -312,7 +322,6 @@ export function EligibilityChecker() {
               { value: "b1", label: "B1 - Orta", desc: "Günlük konuşma yapabiliyorum" },
               { value: "b2", label: "B2 - Orta-İleri", desc: "Akıcı iletişim kurabiliyorum" },
               { value: "c1", label: "C1 - İleri", desc: "Akademik seviye" },
-              { value: "c2", label: "C2 - Uzman", desc: "Ana dil seviyesi" },
             ]}
             selected={formData.germanLevel}
             onSelect={(v) => selectOption("germanLevel", v)}
@@ -325,22 +334,10 @@ export function EligibilityChecker() {
         <StepCard title="Almanya'daki hedefiniz nedir?" onBack={goBack}>
           <OptionGrid
             options={[
-              {
-                value: "university",
-                label: "Üniversite Eğitimi",
-                desc: "Lisans veya Yüksek Lisans",
-              },
-              { value: "ausbildung", label: "Mesleki Eğitim", desc: "Ausbildung ile kariyer" },
-              {
-                value: "career",
-                label: "Kariyer Değişikliği",
-                desc: "Yeni bir alanda çalışmak",
-              },
-              {
-                value: "language",
-                label: "Dil Öğrenme",
-                desc: "Sadece Almanca öğrenmek",
-              },
+              { value: "university", label: "Üniversite Eğitimi", desc: "Lisans veya Yüksek Lisans" },
+              { value: "career", label: "Kariyer & Çalışma", desc: "Almanya'da kariyer yapmak" },
+              { value: "ausbildung", label: "Mesleki Eğitim (Ausbildung)", desc: "Maaşlı meslek eğitimi" },
+              { value: "language", label: "Dil Öğrenme", desc: "Sadece Almanca öğrenmek istiyorum" },
             ]}
             selected={formData.goal}
             onSelect={(v) => selectOption("goal", v)}
@@ -369,26 +366,10 @@ export function EligibilityChecker() {
         <StepCard title="Yıllık bütçeniz ne kadar?" onBack={goBack}>
           <OptionGrid
             options={[
-              {
-                value: "low",
-                label: "5.000€'dan az",
-                desc: "Sınırlı bütçe",
-              },
-              {
-                value: "medium",
-                label: "5.000 - 10.000€",
-                desc: "Orta bütçe",
-              },
-              {
-                value: "high",
-                label: "10.000 - 15.000€",
-                desc: "Rahat bütçe",
-              },
-              {
-                value: "veryHigh",
-                label: "15.000€+",
-                desc: "Esnek bütçe",
-              },
+              { value: "low", label: "5.000€'dan az", desc: "Sınırlı bütçe" },
+              { value: "medium", label: "5.000 - 10.000€", desc: "Orta bütçe" },
+              { value: "high", label: "10.000 - 15.000€", desc: "Rahat bütçe" },
+              { value: "veryHigh", label: "15.000€+", desc: "Esnek bütçe" },
             ]}
             selected={formData.budget}
             onSelect={(v) => selectOption("budget", v)}
@@ -413,7 +394,7 @@ export function EligibilityChecker() {
 
           {getRecommendations().map((rec, index) => (
             <Card
-              key={index}
+              key={rec.name}
               className={cn(
                 "transition-all duration-300 hover:shadow-lg",
                 index === 0 && "border-primary shadow-md"
@@ -462,7 +443,7 @@ export function EligibilityChecker() {
                         >
                           {req.includes("(var)") ? (
                             <CheckCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-500" />
-                          ) : req.includes("(henüz yok") ? (
+                          ) : req.includes("(henüz yok") || req.includes("(devam ediyor") ? (
                             <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-yellow-500" />
                           ) : (
                             <CheckCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground/50" />
@@ -518,7 +499,48 @@ export function EligibilityChecker() {
             </Card>
           ))}
 
-          <div className="flex justify-center pt-4">
+          {/* Roadmap & CTA */}
+          <div className="space-y-4 pt-2">
+            <Card className="bg-primary/5 border-primary/20">
+              <CardContent className="flex flex-col sm:flex-row items-center gap-4 p-6">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                  <Route className="h-5 w-5 text-primary" />
+                </div>
+                <div className="text-center sm:text-left flex-1">
+                  <p className="font-semibold text-sm">Tüm sürecin adımlarını öğrenin</p>
+                  <p className="text-xs text-muted-foreground">
+                    Belgelerden vizeye, kabul mektubundan Almanya&apos;ya yerleşime kadar.
+                  </p>
+                </div>
+                <Button asChild variant="outline" size="sm" className="shrink-0">
+                  <Link href="/roadmap">
+                    Yol Haritası
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-primary/5 border-primary/20">
+              <CardContent className="flex flex-col sm:flex-row items-center gap-4 p-6">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                  <MessageCircle className="h-5 w-5 text-primary" />
+                </div>
+                <div className="text-center sm:text-left flex-1">
+                  <p className="font-semibold text-sm">Sonucunuzu uzmanlarımızla değerlendirin</p>
+                  <p className="text-xs text-muted-foreground">
+                    Size özel eğitim planı oluşturmak için ücretsiz danışmanlık alın.
+                  </p>
+                </div>
+                <Button size="sm" className="shrink-0" onClick={open}>
+                  Ücretsiz Danışmanlık
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="flex justify-center pt-2">
             <Button variant="ghost" onClick={reset}>
               <RotateCcw className="mr-2 h-4 w-4" />
               Testi Tekrarla
