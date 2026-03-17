@@ -2,6 +2,10 @@ import type { CollectionConfig } from "payload";
 
 export const FormSubmissions: CollectionConfig = {
   slug: "form-submissions",
+  labels: {
+    singular: "Form Gönderisi",
+    plural: "Form Gönderileri",
+  },
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "email", "status", "createdAt"],

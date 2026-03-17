@@ -3,6 +3,10 @@ import { seoFields } from "@shipit/seo/payload";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
+  labels: {
+    singular: "Sayfa",
+    plural: "Sayfalar",
+  },
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "slug", "status", "updatedAt"],

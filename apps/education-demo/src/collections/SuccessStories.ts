@@ -3,6 +3,10 @@ import { seoFields } from "@shipit/seo/payload";
 
 export const SuccessStories: CollectionConfig = {
   slug: "success-stories",
+  labels: {
+    singular: "Başarı Hikayesi",
+    plural: "Başarı Hikayeleri",
+  },
   admin: {
     useAsTitle: "studentName",
     defaultColumns: ["studentName", "university", "program", "year"],

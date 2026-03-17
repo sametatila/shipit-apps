@@ -2,6 +2,10 @@ import type { CollectionConfig } from "payload";
 
 export const ServicePackages: CollectionConfig = {
   slug: "service-packages",
+  labels: {
+    singular: "Hizmet Paketi",
+    plural: "Hizmet Paketleri",
+  },
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "price", "popular", "sortOrder", "status"],

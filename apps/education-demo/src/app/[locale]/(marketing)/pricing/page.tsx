@@ -7,7 +7,8 @@ import { PackageComparison, type PackageData } from "@/components/sections/packa
 import { Faq } from "@/components/sections/faq";
 import { CTA } from "@/components/sections/cta";
 import { Card, CardContent } from "@shipit/ui/card";
-import { CreditCard } from "lucide-react";
+import { CreditCard, Route, ArrowRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 
@@ -220,6 +221,34 @@ export default async function PricingPage() {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Yol Haritası Yönlendirme */}
+      <section className="bg-primary/5 border-y">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                <Route className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold">
+                  Sürecin nasıl işlediğini merak mı ediyorsunuz?
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Belgelerden Almanya&apos;ya yerleşime kadar tüm adımları inceleyin.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/roadmap"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Yol Haritası
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 

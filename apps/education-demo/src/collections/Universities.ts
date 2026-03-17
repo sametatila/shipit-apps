@@ -3,6 +3,10 @@ import { seoFields } from "@shipit/seo/payload";
 
 export const Universities: CollectionConfig = {
   slug: "universities",
+  labels: {
+    singular: "Üniversite",
+    plural: "Üniversiteler",
+  },
   admin: {
     useAsTitle: "name",
     defaultColumns: ["name", "city", "type", "isPartner"],

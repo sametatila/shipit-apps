@@ -2,6 +2,10 @@ import type { CollectionConfig } from "payload";
 
 export const NewsletterSubscribers: CollectionConfig = {
   slug: "newsletter-subscribers",
+  labels: {
+    singular: "Bülten Abonesi",
+    plural: "Bülten Aboneleri",
+  },
   admin: {
     useAsTitle: "email",
     defaultColumns: ["email", "name", "status", "subscribedAt"],

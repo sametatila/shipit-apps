@@ -883,6 +883,20 @@ export async function seed(payload: Payload) {
   await payload.create({
     collection: "pages",
     data: {
+      title: "Yol Haritası",
+      slug: "yol-haritasi",
+      status: "published",
+      seo: {
+        metaTitle: "Yol Haritası | Almanya Eğitim Süreci | EuroVizyon Danışmanlık",
+        metaDescription:
+          "Almanya'da üniversiteye yerleşme sürecinde izleyeceğiniz adım adım yol haritası. Belge hazırlığından Almanya'ya yerleşime kadar tüm süreç.",
+      },
+    },
+  });
+
+  await payload.create({
+    collection: "pages",
+    data: {
       title: "KVKK Aydınlatma Metni",
       slug: "kvkk-aydinlatma-metni",
       status: "published",
@@ -894,7 +908,7 @@ export async function seed(payload: Payload) {
     },
   });
 
-  console.log(`  ✓ ${3} CMS sayfası oluşturuldu`);
+  console.log(`  ✓ ${4} CMS sayfası oluşturuldu`);
 
   // ============================================
   // 9. SITE SETTINGS (Global)
@@ -1055,7 +1069,7 @@ export async function seed(payload: Payload) {
   console.log("   - 6 Başarı Hikayesi");
   console.log("   - 5 Başvuru (CRM)");
   console.log("   - 28 Blog Yazısı (20 Üniversite + 8 Genel)");
-  console.log("   - 3 CMS Sayfası");
+  console.log("   - 4 CMS Sayfası");
   console.log("   - 3 Hizmet Paketi");
   console.log("   - 1 Site Ayarları (Global)");
   console.log("\n   Admin giriş: admin@almanya-egitim.com / admin123");

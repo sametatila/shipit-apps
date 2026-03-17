@@ -3,6 +3,10 @@ import { seoFields } from "@shipit/seo/payload";
 
 export const BlogPosts: CollectionConfig = {
   slug: "blog-posts",
+  labels: {
+    singular: "Blog Yazısı",
+    plural: "Blog Yazıları",
+  },
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "category", "status", "publishedAt"],

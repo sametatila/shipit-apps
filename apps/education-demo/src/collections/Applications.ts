@@ -2,6 +2,10 @@ import type { CollectionConfig } from "payload";
 
 export const Applications: CollectionConfig = {
   slug: "applications",
+  labels: {
+    singular: "Başvuru",
+    plural: "Başvurular",
+  },
   admin: {
     useAsTitle: "fullName",
     defaultColumns: ["fullName", "programType", "status", "createdAt"],
