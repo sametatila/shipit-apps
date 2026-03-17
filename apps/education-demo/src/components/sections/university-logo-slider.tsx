@@ -97,14 +97,15 @@ export function UniversityLogoSlider() {
         </Carousel>
 
         {/* Mini logo grid */}
-        <div className="mt-8 grid grid-cols-5 sm:grid-cols-10 gap-2 max-w-3xl mx-auto">
+        <div className="mt-8 grid grid-cols-5 sm:grid-cols-10 gap-3 max-w-4xl mx-auto">
           {universities.map((uni) => (
             <Link
               key={uni.slug}
               href={`/blog/${uni.blogSlug}`}
-              className="group flex flex-col items-center gap-1.5 p-2 rounded-lg hover:bg-muted transition-colors"
+              className="group flex flex-col items-center gap-1.5 p-2.5 rounded-lg hover:bg-muted transition-colors"
+              title={uni.name}
             >
-              <div className="h-8 w-8 flex items-center justify-center transition-transform group-hover:scale-110">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center transition-transform group-hover:scale-110">
                 <img
                   src={uni.logo}
                   alt={uni.name}

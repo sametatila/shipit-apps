@@ -345,17 +345,17 @@ export default async function HomePage() {
                   <program.icon className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-start justify-between gap-2">
                     <h3 className="font-semibold transition-colors group-hover:text-primary">
                       {program.title}
                     </h3>
                     {program.badge && (
-                      <Badge variant="secondary" className="text-[10px]">
+                      <Badge variant="secondary" className="text-[10px] shrink-0 whitespace-nowrap">
                         {program.badge}
                       </Badge>
                     )}
                   </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                     {program.desc}
                   </p>
                 </div>
