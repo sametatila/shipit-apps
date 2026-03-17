@@ -77,6 +77,9 @@ export interface Config {
     'form-submissions': FormSubmission;
     testimonials: Testimonial;
     'blog-posts': BlogPost;
+    'service-packages': ServicePackage;
+    'newsletter-subscribers': NewsletterSubscriber;
+    'newsletter-campaigns': NewsletterCampaign;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +97,9 @@ export interface Config {
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
+    'service-packages': ServicePackagesSelect<false> | ServicePackagesSelect<true>;
+    'newsletter-subscribers': NewsletterSubscribersSelect<false> | NewsletterSubscribersSelect<true>;
+    'newsletter-campaigns': NewsletterCampaignsSelect<false> | NewsletterCampaignsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -260,7 +266,7 @@ export interface Course {
   id: number;
   title: string;
   slug: string;
-  programType: 'studienkolleg' | 'bachelor' | 'master' | 'phd' | 'ausbildung' | 'language' | 'summer-school';
+  programType: 'studienkolleg' | 'bachelor' | 'master' | 'ausbildung' | 'language';
   field?:
     | (
         | 'engineering'
@@ -429,7 +435,7 @@ export interface University {
   programs?:
     | {
         name: string;
-        degree?: ('bachelor' | 'master' | 'phd') | null;
+        degree?: ('bachelor' | 'master') | null;
         language?: ('de' | 'en' | 'de-en') | null;
         id?: string | null;
       }[]
@@ -470,7 +476,7 @@ export interface SuccessStory {
    */
   universityName?: string | null;
   program: string;
-  programType?: ('studienkolleg' | 'bachelor' | 'master' | 'phd' | 'ausbildung' | 'language') | null;
+  programType?: ('studienkolleg' | 'bachelor' | 'master' | 'ausbildung' | 'language') | null;
   city?: string | null;
   year: number;
   testimonial: string;
@@ -510,9 +516,9 @@ export interface Application {
   phone: string;
   whatsapp?: string | null;
   currentEducation?:
-    | ('high-school' | 'high-school-grad' | 'university' | 'bachelor-grad' | 'master-grad' | 'working')
+    | ('high-school-regular' | 'high-school-open' | 'university' | 'bachelor-grad' | 'master-grad' | 'working')
     | null;
-  programType: 'studienkolleg' | 'bachelor' | 'master' | 'phd' | 'ausbildung' | 'language' | 'undecided';
+  programType: 'studienkolleg' | 'bachelor' | 'master' | 'ausbildung' | 'language' | 'undecided';
   fieldOfStudy?: string | null;
   germanLevel?: ('none' | 'a1' | 'a2' | 'b1' | 'b2' | 'c1' | 'c2') | null;
   preferredSemester?: ('winter' | 'summer' | 'asap') | null;
@@ -636,6 +642,142 @@ export interface BlogPost {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-packages".
+ */
+export interface ServicePackage {
+  id: number;
+  name: string;
+  slug: string;
+  description?: string | null;
+  /**
+   * Sayısal değer (örn: 1000)
+   */
+  price: number;
+  currency?: ('EUR' | 'TRY') | null;
+  /**
+   * Karşılaştırma tablosunda gösterilecek özellikler. Değer alanına 'Dahil', 'Dahil değil' veya özel metin yazabilirsiniz.
+   */
+  features?:
+    | {
+        featureName: string;
+        /**
+         * Örn: Dahil, Dahil değil, 1, 3, %100, Anlaşmalı dil kursu
+         */
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Kart görünümünde gösterilecek kısa özellik listesi
+   */
+  highlights?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Örn: Yeminli tercüme ve başvuru masrafları pakete dahildir.
+   */
+  note?: string | null;
+  ctaText?: string | null;
+  popular?: boolean | null;
+  sortOrder?: number | null;
+  status?: ('active' | 'inactive') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Newsletter aboneleri
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-subscribers".
+ */
+export interface NewsletterSubscriber {
+  id: number;
+  email: string;
+  name?: string | null;
+  status?: ('active' | 'unsubscribed' | 'bounced') | null;
+  subscribedAt?: string | null;
+  unsubscribedAt?: string | null;
+  unsubscribeToken?: string | null;
+  source?: ('blog' | 'homepage' | 'footer' | 'popup' | 'manual') | null;
+  /**
+   * Abone segmentasyonu için etiketler
+   */
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Newsletter kampanyaları oluşturun ve gönderin
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-campaigns".
+ */
+export interface NewsletterCampaign {
+  id: number;
+  /**
+   * İç kullanım için kampanya adı (abone görmez)
+   */
+  name: string;
+  /**
+   * Abonelerin göreceği e-posta başlığı
+   */
+  subject: string;
+  /**
+   * E-posta istemcisinde konu satırının yanında görünen kısa metin
+   */
+  previewText?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * HTML desteklemeyen e-posta istemcileri için düz metin versiyonu
+   */
+  plainTextContent?: string | null;
+  status?: ('draft' | 'ready' | 'sending' | 'sent' | 'failed') | null;
+  targetAudience?: ('all' | 'by-tags') | null;
+  /**
+   * Bu etiketlere sahip abonelere gönderilecek
+   */
+  targetTags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Boş bırakılırsa, durumu 'Gönderime Hazır' yapıldığında anında gönderilir
+   */
+  scheduledAt?: string | null;
+  sentAt?: string | null;
+  recipientCount?: number | null;
+  successCount?: number | null;
+  failCount?: number | null;
+  errorLog?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -697,6 +839,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'blog-posts';
         value: number | BlogPost;
+      } | null)
+    | ({
+        relationTo: 'service-packages';
+        value: number | ServicePackage;
+      } | null)
+    | ({
+        relationTo: 'newsletter-subscribers';
+        value: number | NewsletterSubscriber;
+      } | null)
+    | ({
+        relationTo: 'newsletter-campaigns';
+        value: number | NewsletterCampaign;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1063,6 +1217,85 @@ export interface BlogPostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "service-packages_select".
+ */
+export interface ServicePackagesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  price?: T;
+  currency?: T;
+  features?:
+    | T
+    | {
+        featureName?: T;
+        value?: T;
+        id?: T;
+      };
+  highlights?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  note?: T;
+  ctaText?: T;
+  popular?: T;
+  sortOrder?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-subscribers_select".
+ */
+export interface NewsletterSubscribersSelect<T extends boolean = true> {
+  email?: T;
+  name?: T;
+  status?: T;
+  subscribedAt?: T;
+  unsubscribedAt?: T;
+  unsubscribeToken?: T;
+  source?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-campaigns_select".
+ */
+export interface NewsletterCampaignsSelect<T extends boolean = true> {
+  name?: T;
+  subject?: T;
+  previewText?: T;
+  content?: T;
+  plainTextContent?: T;
+  status?: T;
+  targetAudience?: T;
+  targetTags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  scheduledAt?: T;
+  sentAt?: T;
+  recipientCount?: T;
+  successCount?: T;
+  failCount?: T;
+  errorLog?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
