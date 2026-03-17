@@ -58,7 +58,7 @@ async function getGalleryImages(): Promise<{ src: string; alt: string }[]> {
     const payload = await getPayload({ config: config.default });
 
     const galleries = await payload.find({
-      collection: "galleries",
+      collection: "galleries" as any,
       where: { status: { equals: "published" } },
       limit: 100,
       sort: "-createdAt",
