@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:deploy": "payload migrate && next build",
+    "build:deploy": "echo y | payload migrate && next build",
     "start": "next start",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit",
