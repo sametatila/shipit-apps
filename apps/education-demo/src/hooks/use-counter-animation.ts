@@ -5,7 +5,7 @@ function easeOutQuart(t: number): number {
 }
 
 export function useCounterAnimation(target: number, duration: number = 2000) {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const hasAnimated = useRef(false);
