@@ -100,8 +100,8 @@ export function Footer() {
               <Link href="/eligibility-check" className="text-sm text-muted-foreground transition-colors hover:text-primary">
                 Uygunluk Testi
               </Link>
-              <Link href="/pricing" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                Hizmet Paketleri
+              <Link href="/roadmap" className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                Yol Haritası
               </Link>
               <button onClick={openContactModal} className="text-sm text-muted-foreground transition-colors hover:text-primary text-left">
                 Başvuru Yap
