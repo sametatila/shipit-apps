@@ -10,7 +10,6 @@ import {
   Stamp,
   Plane,
   ArrowRight,
-  CheckCircle2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -19,7 +18,6 @@ interface Step {
   icon: LucideIcon;
   title: string;
   description: string;
-  details: string[];
   duration?: string;
   accent: string;
 }
@@ -30,12 +28,6 @@ const steps: Step[] = [
     icon: FileText,
     title: "Belgelerin Gönderilmesi",
     description: "Üniversite başvurusu için gerekli tüm evraklar danışmanlık ekibimize iletilir.",
-    details: [
-      "Diploma ve transkript",
-      "Kimlik/pasaport fotokopisi",
-      "Almanca seviye belgesi",
-      "Özgeçmiş (CV)",
-    ],
     accent: "from-blue-500 to-blue-600",
   },
   {
@@ -43,11 +35,6 @@ const steps: Step[] = [
     icon: Languages,
     title: "Tercüme ve Teslim",
     description: "Belgeler yeminli tercümanlar tarafından Almancaya çevrilir ve size ulaştırılır.",
-    details: [
-      "Yeminli tercüme işlemleri",
-      "Apostil ve noter onayları",
-      "Belgelerin kargo ile teslimi",
-    ],
     accent: "from-indigo-500 to-indigo-600",
   },
   {
@@ -55,12 +42,6 @@ const steps: Step[] = [
     icon: GraduationCap,
     title: "Program Başvurusu",
     description: "Hedeflerinize uygun programa başvuru yapılır: Lisans, Yüksek Lisans, Studienkolleg, Ausbildung veya Dil Kursu.",
-    details: [
-      "Motivasyon mektubu / başvuru dosyası hazırlama",
-      "Üniversite, Studienkolleg veya Ausbildung başvurusu",
-      "Dil kursu kayıt işlemleri",
-      "Başvuru takibi ve kabul süreci yönetimi",
-    ],
     duration: "1 – 3 ay",
     accent: "from-violet-500 to-violet-600",
   },
@@ -69,12 +50,6 @@ const steps: Step[] = [
     icon: Stamp,
     title: "Vize Süreci",
     description: "Kabul belgesi geldikten sonra vize randevusu planlanır ve hazırlıklar tamamlanır.",
-    details: [
-      "Sperrkonto açılışı",
-      "Sağlık sigortası",
-      "Vize randevusu ve başvuru",
-      "Vize kabul ve iade garantisi",
-    ],
     accent: "from-purple-500 to-purple-600",
   },
   {
@@ -82,12 +57,6 @@ const steps: Step[] = [
     icon: Plane,
     title: "Almanya'ya Varış Desteği",
     description: "Süreç Almanya'da da devam eder. Yerleşim işlemlerinde yanınızdayız.",
-    details: [
-      "Adres kaydı (Anmeldung)",
-      "Oturum izni başvurusu",
-      "Banka hesabı açılışı",
-      "İlk 6 ay iletişim desteği",
-    ],
     accent: "from-primary to-primary/80",
   },
 ];
@@ -136,18 +105,9 @@ export function Roadmap() {
                         {step.title}
                       </h3>
 
-                      <p className="text-muted-foreground mb-4">
+                      <p className="text-muted-foreground">
                         {step.description}
                       </p>
-
-                      <ul className="space-y-2">
-                        {step.details.map((detail) => (
-                          <li key={detail} className="flex items-center gap-2.5 text-sm">
-                            <CheckCircle2 className="h-4 w-4 text-primary shrink-0" />
-                            <span>{detail}</span>
-                          </li>
-                        ))}
-                      </ul>
                     </div>
 
                     {/* Connector dot */}

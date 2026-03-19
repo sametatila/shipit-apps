@@ -376,41 +376,47 @@ export default async function UniversitiesPage() {
         />
       </div>
 
-      {/* Hero */}
-      <section className="py-16 pb-10">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">
+      {/* Hero with Background Image */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <img
+          src="/images/hero/main-banner.jpeg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/60 to-black/40" />
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[hsl(var(--accent))]">
             Almanya Üniversiteleri
           </p>
-          <h1 className="font-heading text-4xl font-bold md:text-5xl mt-4">
+          <h1 className="font-heading text-4xl font-bold md:text-5xl mt-4 text-white">
             Üniversite Ara &amp; Keşfet
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-white/80 max-w-2xl mx-auto">
             Almanya&apos;daki üniversiteleri filtreleyin, karşılaştırın ve size en uygun olanı bulun.
             Her üniversite için detaylı rehber yazılarımıza ulaşın.
           </p>
 
           {/* Quick Stats */}
-          <div className="flex flex-wrap justify-center gap-6 mt-8">
+          <div className="flex flex-wrap justify-center gap-8 mt-8">
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary">{universities.length}</p>
-              <p className="text-xs text-muted-foreground">Üniversite</p>
+              <p className="text-3xl font-bold text-white">{universities.length}</p>
+              <p className="text-xs text-white/60">Üniversite</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary">
+              <p className="text-3xl font-bold text-white">
                 {universities.reduce((sum, u) => sum + (u.programs?.length ?? 0), 0)}
               </p>
-              <p className="text-xs text-muted-foreground">Program</p>
+              <p className="text-xs text-white/60">Program</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary">
+              <p className="text-3xl font-bold text-white">
                 {universities.filter((u) => u.isPartner).length}
               </p>
-              <p className="text-xs text-muted-foreground">Partner</p>
+              <p className="text-xs text-white/60">Partner</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-primary">16</p>
-              <p className="text-xs text-muted-foreground">Eyalet</p>
+              <p className="text-3xl font-bold text-white">16</p>
+              <p className="text-xs text-white/60">Eyalet</p>
             </div>
           </div>
         </div>

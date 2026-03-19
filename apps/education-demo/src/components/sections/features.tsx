@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { cn } from "@shipit/ui";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useContactModal } from "@/contexts/contact-modal-context";
 
 const iconMap: Record<string, LucideIcon> = {
   Shield,
@@ -65,6 +66,7 @@ interface FeaturesProps {
 
 export function Features({ title, subtitle, features }: FeaturesProps) {
   const { ref, isVisible } = useScrollReveal();
+  const { open } = useContactModal();
 
   return (
     <section className="py-20 md:py-28 bg-muted/30">
@@ -84,10 +86,11 @@ export function Features({ title, subtitle, features }: FeaturesProps) {
           {features.map((feature, index) => {
             const Icon = iconMap[feature.icon] ?? Star;
             return (
-              <div
+              <button
                 key={index}
+                onClick={open}
                 className={cn(
-                  "group rounded-xl border bg-card p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1",
+                  "group rounded-xl border bg-card p-6 transition-all duration-500 hover:shadow-xl hover:-translate-y-1 cursor-pointer text-left",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
                 style={{ transitionDelay: `${index * 100}ms` }}
@@ -97,7 +100,7 @@ export function Features({ title, subtitle, features }: FeaturesProps) {
                 </div>
                 <h3 className="mb-2 font-heading text-lg font-semibold">{feature.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-              </div>
+              </button>
             );
           })}
         </div>

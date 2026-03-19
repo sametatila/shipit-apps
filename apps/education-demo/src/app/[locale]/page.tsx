@@ -17,7 +17,6 @@ import {
   Wrench,
   Languages,
   ArrowRight,
-  CheckCircle,
   Route,
 } from "lucide-react";
 import { UniversityLogoSlider } from "@/components/sections/university-logo-slider";
@@ -130,9 +129,9 @@ const FALLBACK_PRICING: PricingPlanData[] = [
     price: "",
     description: "Üniversite başvuru sürecinizi profesyonel destekle başlatın.",
     features: [
-      "Üniversite başvuru dosyası hazırlama",
-      "%100 kabul garantisi",
       "1 üniversiteye başvuru",
+      "%100 kabul garantisi",
+      "Başvuru dosyası hazırlama",
       "Anlaşmalı dil kursu desteği",
     ],
     ctaText: "Başvuru Yap",
@@ -142,10 +141,10 @@ const FALLBACK_PRICING: PricingPlanData[] = [
     price: "",
     description: "Başvurudan vize sürecine kadar uçtan uca danışmanlık.",
     features: [
+      "2 üniversiteye başvuru",
       "Vize dosyası hazırlama ve randevu",
       "WhatsApp grubu & Zoom toplantısı",
       "Vize kabul ve iade garantisi",
-      "En uygun 3 dil kursu desteği",
     ],
     ctaText: "Başvuru Yap",
     popular: true,
@@ -291,37 +290,8 @@ export default async function HomePage() {
         ctaText={t("home.hero.cta")}
         secondaryCtaText={t("home.hero.secondaryCta")}
         secondaryCtaHref={`tel:${siteConfig.contact.phone}`}
-        image="/images/hero/hero-bg.jpg"
+        image="/images/hero/main-banner.jpeg"
       />
-
-      {/* Uygunluk Testi Banner */}
-      <section className="bg-primary/5 border-y">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                <CheckCircle className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-semibold">
-                  Hangi program size uygun? 2 dakikada öğrenin!
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Ücretsiz uygunluk testimizle profilinize en uygun programı
-                  belirleyin.
-                </p>
-              </div>
-            </div>
-            <Link
-              href="/eligibility-check"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Uygunluk Testi
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* Programlar Önizleme */}
       <section className="py-20 md:py-28">
@@ -339,26 +309,22 @@ export default async function HomePage() {
               <Link
                 key={program.title}
                 href="/programs"
-                className="group flex items-start gap-4 rounded-xl border bg-card p-5 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5"
+                className="group flex flex-col items-center text-center rounded-xl border bg-card p-6 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:-translate-y-0.5"
               >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                  <program.icon className="h-5 w-5" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <program.icon className="h-7 w-7" />
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold transition-colors group-hover:text-primary">
-                      {program.title}
-                    </h3>
-                    {program.badge && (
-                      <Badge variant="secondary" className="text-[10px] shrink-0 whitespace-nowrap">
-                        {program.badge}
-                      </Badge>
-                    )}
-                  </div>
-                  <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                    {program.desc}
-                  </p>
-                </div>
+                <h3 className="mt-4 text-lg font-semibold transition-colors group-hover:text-primary">
+                  {program.title}
+                </h3>
+                {program.badge && (
+                  <Badge variant="secondary" className="mt-2 text-xs">
+                    {program.badge}
+                  </Badge>
+                )}
+                <p className="mt-3 text-sm text-muted-foreground line-clamp-2">
+                  {program.desc}
+                </p>
               </Link>
             ))}
           </div>

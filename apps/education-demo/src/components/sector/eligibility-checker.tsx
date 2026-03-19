@@ -29,14 +29,13 @@ import {
 import { cn } from "@shipit/ui";
 
 // Step definitions
-type Step = "education" | "germanLevel" | "goal" | "age" | "budget" | "result";
+type Step = "education" | "germanLevel" | "goal" | "age" | "result";
 
 interface FormData {
   education: string;
   germanLevel: string;
   goal: string;
   age: string;
-  budget: string;
 }
 
 interface ProgramRecommendation {
@@ -52,14 +51,13 @@ interface ProgramRecommendation {
   highlight?: string;
 }
 
-const steps: Step[] = ["education", "germanLevel", "goal", "age", "budget", "result"];
+const steps: Step[] = ["education", "germanLevel", "goal", "age", "result"];
 
 const stepLabels: Record<Step, string> = {
   education: "Eğitim Durumu",
   germanLevel: "Almanca Seviyesi",
   goal: "Hedef",
   age: "Yaş",
-  budget: "Bütçe",
   result: "Sonuç",
 };
 
@@ -70,7 +68,6 @@ export function EligibilityChecker() {
     germanLevel: "",
     goal: "",
     age: "",
-    budget: "",
   });
   const { open } = useContactModal();
 
@@ -92,17 +89,16 @@ export function EligibilityChecker() {
   }
 
   function reset() {
-    setFormData({ education: "", germanLevel: "", goal: "", age: "", budget: "" });
+    setFormData({ education: "", germanLevel: "", goal: "", age: "" });
     setCurrentStep("education");
   }
 
   function getRecommendations(): ProgramRecommendation[] {
     const results: ProgramRecommendation[] = [];
-    const { education, germanLevel, goal, age, budget } = formData;
+    const { education, germanLevel, goal, age } = formData;
 
     const germanScore = { none: 0, a1: 1, a2: 2, b1: 3, b2: 4, c1: 5, c2: 6 }[germanLevel] ?? 0;
     const ageNum = { "18-22": 20, "23-27": 25, "28-34": 31, "35+": 38 }[age] ?? 22;
-    const budgetScore = { low: 1, medium: 2, high: 3, veryHigh: 4 }[budget] ?? 2;
 
     const isHighSchool = education === "highschoolRegular" || education === "highschoolOpen";
     const isUniStudent = education === "uniStudent";
@@ -144,7 +140,6 @@ export function EligibilityChecker() {
       if (germanScore >= 5) match += 8; // C1 var, doğrudan başvurabilir
       if (germanScore < 3) match -= 10;
       if (education === "highschoolOpen") match -= 5;
-      if (budgetScore >= 2) match += 2;
       results.push({
         name: "Lisans (Bachelor)",
         icon: BookOpen,
@@ -172,7 +167,6 @@ export function EligibilityChecker() {
     if (hasBachelors && goal !== "ausbildung" && goal !== "language") {
       let match = 95; // Lisans mezunu için en güçlü öneri
       if (germanScore >= 4 || germanScore === 0) match += 3; // B2+ veya İngilizce program
-      if (budgetScore >= 2) match += 2;
       if (education === "masters") match -= 15; // Zaten master var, ikinci master daha az mantıklı
       if (isUniStudent) match -= 5; // Henüz mezun değil
       if (ageNum > 35) match -= 5;
@@ -205,8 +199,8 @@ export function EligibilityChecker() {
     }
 
     // ─── Ausbildung - lisans/master'a göre daha düşük öncelik ───
-    if (goal === "ausbildung" || (goal === "career" && education === "working")) {
-      let match = goal === "ausbildung" ? 80 : 55;
+    if (goal === "ausbildung") {
+      let match = 80;
       if (germanScore >= 3) match += 5;
       if (germanScore < 2) match -= 20;
       if (ageNum > 35) match -= 15;
@@ -233,7 +227,7 @@ export function EligibilityChecker() {
           "Firma eşleştirme sürecini danışmanlarımızla başlatın",
         ],
         href: "/programs",
-        highlight: goal === "ausbildung" ? "Hem eğitim alın hem para kazanın" : undefined,
+        highlight: "Hem eğitim alın hem para kazanın",
       });
     }
 
@@ -303,7 +297,6 @@ export function EligibilityChecker() {
               { value: "uniStudent", label: "Üniversite Öğrencisi", desc: "Henüz lisans eğitimim devam ediyor" },
               { value: "bachelors", label: "Lisans Mezunu", desc: "Üniversite diplomam var" },
               { value: "masters", label: "Yüksek Lisans Mezunu", desc: "Master / YL diplomam var" },
-              { value: "working", label: "Çalışan", desc: "İş hayatındayım, kariyer değişikliği istiyorum" },
             ]}
             selected={formData.education}
             onSelect={(v) => selectOption("education", v)}
@@ -357,22 +350,6 @@ export function EligibilityChecker() {
             ]}
             selected={formData.age}
             onSelect={(v) => selectOption("age", v)}
-          />
-        </StepCard>
-      )}
-
-      {/* Step: Budget */}
-      {currentStep === "budget" && (
-        <StepCard title="Yıllık bütçeniz ne kadar?" onBack={goBack}>
-          <OptionGrid
-            options={[
-              { value: "low", label: "5.000€'dan az", desc: "Sınırlı bütçe" },
-              { value: "medium", label: "5.000 - 10.000€", desc: "Orta bütçe" },
-              { value: "high", label: "10.000 - 15.000€", desc: "Rahat bütçe" },
-              { value: "veryHigh", label: "15.000€+", desc: "Esnek bütçe" },
-            ]}
-            selected={formData.budget}
-            onSelect={(v) => selectOption("budget", v)}
           />
         </StepCard>
       )}
