@@ -1,6 +1,5 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -10,13 +9,21 @@ import {
   CardFooter,
 } from "@shipit/ui/card";
 import { Badge } from "@shipit/ui/badge";
-import { MessageCircle } from "lucide-react";
+import { GraduationCap, BookOpen, Award, Wrench, Languages, MessageCircle } from "lucide-react";
 import { useContactModal } from "@/contexts/contact-modal-context";
+
+const iconMap: Record<string, React.ElementType> = {
+  studienkolleg: GraduationCap,
+  bachelor: BookOpen,
+  master: Award,
+  ausbildung: Wrench,
+  language: Languages,
+};
 
 interface CourseCardProps {
   title: string;
   description: string;
-  icon: LucideIcon;
+  iconName: string;
   duration?: string;
   level?: string;
 }
@@ -24,11 +31,12 @@ interface CourseCardProps {
 export function CourseCard({
   title,
   description,
-  icon: Icon,
+  iconName,
   duration,
   level,
 }: CourseCardProps) {
   const { open } = useContactModal();
+  const Icon = iconMap[iconName] || GraduationCap;
 
   return (
     <button

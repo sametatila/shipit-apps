@@ -219,7 +219,7 @@ export default async function ProgramsPage() {
                 key={program.slug}
                 title={program.title}
                 description={program.description}
-                icon={programTypeIcons[program.programType] || GraduationCap}
+                iconName={program.programType}
                 duration={program.duration}
                 level={program.level}
               />
