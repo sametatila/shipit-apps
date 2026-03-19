@@ -21,6 +21,22 @@
         "GOOGLE_SEARCH_CONSOLE_ID"
       ]
     },
+    "build:deploy": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": [
+        "DATABASE_URI",
+        "PAYLOAD_SECRET",
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_GA_ID",
+        "NEXT_PUBLIC_GTM_ID",
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+        "RESEND_API_KEY",
+        "DISABLE_GRAPHQL",
+        "STANDALONE",
+        "GOOGLE_SEARCH_CONSOLE_ID"
+      ]
+    },
     "lint": {
       "dependsOn": ["^build"]
     },
